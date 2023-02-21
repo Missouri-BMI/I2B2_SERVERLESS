@@ -1,0 +1,98 @@
+version: '3.5'
+
+services:
+
+  i2b2-web:
+    image: i2b2-web:latest
+    build:
+      context: ./i2b2-web
+      args:
+        - CLIENT_TYPE=${CLIENT_TYPE}
+        - SERVER_NAME=${SERVER_NAME}
+    container_name: i2b2-web
+    environment: 
+      - SERVER_PATH=${SERVER_PATH}
+    ports:
+      - "80:80"
+    networks:
+      - i2b2-net
+    depends_on:
+      - i2b2-wildfly
+
+  i2b2-wildfly:
+    image: i2b2-wildfly:latest
+    build: ./i2b2-server
+    container_name: i2b2-wildfly
+    environment:
+      - DS_CRC_DB=${DB_CRC_URL}
+      - DS_CRC_USER=${DB_CRC_USER}
+      - DS_CRC_PASS=${DB_CRC_USER_PASS}
+      
+      - DS_HIVE_DB=${DB_HIVE_URL}
+      - DS_HIVE_USER=${DB_HIVE_USER}
+      - DS_HIVE_PASS=${DB_HIVE_USER_PASS}
+    
+      - DS_IM_DB=${DB_IM_URL}
+      - DS_IM_USER=${DB_IM_USER}
+      - DS_IM_PASS=${DB_IM_USER_PASS}
+
+      - DS_ONT_DB=${DB_ONT_URL}
+      - DS_ONT_USER=${DB_ONT_USER}
+      - DS_ONT_PASS=${DB_ONT_USER_PASS}
+    
+      - DS_PM_DB=${DB_PM_URL}
+      - DS_PM_USER=${DB_PM_USER}
+      - DS_PM_PASS=${DB_PM_USER_PASS}
+      
+      - DS_WD_DB=${DB_WD_URL}
+      - DS_WD_USER=${DB_WD_USER}
+      - DS_WD_PASS=${DB_WD_USER_PASS}
+      
+    ports:
+      - "8009:8009"
+    networks:
+      - i2b2-net
+  
+  i2b2-pg-vol-loader:
+    image: i2b2/i2b2-pg-vol:test-v1
+    container_name: i2b2-pg-vol-loader
+    volumes:
+      - i2b2-pg-vol:/var/lib/postgresql/data
+    entrypoint: /bin/sh
+    networks:
+      - i2b2-net
+
+  i2b2-pg:
+    image: postgres:12.5
+    container_name: i2b2-pg
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_ROOT_USER}
+      - POSTGRES_PASSWORD=${DB_ROOT_USER_PASSWORD}
+    networks:
+      - i2b2-net
+    volumes:
+      - i2b2-pg-vol:/var/lib/postgresql/data
+    depends_on:
+      - i2b2-pg-vol-loader
+
+  i2b2-pg-admin:
+    image: dpage/pgadmin4
+    container_name: i2b2-pg-admin
+    ports:
+      - "5050:80"
+    networks:
+      - i2b2-net
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=mhmcb@missouri.edu
+      - PGADMIN_DEFAULT_PASSWORD=Password123
+    logging:
+      driver: none
+volumes:
+  i2b2-pg-vol:
+    name: i2b2-pg-vol
+
+networks:
+  i2b2-net:
+    name: i2b2-net
