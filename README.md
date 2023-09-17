@@ -50,5 +50,3 @@ $ cd ./Docker/application/i2b2-serve/
 # Build docker image
 $ docker build --no-cache -t <image_uri> . 
 ```
-
-
