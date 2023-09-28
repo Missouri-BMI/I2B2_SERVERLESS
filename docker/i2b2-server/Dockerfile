@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     bash
 
 # Download i2b2 server source code
-ARG BRANCH=feature/snowflake
+ARG BRANCH=feature/mu
 
 RUN wget https://github.com/Missouri-BMI/i2b2-core-server/archive/$BRANCH.tar.gz -O /tmp/i2b2.tar.gz
 
