@@ -24,7 +24,7 @@ COPY config/Pmdata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-7/N
 COPY config/Workdata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/Workdata/db.properties
 
 
-COPY /install-i2b2-data ./
+COPY /config/scripts/install-i2b2-data ./
 
 RUN chmod -v +x /install-i2b2-data
 

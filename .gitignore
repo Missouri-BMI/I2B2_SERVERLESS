@@ -11,3 +11,4 @@ docker/i2b2-web/Configuration/shibboleth/inc-md-cert-mdq.pem
 *.csv
 **/db.properties
 **/cred.json
+**/*.cli
