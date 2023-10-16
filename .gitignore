@@ -2,7 +2,6 @@
 **/.vscode
 **/.idea
 **/.env
-docker/i2b2-web/Configuration/shibboleth/inc-md-cert-mdq.pem
 **/*venv
 **/output
 **/.ipynb_checkpoints
@@ -12,3 +11,5 @@ docker/i2b2-web/Configuration/shibboleth/inc-md-cert-mdq.pem
 **/db.properties
 **/cred.json
 **/*.cli
+**/sp-cert.pem
+**/sp-key.pem

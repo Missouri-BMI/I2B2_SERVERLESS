@@ -1,65 +1,61 @@
 FROM centos:7
 
-# default client type
-ARG CLIENT_TYPE=webclient
-# default server name
-ARG SERVER_NAME=https://i2b2-dev.nextgenbmi.umsystem.edu/
-
-# Update environment variable client type
-ENV CLIENT_TYPE=${CLIENT_TYPE}
-ENV SERVER_NAME=${SERVER_NAME}
+ARG ENVIRONMENT=local
+ARG BRANCH=feature/mu
 
 # copy shibboleth RPM installation file
-COPY /Configuration/shibboleth/shibboleth.repo /etc/yum.repos.d/
+COPY /Configuration/shibboleth.repo /etc/yum.repos.d/
 
-RUN yum -y update && yum clean all
-
-RUN yum -y install \
+# Install required packages
+RUN yum -y update  \
+    && yum -y install \
     httpd24 \
-    mod_ssl \
     php \
     wget \
-    shibboleth.x86_64 && yum clean all
+    shibboleth.x86_64  \
+    && yum clean all
 
 # Download webclient from forked repository
-RUN wget https://github.com/Missouri-BMI/i2b2-webclient/archive/master.tar.gz -O /tmp/${CLIENT_TYPE}.tar.gz
-
-# Download the source code
-RUN mkdir /var/www/html/${CLIENT_TYPE} ;\
-    tar --strip-components=1 -zxvf /tmp/${CLIENT_TYPE}.tar.gz -C /var/www/html/${CLIENT_TYPE}/ ;\
-    rm -rf /tmp/${CLIENT_TYPE}.tar.gz
-
-# replace the updated config file with file directory explore disable and Request Timeout set to 240 Sec
-RUN rm -rf /etc/httpd/conf/httpd.conf; \
-    rm -rf /etc/shibboleth/shibboleth2.xml; \
-    rm -rf /etc/shibboleth/attribute-map.xml; \
-    rm -rf /etc/httpd/conf.d/shib.conf
+RUN wget https://github.com/Missouri-BMI/i2b2-webclient/archive/$BRANCH.tar.gz -O /tmp/webclient.tar.gz \
+    && mkdir /var/www/html/webclient \
+    && tar --strip-components=1 -zxvf /tmp/webclient.tar.gz -C /var/www/html/webclient/ \
+    && rm -rf /tmp/webclient.tar.gz
 
 # Copy the required script
-COPY /Configuration/httpd-shibd-foreground /usr/local/bin/
-COPY /Configuration/environment-setup /usr/local/bin/
+COPY  /Configuration/httpd-shibd-foreground /usr/local/bin/
+COPY  /Configuration/environment-setup /usr/local/bin/
 
 # Copy Apache config files
-COPY /Configuration/apache/httpd.conf /etc/httpd/conf/
-COPY /Configuration/apache/ajp.conf /etc/httpd/conf.d/
+COPY  /Configuration/$ENVIRONMENT/apache/httpd.conf /etc/httpd/conf/
+COPY  /Configuration/$ENVIRONMENT/apache/ajp.conf /etc/httpd/conf.d/
 
 # Copy Shibboleth files
-COPY /Configuration/shibboleth/shibboleth2.xml /etc/shibboleth/
-COPY /Configuration/shibboleth/inc-md-cert-mdq.pem /etc/shibboleth/
-COPY /Configuration/shibboleth/attribute-map.xml /etc/shibboleth/
-COPY /Configuration/shibboleth/shib.conf /etc/httpd/conf.d/
+COPY  /Configuration/$ENVIRONMENT/shibboleth/shib.conf /etc/httpd/conf.d/
 
-RUN echo $'export LD_LIBRARY_PATH=/opt/shibboleth/lib64:$LD_LIBRARY_PATH\n' > /etc/sysconfig/shibd
+COPY  /Configuration/$ENVIRONMENT/shibboleth/attribute-map.xml \ 
+      /Configuration/$ENVIRONMENT/shibboleth/shibboleth2.xml \
+      /Configuration/$ENVIRONMENT/shibboleth/inc-md-cert-mdq.pem \
+      /Configuration/$ENVIRONMENT/shibboleth/sp-cert.pem \
+      /Configuration/$ENVIRONMENT/shibboleth/sp-key.pem \
+    /etc/shibboleth/
 
-RUN chmod +x /etc/sysconfig/shibd \
+
+# File execute permissions
+RUN chmod +x /usr/local/bin/httpd-shibd-foreground \
             /etc/shibboleth/shibd-redhat \
-            /usr/local/bin/httpd-shibd-foreground \
             /usr/local/bin/environment-setup
 
+RUN chmod 755 /etc/shibboleth/sp-key.pem
+
 RUN /usr/local/bin/environment-setup
+
+RUN echo $'export LD_LIBRARY_PATH=/opt/shibboleth/lib64:$LD_LIBRARY_PATH\n' > /etc/sysconfig/shibd
 
 # expose ports
 EXPOSE 80
 
+# Declare Volumes
+VOLUME ["/etc/shibboleth", "/var/log/httpd", "/var/cache/shibboleth", "/var/cache/httpd", "/var/run/httpd", "/var/log/shibboleth", "/var/run/shibboleth", "/var/lock/subsys"]
 
+# Run command for starting Apache and Shibboleth
 CMD ["/bin/bash","-C", "httpd-shibd-foreground"]

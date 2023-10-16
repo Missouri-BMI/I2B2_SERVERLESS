@@ -1,4 +1,6 @@
-# Build Docker Image for i2b2-webclient
+## This module is responsible for building and deploying Docker containers of the i2b2 platform on AWS ECS (Elastic Container Service)
+
+### Build Docker Image for i2b2-webclient
 
 ```sh
 # change directory to i2b2-web
@@ -6,28 +8,29 @@ $ cd ./Docker/i2b2-web/
 
 # Build docker image
 $ docker build \
+--platform=linux/amd64 \
 -t <image_uri> \
---build-arg CLIENT_TYPE=webclient \
---build-arg SERVER_NAME=<dns_name> \
+--build-arg ENVIRONMENT=dev \
 --no-cache .
 ```
 
 > Note: Modify and revise Apache, Shibboleth and other configuration files  in `./Docker/i2b2-web/Configurations/` path
 
-# Build Docker Image for i2b2-core-server
+### Build Docker Image for i2b2-core-server
 
 ```sh
 # change directory to i2b2-core-server
 $ cd ./Docker/i2b2-server/
 # Build docker image
 $ docker build --no-cache \
+--platform=linux/amd64 \
 -t <image_uri> \
 --build-arg ENVIRONMENT=dev \
 --no-cache .
 ```
 > Note: create commands.cli in `./Docker/i2b2-server/configuration/` directory to configure the wildfly datasource for i2b2 cells.
 
-### example of commands.cli
+### Example of configuring datasource in commands.cli
 ```sh
 # Mark the commands below to be run as a batch
 batch
@@ -40,7 +43,7 @@ batch
 /subsystem=undertow/server=default-server/host=default-host/filter-ref=secret-checker:add(predicate="equals(%p, 8009)")
 
 # Add Snowflake module
-module add --name=net.snowflake --resources=/opt/jboss/wildfly/customization/snowflake-jdbc-3.13.30.jar
+module add --name=net.snowflake --resources=/opt/jboss/customization/snowflake-jdbc-3.13.30.jar
 
 # Add Snowflake driver
 /subsystem=datasources/jdbc-driver=snowflake:add(driver-name="snowflake",driver-module-name="net.snowflake",driver-class-name=net.snowflake.client.jdbc.SnowflakeDriver)
@@ -122,13 +125,13 @@ data-source add \
 run-batch
 ```
 
-# I2B2 in AWS
+### i2b2 in AWS
 
 > Note: CloudFormation template for creating network infrastructure in AWS VPC is on progress. It will be available under  `./infrastructure/` directory.
 
 > Note: CloudFormation template for creating CI/CD pipeline in AWS ECS is on progress. It will be available under  `./pipeline/` directory.
 
-## i2b2 as AWS ECS Service
+### i2b2 as AWS ECS Service
 Steps to run i2b2 containers as AWS ECS service.
 1. Build docker images for i2b2-webclient and i2b2-core-server
 2. Upload docker images in AWS ECR
@@ -136,7 +139,7 @@ Steps to run i2b2 containers as AWS ECS service.
 3. Create ECS Cluster
 4. Create i2b2 service using the task definition and deploy in the ECS cluster
 
-## AWS ECR:
+### AWS ECR:
 
 ### Docker login to ECR
 ```sh
