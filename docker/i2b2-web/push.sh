@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 # This script demonstrates how to handle a multi-character option.
 
@@ -34,25 +33,18 @@ fi
 # Add logic based on the parameter value
 if [ "$paramValue" == "dev" ]; then
 
-docker run \
---platform=linux/amd64 \
---read-only=true  \
--p 80:80  \
-i2b2-web-dev
-
+docker push 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-web:latest
 
 elif [ "$paramValue" == "prod" ]; then
 
-docker run \
---platform=linux/amd64 \
---read-only=true  \
--p 80:80  \
-i2b2-web-prod
+docker push 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-web:latest
 
 else
     echo "specify -env=[dev/prod]"
     # Add commands for other values here
 fi
+
+
 
 
 
