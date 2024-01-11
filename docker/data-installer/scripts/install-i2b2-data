@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cp ./config/Crcdata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/Crcdata/db.properties
+cp ./config/Hivedata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/Hivedata/db.properties
+cp ./config/Metadata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/Metadata/db.properties
+cp ./config/Imdata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/Imdata/db.properties
+cp ./config/Pmdata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/Pmdata/db.properties
+cp ./config/Workdata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/Workdata/db.properties
+
+
+# Create Database tables for each schema
+ant -f ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/build.xml create_database
+
+# Load Demo data
+# ant -f ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/build.xml load_demodata
+

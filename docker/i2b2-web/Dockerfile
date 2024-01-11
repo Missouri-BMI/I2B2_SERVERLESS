@@ -16,10 +16,11 @@ RUN yum -y update  \
     && yum clean all
 
 # Download webclient from forked repository
-RUN wget https://github.com/Missouri-BMI/i2b2-webclient/archive/$BRANCH.tar.gz -O /tmp/webclient.tar.gz \
+RUN wget https://github.com/Missouri-BMI/i2b2-webclient-new/archive/$BRANCH.tar.gz -O /tmp/webclient.tar.gz \
     && mkdir /var/www/html/webclient \
     && tar --strip-components=1 -zxvf /tmp/webclient.tar.gz -C /var/www/html/webclient/ \
     && rm -rf /tmp/webclient.tar.gz
+
 
 # Copy the required script
 COPY  /Configuration/httpd-shibd-foreground /usr/local/bin/

@@ -45,7 +45,7 @@ RUN chmod +x /opt/jboss/customization/build-config.sh \
     && /opt/jboss/customization/build-config.sh
 
 # Copy archieve configurations and deploy the WAR
-RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history \
+RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* \
     && cp  /opt/jboss/customization/i2b2.war /opt/jboss/wildfly/standalone/deployments/ \
     && touch /opt/jboss/wildfly/standalone/deployments/i2b2.war.dodeploy
 

@@ -1,0 +1,65 @@
+# Use the CentOS base image
+FROM tomcat:9-jdk17-corretto
+
+RUN yum -y update && \
+    yum install -y \
+    postfix \
+    ntp \
+    wget \
+    tar \
+    unzip \
+    md5sum && \
+    yum clean all
+
+## copy executables
+COPY src/executables/shrine-api-war-3.3.1.war /usr/local/tomcat/webapps/shrine-api.war
+COPY src/executables/commands.sh /etc/init.d/
+COPY src/executables/mariadb-java-client-3.3.2.jar /usr/local/tomcat/lib/
+COPY src/executables/setenv.sh /usr/local/tomcat/bin/setenv.sh 
+
+## copy configs
+COPY src/configs/context.xml /usr/local/tomcat/conf/
+COPY src/configs/password.conf /usr/local/tomcat/lib/
+COPY src/configs/server.xml /usr/local/tomcat/conf/
+COPY src/configs/shrine.conf /usr/local/tomcat/lib/
+
+## copy keystore
+COPY src/keystore/shrine-dev-nextgenbmi.jks /usr/local/tomcat/shrine-dev-nextgenbmi.jks
+
+## copy data
+COPY src/data/ENACT_LogoFile_2023-03_White.png /usr/local/tomcat/lib/
+COPY src/data/AdapterMappingV41012224.csv /usr/local/tomcat/lib/
+COPY src/data/lucene_index/ /usr/local/tomcat/lib/lucene_index/
+COPY src/data/suggest_index/ /usr/local/tomcat/lib/suggest_index/
+
+
+RUN chmod +x /etc/init.d/commands.sh \ 
+            /usr/local/tomcat/bin/setenv.sh \
+            /usr/local/tomcat/conf/context.xml \
+            /usr/local/tomcat/lib/shrine.conf \
+            /usr/local/tomcat/lib/password.conf \
+            /usr/local/tomcat/lib/ENACT_LogoFile_2023-03_White.png \
+            /usr/local/tomcat/lib/AdapterMappingV41012224.csv \
+            /usr/local/tomcat/shrine-dev-nextgenbmi.jks \
+            /usr/local/tomcat/conf/server.xml
+
+
+# RUN cd /usr/local/tomcat/ && \
+#     chgrp -R shrine /usr/local/tomcat/ && \
+#     chmod -R g+r conf && \
+#     chmod g+x conf && \
+#     chown -R shrine webapps/ work/ temp/ logs/
+
+
+EXPOSE 6060
+
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /usr/local/tomcat/logs/shrine-api.log
+	# && ln -sf /dev/stderr /var/log/nginx/error.log
+
+
+# Switch to the new user
+# USER shrine
+
+# Run the script when the container starts
+CMD ["/etc/init.d/commands.sh"]
