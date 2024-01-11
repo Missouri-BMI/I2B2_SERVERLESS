@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Create Database tables for each schema
-ant -f /i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/build.xml create_database
-
-# Load Demo data
-ant -f /i2b2-data/edu.harvard.i2b2.data/Release_1-7/NewInstall/build.xml load_demodata
