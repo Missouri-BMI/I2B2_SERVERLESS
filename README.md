@@ -10,7 +10,7 @@ $ cd ./Docker/i2b2-web/
 $ docker build \
 --platform=linux/amd64 \
 -t <image_uri> \
---build-arg ENVIRONMENT=dev \
+--build-arg ENVIRONMENT=local \
 --no-cache .
 ```
 
@@ -25,7 +25,7 @@ $ cd ./Docker/i2b2-server/
 $ docker build --no-cache \
 --platform=linux/amd64 \
 -t <image_uri> \
---build-arg ENVIRONMENT=dev \
+--build-arg ENVIRONMENT=local \
 --no-cache .
 ```
 > Note: create commands.cli in `./Docker/i2b2-server/configuration/` directory to configure the wildfly datasource for i2b2 cells.
