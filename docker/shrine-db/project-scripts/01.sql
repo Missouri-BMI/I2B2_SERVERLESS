@@ -10,8 +10,13 @@ END;
 BEGIN
     USE SCHEMA I2B2PM;
     UPDATE pm_hive_data SET DOMAIN_NAME = 'nextgenbmi.umsystem.edu' WHERE DOMAIN_NAME = 'i2b2demo';
+  
+END;
+
+BEGIN
+    USE SCHEMA I2B2PM;
     truncate table PM_PROJECT_USER_ROLES;
     truncate table PM_USER_DATA;
     truncate table PM_USER_PARAMS;
+  
 END;
-

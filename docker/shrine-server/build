@@ -1,7 +1,9 @@
 #!/bin/bash
+# replace image names and arguments
+
 docker build  \
 --platform=linux/amd64 \
--t 500206249851.dkr.ecr.us-east-2.amazonaws.com/shrine-server \
+-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/shrine-server-washu \
 --build-arg ENVIRONMENT=dev \
---build-arg PROJECT=mu \
+--build-arg PROJECT=washu \
 --no-cache .

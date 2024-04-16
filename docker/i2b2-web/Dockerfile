@@ -16,7 +16,7 @@ RUN yum -y update  \
     && yum clean all
 
 # Download webclient from forked repository
-RUN wget https://github.com/Missouri-BMI/i2b2-webclient-new/archive/$BRANCH.tar.gz -O /tmp/webclient.tar.gz \
+RUN wget https://github.com/Missouri-BMI/i2b2-webclient/archive/$BRANCH.tar.gz -O /tmp/webclient.tar.gz \
     && mkdir /var/www/html/webclient \
     && tar --strip-components=1 -zxvf /tmp/webclient.tar.gz -C /var/www/html/webclient/ \
     && rm -rf /tmp/webclient.tar.gz
@@ -54,6 +54,10 @@ RUN echo $'export LD_LIBRARY_PATH=/opt/shibboleth/lib64:$LD_LIBRARY_PATH\n' > /e
 
 # expose ports
 EXPOSE 80
+
+RUN ln -sf /dev/stdout /var/log/shibboleth/shibd.log
+RUN ln -sf /dev/stdout /var/log/shibboleth/transaction.log
+
 
 # Declare Volumes
 VOLUME ["/etc/shibboleth", "/var/log/httpd", "/var/cache/shibboleth", "/var/cache/httpd", "/var/run/httpd", "/var/log/shibboleth", "/var/run/shibboleth", "/var/lock/subsys"]

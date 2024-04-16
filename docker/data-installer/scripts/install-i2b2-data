@@ -12,5 +12,5 @@ cp ./config/Workdata/db.properties ./i2b2-data/edu.harvard.i2b2.data/Release_1-8
 ant -f ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/build.xml create_database
 
 # Load Demo data
-# ant -f ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/build.xml load_demodata
+ant -f ./i2b2-data/edu.harvard.i2b2.data/Release_1-8/NewInstall/build.xml load_demodata
 

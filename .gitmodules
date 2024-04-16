@@ -1,0 +1,16 @@
+[submodule "i2b2-data"]
+	path = Docker/data-installer/i2b2-data
+	url = https://github.com/Missouri-BMI/i2b2-data.git
+	branch = feature/new-ont
+[submodule "i2b2-core-server"]
+	path = Docker/i2b2-server/i2b2-core-server
+	url = https://github.com/Missouri-BMI/i2b2-core-server.git
+	branch = feature/mu
+[submodule "i2b2-webclient"]
+	path = Docker/i2b2-web/i2b2-webclient
+	url = https://github.com/Missouri-BMI/i2b2-webclient.git
+	branch = feature/shrine-test
+[submodule "i2b2-webclient-new"]
+	path = Docker/i2b2-web/i2b2-webclient-new
+	url = https://github.com/Missouri-BMI/i2b2-webclient-new.git
+	branch = feature/mu
