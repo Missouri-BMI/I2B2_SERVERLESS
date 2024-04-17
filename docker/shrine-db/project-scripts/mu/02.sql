@@ -42,6 +42,6 @@ insert into PM_PROJECT_USER_ROLES (PROJECT_ID, USER_ID, USER_ROLE_CD, STATUS_CD)
  
 insert into PM_PROJECT_USER_ROLES (PROJECT_ID, USER_ID, USER_ROLE_CD, STATUS_CD) values ('ACT', 'shrine_steward', 'DATA_OBFSC', 'A');
  
-insert into PM_USER_PARAMS (DATATYPE_CD, USER_ID, PARAM_NAME_CD, VALUE, CHANGEBY_CHAR, STATUS_CD) values ('T', 'shrine_steward', 'DataSteward', 'true', 'i2b2', 'A');
+insert into PM_USER_PARAMS (DATATYPE_CD, USER_ID, PARAM_NAME_CD, VALUE, CHANGEBY_CHAR, STATUS_CD) values ('T', 'shrine_steward', 'DataSteward', 'true', 'mhmcb', 'A');
 
 
