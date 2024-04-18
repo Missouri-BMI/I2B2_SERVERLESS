@@ -3,7 +3,7 @@
 
 docker build  \
 --platform=linux/amd64 \
--t 500206249851.dkr.ecr.us-east-2.amazonaws.com/shrine-server-washu \
+-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/shrine-server:mu \
 --build-arg ENVIRONMENT=dev \
---build-arg PROJECT=washu \
+--build-arg PROJECT=mu \
 --no-cache .

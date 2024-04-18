@@ -25,9 +25,11 @@ COPY src/configs/${PROJECT}/context.xml /usr/local/tomcat/conf/
 COPY src/configs/${PROJECT}/password.conf /usr/local/tomcat/lib/
 COPY src/configs/${PROJECT}/server.xml /usr/local/tomcat/conf/
 COPY src/configs/${PROJECT}/shrine.conf /usr/local/tomcat/lib/
+COPY src/configs/logging.properties /usr/local/tomcat/conf/
+# COPY src/configs/logging.shrine-api.properties /usr/local/tomcat/webapps/shrine-api/WEB-INF/classes/logging.properties
 
 ## copy keystore
-COPY src/keystore/${PROJECT}/shrine-dev-nextgenbmi.jks /usr/local/tomcat/shrine-dev-nextgenbmi.jks
+COPY src/keystore/${PROJECT}/output/ /usr/local/tomcat/
 
 ## copy data
 COPY src/data/ENACT_LogoFile_2023-03_White.png /usr/local/tomcat/lib/
@@ -49,9 +51,11 @@ RUN chmod +x /etc/init.d/commands.sh \
             /usr/local/tomcat/conf/context.xml \
             /usr/local/tomcat/lib/shrine.conf \
             /usr/local/tomcat/lib/password.conf \
+            /usr/local/tomcat/conf/logging.properties \
+            # /usr/local/tomcat/webapps/shrine-api/WEB-INF/classes/logging.properties \
             /usr/local/tomcat/lib/ENACT_LogoFile_2023-03_White.png \
             /usr/local/tomcat/lib/AdapterMappingV41012224.csv \
-            /usr/local/tomcat/shrine-dev-nextgenbmi.jks \
+            # /usr/local/tomcat/shrine-dev-nextgenbmi.jks \
             /usr/local/tomcat/conf/server.xml
 
 EXPOSE 6060
