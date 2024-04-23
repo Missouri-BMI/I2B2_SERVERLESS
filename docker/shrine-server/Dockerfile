@@ -33,7 +33,7 @@ COPY src/keystore/${PROJECT}/output/ /usr/local/tomcat/
 
 ## copy data
 COPY src/data/ENACT_LogoFile_2023-03_White.png /usr/local/tomcat/lib/
-COPY src/data/AdapterMappingV41012224.csv /usr/local/tomcat/lib/
+COPY src/data/AdapterMappingV41012224.csv /usr/local/tomcat/lib/AdapterMappingV41.csv
 
 # RUN cd /usr/local/tomcat/lib/ && \
 #     wget https://shrine-ontologies.s3.amazonaws.com/act/releases/lucene_index-4.1.0-SHRINE-4.2.0.zip -O lucene_index.zip && \
@@ -54,7 +54,7 @@ RUN chmod +x /etc/init.d/commands.sh \
             /usr/local/tomcat/conf/logging.properties \
             # /usr/local/tomcat/webapps/shrine-api/WEB-INF/classes/logging.properties \
             /usr/local/tomcat/lib/ENACT_LogoFile_2023-03_White.png \
-            /usr/local/tomcat/lib/AdapterMappingV41012224.csv \
+            /usr/local/tomcat/lib/AdapterMappingV41.csv \
             # /usr/local/tomcat/shrine-dev-nextgenbmi.jks \
             /usr/local/tomcat/conf/server.xml
 
