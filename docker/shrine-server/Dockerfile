@@ -31,10 +31,13 @@ COPY src/configs/logging.properties /usr/local/tomcat/conf/
 ## copy keystore
 COPY src/keystore/${PROJECT}/output/ /usr/local/tomcat/
 
-## copy data
-COPY src/data/ENACT_LogoFile_2023-03_White.png /usr/local/tomcat/lib/
-COPY src/data/AdapterMappingV41012224.csv /usr/local/tomcat/lib/AdapterMappingV41.csv
 
+# copy data
+COPY src/data/ENACT_LogoFile_2023-03_White.png /usr/local/tomcat/lib/
+
+## https://open.catalyst.harvard.edu/wiki/display/SHRINE/SHRINE+Lucene+Index+Files+-+For+ENACT+Ontology+Version+4.1.0
+
+COPY src/data/AdapterMappingV41012224.csv /usr/local/tomcat/lib/AdapterMappingV41.csv
 # RUN cd /usr/local/tomcat/lib/ && \
 #     wget https://shrine-ontologies.s3.amazonaws.com/act/releases/lucene_index-4.1.0-SHRINE-4.2.0.zip -O lucene_index.zip && \
 #     wget https://shrine-ontologies.s3.amazonaws.com/act/releases/suggest_index-4.1.0-SHRINE-4.2.0.zip -O suggest_index.zip && \
@@ -42,8 +45,8 @@ COPY src/data/AdapterMappingV41012224.csv /usr/local/tomcat/lib/AdapterMappingV4
 #     unzip suggest_index.zip && \
 #     rm lucene_index.zip suggest_index.zip
 
-COPY src/data/lucene_index/ /usr/local/tomcat/lib/lucene_index/
-COPY src/data/suggest_index/ /usr/local/tomcat/lib/suggest_index/
+COPY src/data/lucene_index/* /usr/local/tomcat/lib/lucene_index/
+COPY src/data/suggest_index/* /usr/local/tomcat/lib/suggest_index/
 
 
 RUN chmod +x /etc/init.d/commands.sh \ 
