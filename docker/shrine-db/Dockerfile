@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y wget unzip mariadb-client
 COPY /shrine-setup/ /home/shrine-setup/
 
 WORKDIR /home/shrine-setup/
-COPY /load-scripts/washu/  ./load-scripts/
+
+COPY /load-scripts/${PROJECT}/*  ./load-scripts/
 
 CMD [ "/bin/bash", "-C", "./load-scripts/001.sh" ]
