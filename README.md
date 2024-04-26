@@ -1,11 +1,13 @@
-## Simplied installation process of i2b2-data, i2b2-web, i2b2-server, i2b2 shrine in docker containers
+## Simplified installation process of i2b2-data, i2b2-web, i2b2-server, i2b2 shrine in docker containers:
+
 
 ## Submodules
 ```
 # pull submodules (i2b2-data, i2b2-webclient, i2b2-core-server)
 git submodule update --recursive
 ```
-## Docker implementation of i2b2-data installer 
+
+## i2b2-data installer 
 ```sh
 # change directory to data-installer
 $ cd ./Docker/data-installer/
@@ -22,7 +24,7 @@ $ cd ./Docker/data-installer/
 ./docker-run
 
 ```
-## Docker implementation i2b2-webclient
+##  i2b2-webclient
 
 ```sh
 # change directory to i2b2-web
@@ -39,7 +41,7 @@ $ cd ./Docker/i2b2-web/
 ```
 > Note: Modify and revise Apache, Shibboleth and other configuration files  in `./Docker/i2b2-web/Configurations/` path
 
-## Docker implementation i2b2-core-server
+##  i2b2-core-server
 
 ```sh
 # change directory to i2b2-server
@@ -149,7 +151,7 @@ data-source add \
 
 run-batch
 ```
-## Docker implementation of i2b2 shrine
+##  i2b2 shrine
 ```sh
 # change directory to shrine-server
 $ cd ./Docker/shrine-server/
