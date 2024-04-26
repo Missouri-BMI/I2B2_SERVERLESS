@@ -10,6 +10,13 @@
 *.csv
 **/db.properties
 **/cred.json
-**/*.cli
+**/commands.cli
 **/sp-cert.pem
 **/sp-key.pem
+Docker/shrine-db/load-scripts/**
+Docker/shrine-server/src/keystore/**
+Docker/shrine-server/src/data/**
+Docker/shrine-server/src/configs/mu/context.xml
+Docker/shrine-server/src/configs/washu/context.xml
+Docker/shrine-server/src/configs/mu/password.conf
+Docker/shrine-server/src/configs/washu/password.conf

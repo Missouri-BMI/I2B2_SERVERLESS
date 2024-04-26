@@ -1,0 +1,4 @@
+use shrine_query_history;
+ALTER TABLE QUERY_RESULT MODIFY TYPE varchar(100) not null;
+
+ALTER TABLE BREAKDOWN_RESULT MODIFY DATA_KEY varchar(255) NULL;

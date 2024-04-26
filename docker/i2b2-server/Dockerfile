@@ -8,18 +8,18 @@ RUN apk add \
     wget \
     unzip
 
-# # COPY from host container
-# COPY /i2b2-core-server/ /tmp/i2b2-core-server/
-
 # Download i2b2 server source code
-ARG BRANCH=feature/mu
+# ARG BRANCH=feature/mu
 
-RUN wget https://github.com/Missouri-BMI/i2b2-core-server/archive/$BRANCH.tar.gz -O /tmp/i2b2.tar.gz
+# RUN wget https://github.com/Missouri-BMI/i2b2-core-server/archive/$BRANCH.tar.gz -O /tmp/i2b2.tar.gz
 
-# Download the source code
-RUN mkdir /tmp/i2b2-core-server \
-    && tar --strip-components=1 -zxvf /tmp/i2b2.tar.gz -C /tmp/i2b2-core-server/ \
-    &&  rm -rf /tmp/i2b2.tar.gz
+# # Download the source code
+# RUN mkdir /tmp/i2b2-core-server \
+#     && tar --strip-components=1 -zxvf /tmp/i2b2.tar.gz -C /tmp/i2b2-core-server/ \
+#     &&  rm -rf /tmp/i2b2.tar.gz
+
+# COPY FROM HOST CONTAINER
+COPY /i2b2-core-server/  /tmp/i2b2-core-server/
 
 # Build war from i2b2 server source code
 RUN cd /tmp/i2b2-core-server/edu.harvard.i2b2.server-common && ant clean dist war
@@ -45,7 +45,7 @@ RUN chmod +x /opt/jboss/customization/build-config.sh \
     && /opt/jboss/customization/build-config.sh
 
 # Copy archieve configurations and deploy the WAR
-RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history \
+RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* \
     && cp  /opt/jboss/customization/i2b2.war /opt/jboss/wildfly/standalone/deployments/ \
     && touch /opt/jboss/wildfly/standalone/deployments/i2b2.war.dodeploy
 

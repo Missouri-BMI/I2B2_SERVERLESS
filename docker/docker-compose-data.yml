@@ -1,0 +1,50 @@
+version: '3.6'
+
+services:
+  i2b2-data:
+    platform: linux/amd64
+    image: i2b2-data:latest
+    container_name: i2b2-data
+    build:
+      context: ./data-installer
+    volumes:
+      - /Users/mhmcb/Desktop/Repositories/i2b2-data:/home/i2b2-data
+    networks:
+      - i2b2-data-net
+    depends_on:
+      - i2b2-pg
+
+  i2b2-pg:
+    container_name: i2b2-pg
+    platform: linux/amd64
+    image: i2b2-pg:latest
+    build:
+      context: ./i2b2-pg
+    environment:
+      POSTGRES_USER: demouser
+      POSTGRES_PASSWORD: demouser
+    volumes:
+      - i2b2-db-volume:/var/lib/postgresql/data
+      - ./i2b2-/output:/home/output
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - i2b2-data-net
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - i2b2-data-net
+
+volumes:
+  i2b2-db-volume:
+    name: i2b2-db-volume
+
+networks:
+  i2b2-data-net:
+    name: i2b2-data-net
+    driver: bridge
