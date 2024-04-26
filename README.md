@@ -1,32 +1,57 @@
-## This module is responsible for building and deploying Docker containers of the i2b2 platform on AWS ECS (Elastic Container Service)
+## Simplied installation process of i2b2-data, i2b2-web, i2b2-server, i2b2 shrine in docker containers
 
-### Build Docker Image for i2b2-webclient
+## Submodules
+```
+# pull submodules (i2b2-data, i2b2-webclient, i2b2-core-server)
+git submodule update --recursive
+```
+## Docker implementation of i2b2-data installer 
+```sh
+# change directory to data-installer
+$ cd ./Docker/data-installer/
+
+# create db configuration files 
+./config/Crcdata/db.properties 
+./config/Hivedata/db.properties
+./config/Metadata/db.properties
+./config/Imdata/db.properties 
+./config/Pmdata/db.properties 
+./config/Workdata/db.properties
+# build and run docker container
+./docker-build
+./docker-run
+
+```
+## Docker implementation i2b2-webclient
 
 ```sh
 # change directory to i2b2-web
 $ cd ./Docker/i2b2-web/
 
-# Build docker image
-$ docker build \
---platform=linux/amd64 \
--t <image_uri> \
---build-arg ENVIRONMENT=local \
---no-cache .
-```
+# provide your own configuration files for configuring httpd and shibd services
+./Configuration/dev/apache
+./Configuration/dev/shibboleth (sp-cert.pem and sp-key.pem. use certificate.cnf to generate keys)
 
+# build and run docker container
+./docker-build
+./docker-run
+
+```
 > Note: Modify and revise Apache, Shibboleth and other configuration files  in `./Docker/i2b2-web/Configurations/` path
 
-### Build Docker Image for i2b2-core-server
+## Docker implementation i2b2-core-server
 
 ```sh
-# change directory to i2b2-core-server
+# change directory to i2b2-server
 $ cd ./Docker/i2b2-server/
-# Build docker image
-$ docker build --no-cache \
---platform=linux/amd64 \
--t <image_uri> \
---build-arg ENVIRONMENT=local \
---no-cache .
+
+# provide your own jdbc configuration files 
+./configuration/dev/commands.cli
+
+# build and run docker container
+./build.dev.sh
+./run-dev
+
 ```
 > Note: create commands.cli in `./Docker/i2b2-server/configuration/` directory to configure the wildfly datasource for i2b2 cells.
 
@@ -124,8 +149,32 @@ data-source add \
 
 run-batch
 ```
+## Docker implementation of i2b2 shrine
+```sh
+# change directory to shrine-server
+$ cd ./Docker/shrine-server/
 
-### i2b2 in AWS
+# copy config files 
+./src/configs/mu/context.xml
+./src/configs/mu/password.conf
+./src/configs/mu/server.xml
+./src/configs/mu/shrine.conf
+
+# copy lucene_index, suggest_index, adaptermappings
+./src/data/lucene_index
+./src/data/suggest_index
+./src/data/adapter_mapping.csv
+./src/data/logo.png
+
+# place keystore
+src/keystore/${PROJECT}/output/ # eg .jks/.p12
+
+# build and run docker container
+./build
+
+```
+
+## i2b2 in AWS
 
 > Note: CloudFormation template for creating network infrastructure in AWS VPC is on progress. It will be available under  `./infrastructure/` directory.
 
