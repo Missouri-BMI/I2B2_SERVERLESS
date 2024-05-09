@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.8'
 
 services:
 
@@ -26,54 +26,54 @@ services:
         - ENVIRONMENT=local
     container_name: i2b2-wildfly
     ports:
-      - "8080:8080"
       - "8009:8009"
+      - "9990:9990"
     networks:
       - i2b2-net
     
-  shrine-server:
-    platform: linux/amd64
-    image: 500206249851.dkr.ecr.us-east-2.amazonaws.com/shrine-server:latest
-    container_name: shrine-server
-    build:
-      context: ./shrine-server
-    restart: always
-    ports:
-      - "6060:6060"
-    networks:
-      - i2b2-net
-    depends_on:
-      - shrine-db
+#   shrine-server:
+#     platform: linux/amd64
+#     image: 500206249851.dkr.ecr.us-east-2.amazonaws.com/shrine-server:latest
+#     container_name: shrine-server
+#     build:
+#       context: ./shrine-server
+#     restart: always
+#     ports:
+#       - "6060:6060"
+#     networks:
+#       - i2b2-net
+#     depends_on:
+#       - shrine-db
 
-  shrine-db:
-    platform: linux/amd64
-    image: shrine-db:latest
-    container_name:  shrine-db
-    build:
-      context: ./shrine-db
-    environment:
-      - MARIADB_USER=mhmcb
-      - MARIADB_ROOT_PASSWORD=Password123
-    volumes:
-      - shrine-db-volume:/var/lib/mysql
-    restart: always
-    ports:
-      - "3306:3306"
-    networks:
-      - i2b2-net
+#   shrine-db:
+#     platform: linux/amd64
+#     image: shrine-db:latest
+#     container_name:  shrine-db
+#     build:
+#       context: ./shrine-db
+#     environment:
+#       - MARIADB_USER=mhmcb
+#       - MARIADB_ROOT_PASSWORD=Password123
+#     volumes:
+#       - shrine-db-volume:/var/lib/mysql
+#     restart: always
+#     ports:
+#       - "3306:3306"
+#     networks:
+#       - i2b2-net
 
-  adminer:
-    platform: linux/amd64
-    image: adminer:latest
-    restart: always
-    ports:
-      - 9091:8080
-    networks:
-      - i2b2-net
+#   adminer:
+#     platform: linux/amd64
+#     image: adminer:latest
+#     restart: always
+#     ports:
+#       - 9091:8080
+#     networks:
+#       - i2b2-net
 
-volumes:
-  shrine-db-volume:
-    name: shrine-db-volume
+# volumes:
+#   shrine-db-volume:
+#     name: shrine-db-volume
 
 networks:
   i2b2-net:
