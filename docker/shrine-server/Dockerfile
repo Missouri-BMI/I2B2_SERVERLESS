@@ -3,6 +3,10 @@ FROM tomcat:9-jdk17-corretto
 
 ARG ENVIRONMENT=dev
 ARG PROJECT=mu
+ARG WAR_PATH=src/shrine/apps/shrine-api-war/target/
+
+# copy shibboleth RPM installation file
+COPY src/executables/shibboleth.repo /etc/yum.repos.d/
 
 RUN yum -y update && \
     yum install -y \
@@ -11,11 +15,14 @@ RUN yum -y update && \
     wget \
     tar \
     unzip \
+    httpd24 \
+    php \
+    shibboleth.x86_64  \
     md5sum && \
     yum clean all
 
 # COPY WAR FILE
-COPY src/shrine/apps/shrine-api-war/target/shrine-api.war /usr/local/tomcat/webapps/
+COPY ${WAR_PATH}/shrine-api.war /usr/local/tomcat/webapps/
 
 ## copy executables
 COPY src/executables/commands.sh /etc/init.d/
@@ -28,11 +35,8 @@ COPY src/configs/${PROJECT}/password.conf /usr/local/tomcat/lib/
 COPY src/configs/${PROJECT}/server.xml /usr/local/tomcat/conf/
 COPY src/configs/${PROJECT}/shrine.conf /usr/local/tomcat/lib/
 
-
-
 ## copy keystore
 COPY src/keystore/${PROJECT}/output/ /usr/local/tomcat/
-
 
 # copy data
 COPY src/data/ENACT_LogoFile_2023-03_White.png /usr/local/tomcat/lib/
@@ -50,7 +54,6 @@ COPY src/data/AdapterMappingV41012224.csv /usr/local/tomcat/lib/AdapterMappingV4
 COPY src/data/lucene_index/* /usr/local/tomcat/lib/lucene_index/
 COPY src/data/suggest_index/* /usr/local/tomcat/lib/suggest_index/
 
-
 RUN chmod +x /etc/init.d/commands.sh \ 
             /usr/local/tomcat/bin/setenv.sh \
             /usr/local/tomcat/conf/context.xml \
@@ -59,16 +62,31 @@ RUN chmod +x /etc/init.d/commands.sh \
             /usr/local/tomcat/conf/logging.properties \
             /usr/local/tomcat/lib/ENACT_LogoFile_2023-03_White.png \
             /usr/local/tomcat/lib/AdapterMappingV41.csv \
-            /usr/local/tomcat/conf/server.xml
+            /usr/local/tomcat/conf/server.xml \
+            /etc/shibboleth/shibd-redhat
 
-EXPOSE 6060
+COPY  src/configs/${PROJECT}/apache/ajp.conf /etc/httpd/conf.d/
+
+COPY  src/configs/${PROJECT}/shibboleth/attribute-map.xml \ 
+      src/configs/${PROJECT}/shibboleth/shibboleth2.xml \
+      src/configs/${PROJECT}/shibboleth/inc-md-cert-mdq.pem \
+      src/configs/${PROJECT}/shibboleth/sp-cert.pem \
+      src/configs/${PROJECT}/shibboleth/sp-key.pem \
+    /etc/shibboleth/
+
+RUN chmod 755 /etc/shibboleth/sp-key.pem
+RUN echo $'export LD_LIBRARY_PATH=/opt/shibboleth/lib64:$LD_LIBRARY_PATH\n' > /etc/sysconfig/shibd
+
+EXPOSE 80
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /usr/local/tomcat/logs/shrine-api.log
 	# && ln -sf /dev/stderr /var/log/nginx/error.log
+# RUN ln -sf /dev/stdout /var/log/shibboleth/shibd.log
+# RUN ln -sf /dev/stdout /var/log/shibboleth/transaction.log
 
 # Declare Volumes
-VOLUME ["/usr/local/tomcat"]
+VOLUME ["/usr/local/tomcat", "/etc/shibboleth", "/var/log/httpd", "/var/cache/shibboleth", "/var/cache/httpd", "/var/run/httpd", "/var/log/shibboleth", "/var/run/shibboleth", "/var/lock/subsys"]
 
 # Run the script when the container starts
 CMD ["/etc/init.d/commands.sh"]
