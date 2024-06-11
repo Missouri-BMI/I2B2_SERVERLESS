@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
 
   i2b2-web:
@@ -10,6 +8,7 @@ services:
       args:
         - ENVIRONMENT=local
     container_name: i2b2-web
+    read_only: true
     ports:
       - "80:80"
     networks:
@@ -25,9 +24,10 @@ services:
       args:
         - ENVIRONMENT=local
     container_name: i2b2-wildfly
+    read_only: true
     ports:
       - "8009:8009"
-      - "9990:9990"
+      # - "9990:9990"
     networks:
       - i2b2-net
     

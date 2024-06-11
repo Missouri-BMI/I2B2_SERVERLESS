@@ -1,12 +1,9 @@
 ##### BUILD STAGE 1 #############
-FROM alpine:3.18.4 AS war_builder
+FROM openjdk:8-jdk-alpine AS war_builder
 
 # Download required packages
 RUN apk add \
-    openjdk8 \
-    apache-ant \
-    wget \
-    unzip
+    apache-ant
 
 # Download i2b2 server source code
 # ARG BRANCH=feature/mu
@@ -51,7 +48,7 @@ RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* 
 
 # PORTS
 EXPOSE 8009
-EXPOSE 8080
+# EXPOSE 8080
 # EXPOSE 9990
 
 # Declare Volumes
