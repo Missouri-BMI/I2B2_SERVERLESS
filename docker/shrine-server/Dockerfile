@@ -18,20 +18,20 @@ RUN yum -y update && \
 COPY src/shrine/apps/shrine-api-war/target/shrine-api.war /usr/local/tomcat/webapps/
 
 ## copy executables
-COPY src/executables/commands.sh /etc/init.d/
+COPY src/executables/${ENVIRONMENT}/commands.sh /etc/init.d/
 COPY src/executables/mariadb-java-client-3.3.2.jar /usr/local/tomcat/lib/
 COPY src/executables/setenv.sh /usr/local/tomcat/bin/setenv.sh 
 
 ## copy configs
-COPY src/configs/${PROJECT}/context.xml /usr/local/tomcat/conf/
-COPY src/configs/${PROJECT}/password.conf /usr/local/tomcat/lib/
-COPY src/configs/${PROJECT}/server.xml /usr/local/tomcat/conf/
-COPY src/configs/${PROJECT}/shrine.conf /usr/local/tomcat/lib/
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/context.xml /usr/local/tomcat/conf/
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/password.conf /usr/local/tomcat/lib/
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/server.xml /usr/local/tomcat/conf/
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/shrine.conf /usr/local/tomcat/lib/
 
 
 
 ## copy keystore
-COPY src/keystore/${PROJECT}/output/ /usr/local/tomcat/
+COPY src/keystore/${ENVIRONMENT}/${PROJECT}/output/ /usr/local/tomcat/
 
 
 # copy data
