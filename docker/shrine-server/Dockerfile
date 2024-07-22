@@ -14,22 +14,24 @@ RUN yum -y update && \
     md5sum && \
     yum clean all
 
+# COPY WAR FILE
+COPY src/shrine/apps/shrine-api-war/target/shrine-api.war /usr/local/tomcat/webapps/
+
 ## copy executables
-COPY src/executables/shrine-api-war-3.3.1.war /usr/local/tomcat/webapps/shrine-api.war
-COPY src/executables/commands.sh /etc/init.d/
+COPY src/executables/${ENVIRONMENT}/commands.sh /etc/init.d/
 COPY src/executables/mariadb-java-client-3.3.2.jar /usr/local/tomcat/lib/
 COPY src/executables/setenv.sh /usr/local/tomcat/bin/setenv.sh 
 
 ## copy configs
-COPY src/configs/${PROJECT}/context.xml /usr/local/tomcat/conf/
-COPY src/configs/${PROJECT}/password.conf /usr/local/tomcat/lib/
-COPY src/configs/${PROJECT}/server.xml /usr/local/tomcat/conf/
-COPY src/configs/${PROJECT}/shrine.conf /usr/local/tomcat/lib/
-COPY src/configs/logging.properties /usr/local/tomcat/conf/
-# COPY src/configs/logging.shrine-api.properties /usr/local/tomcat/webapps/shrine-api/WEB-INF/classes/logging.properties
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/context.xml /usr/local/tomcat/conf/
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/password.conf /usr/local/tomcat/lib/
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/server.xml /usr/local/tomcat/conf/
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/shrine.conf /usr/local/tomcat/lib/
+
+
 
 ## copy keystore
-COPY src/keystore/${PROJECT}/output/ /usr/local/tomcat/
+COPY src/keystore/${ENVIRONMENT}/${PROJECT}/output/ /usr/local/tomcat/
 
 
 # copy data
@@ -55,10 +57,8 @@ RUN chmod +x /etc/init.d/commands.sh \
             /usr/local/tomcat/lib/shrine.conf \
             /usr/local/tomcat/lib/password.conf \
             /usr/local/tomcat/conf/logging.properties \
-            # /usr/local/tomcat/webapps/shrine-api/WEB-INF/classes/logging.properties \
             /usr/local/tomcat/lib/ENACT_LogoFile_2023-03_White.png \
             /usr/local/tomcat/lib/AdapterMappingV41.csv \
-            # /usr/local/tomcat/shrine-dev-nextgenbmi.jks \
             /usr/local/tomcat/conf/server.xml
 
 EXPOSE 6060
