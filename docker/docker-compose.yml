@@ -17,7 +17,7 @@ services:
       - i2b2-wildfly
 
   i2b2-wildfly:
-    image: i2b2-wildfly:latest
+    image: 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:dev
     platform: linux/amd64
     build: 
       context: ./i2b2-server
@@ -27,6 +27,7 @@ services:
     read_only: true
     ports:
       - "8009:8009"
+      # - "8080:8080"
       # - "9990:9990"
     networks:
       - i2b2-net

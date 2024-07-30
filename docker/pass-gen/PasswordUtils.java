@@ -28,6 +28,7 @@ public class PasswordUtils {
             return;
         }
         PasswordUtils utils = new PasswordUtils();
+		System.out.println("Plain Password: " + args[0]);
         String hashedPassword = utils.getHashedPassword(args[0]);
         System.out.println("Hashed Password: " + hashedPassword);
     }
