@@ -1,4 +1,4 @@
-FROM centos:7
+FROM amazonlinux:2
 
 ARG ENVIRONMENT=local
 ARG BRANCH=feature/mu

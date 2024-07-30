@@ -1,4 +1,4 @@
 #!/bin/bash
 
 javac PasswordUtils.java && \
-java PasswordUtils random-pass
+java PasswordUtils "l%|9BlCGXlxx"
