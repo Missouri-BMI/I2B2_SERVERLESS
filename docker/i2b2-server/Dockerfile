@@ -1,17 +1,29 @@
-##### BUILD STAGE 1 #############
-FROM openjdk:8-jdk-alpine
+# Use Amazon Linux 2 as the base image
+FROM amazonlinux:2
 
-ARG ENVIRONMENT
-ENV WILDFLY_VERSION=17.0.1.Final
+
 
 # Download required packages
-RUN apk add \
-    bash \
-    apache-ant
+# RUN apk add \
+#     bash \
+#     apache-ant
+#     # Update the package list and install Java 8
+RUN yum update -y && \
+    yum install -y java-1.8.0-openjdk-devel ant wget unzip && \
+    yum clean all
+
+# Set JAVA_HOME environment variable
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
+
+# Add JAVA_HOME to PATH
+ENV PATH $JAVA_HOME/bin:$PATH
 
 WORKDIR /opt/jboss
 
-RUN wget https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -O wildfly-$WILDFLY_VERSION.zip \
+ARG ENVIRONMENT
+ENV WILDFLY_VERSION=26.1.3.Final
+
+RUN wget https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -O wildfly-$WILDFLY_VERSION.zip \
     && unzip wildfly-$WILDFLY_VERSION.zip && mv wildfly-$WILDFLY_VERSION wildfly \
     && rm -rf wildfly-$WILDFLY_VERSION.zip
 
