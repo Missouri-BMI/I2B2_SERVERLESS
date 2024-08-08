@@ -15,19 +15,14 @@ RUN yum -y update  \
     shibboleth.x86_64  \
     && yum clean all
 
-# Download webclient from forked repository
-# RUN wget https://github.com/Missouri-BMI/i2b2-webclient-new/archive/$BRANCH.tar.gz -O /tmp/webclient.tar.gz \
-#     && mkdir /var/www/html/webclient \
-#     && tar --strip-components=1 -zxvf /tmp/webclient.tar.gz -C /var/www/html/webclient/ \
-#     && rm -rf /tmp/webclient.tar.gz
 
 # Copy Webclient
 COPY i2b2-webclient-new/ /var/www/html/webclient/ 
+# COPY i2b2-webclient/ /var/www/html/webclient/ 
 
 
 # Copy the required script
 COPY  /Configuration/httpd-shibd-foreground /usr/local/bin/
-COPY  /Configuration/environment-setup /usr/local/bin/
 
 # Copy Apache config files
 COPY  /Configuration/$ENVIRONMENT/apache/httpd.conf /etc/httpd/conf/
@@ -46,12 +41,9 @@ COPY  /Configuration/$ENVIRONMENT/shibboleth/attribute-map.xml \
 
 # File execute permissions
 RUN chmod +x /usr/local/bin/httpd-shibd-foreground \
-            /etc/shibboleth/shibd-redhat \
-            /usr/local/bin/environment-setup
+            /etc/shibboleth/shibd-amazon \
+            /etc/shibboleth/sp-key.pem
 
-RUN chmod 755 /etc/shibboleth/sp-key.pem
-
-RUN /usr/local/bin/environment-setup
 
 RUN echo $'export LD_LIBRARY_PATH=/opt/shibboleth/lib64:$LD_LIBRARY_PATH\n' > /etc/sysconfig/shibd
 
@@ -59,8 +51,6 @@ RUN echo $'export LD_LIBRARY_PATH=/opt/shibboleth/lib64:$LD_LIBRARY_PATH\n' > /e
 EXPOSE 80
 
 RUN ln -sf /dev/stdout /var/log/shibboleth/shibd.log
-RUN ln -sf /dev/stdout /var/log/shibboleth/transaction.log
-
 
 # Declare Volumes
 VOLUME ["/etc/shibboleth", "/var/log/httpd", "/var/cache/shibboleth", "/var/cache/httpd", "/var/run/httpd", "/var/log/shibboleth", "/var/run/shibboleth", "/var/lock/subsys"]
