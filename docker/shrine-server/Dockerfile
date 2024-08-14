@@ -61,7 +61,7 @@ RUN chmod +x /etc/init.d/commands.sh \
             /usr/local/tomcat/lib/AdapterMappingV41.csv \
             /usr/local/tomcat/conf/server.xml
 
-EXPOSE 6060
+EXPOSE 8009
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /usr/local/tomcat/logs/shrine-api.log

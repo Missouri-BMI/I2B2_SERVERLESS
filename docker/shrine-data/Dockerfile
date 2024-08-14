@@ -1,10 +1,10 @@
-# FROM mariadb:latest
-FROM ubuntu
+FROM mariadb:latest
+# FROM ubuntu
 
 ARG ENVIRONMENT=dev
 ARG PROJECT=mu
 
-RUN apt-get update && apt-get install -y wget unzip mariadb-client
+# RUN apt-get update && apt-get install -y wget unzip mariadb-client
 
 # ENV SHRINE_URL=https://repo.open.catalyst.harvard.edu/nexus/content/groups/public/net/shrine/shrine-setup/3.3.1/shrine-setup-3.3.1-dist.zip
 # RUN cd /home && \
@@ -15,6 +15,7 @@ COPY /shrine-setup/ /home/shrine-setup/
 
 WORKDIR /home/shrine-setup/
 
-COPY /load-scripts/${ENVIRONMENT}/${PROJECT}/*  ./load-scripts/
+# COPY /load-scripts/${ENVIRONMENT}/${PROJECT}/*  ./load-scripts/
+# CMD [ "/bin/bash", "-C", "./load-scripts/001.sh" ]
 
-CMD [ "/bin/bash", "-C", "./load-scripts/001.sh" ]
+COPY /load-scripts/${ENVIRONMENT}/${PROJECT}/* /docker-entrypoint-initdb.d/
