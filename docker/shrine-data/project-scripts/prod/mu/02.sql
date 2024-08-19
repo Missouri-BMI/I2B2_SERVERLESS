@@ -55,7 +55,9 @@ update QT_QUERY_RESULT_TYPE
 set USER_ROLE_CD = 'DATA_OBFSC'
 where USER_ROLE_CD = 'DATA_LDS';
 
+--TODO:
+
 use schema i2b2hive;
 update HIVE_CELL_PARAMS
-set VALUE ='random-pass'
+set VALUE ='#random-pass'
 where param_name_cd = 'edu.harvard.i2b2.crc.pm.serviceaccount.password';

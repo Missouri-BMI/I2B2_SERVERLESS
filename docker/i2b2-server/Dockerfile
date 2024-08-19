@@ -55,8 +55,8 @@ RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* 
     && touch /opt/jboss/wildfly/standalone/deployments/i2b2.war.dodeploy
 
 # PORTS
-EXPOSE 8080 
-# EXPOSE 9990
+EXPOSE 8080 8009
+
 # Declare Volumes
 VOLUME ["/tmp", "/opt/jboss/wildfly/standalone/data", "/opt/jboss/wildfly/standalone/log", "/opt/jboss/wildfly/standalone/tmp", "/opt/jboss/wildfly/standalone/deployments", "/opt/jboss/wildfly/standalone/configuration/"]
 # Command for starting wildfly server
