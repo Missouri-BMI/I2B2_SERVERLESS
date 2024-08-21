@@ -18,14 +18,14 @@ RUN yum -y update  \
 
 # Copy Webclient
 COPY i2b2-webclient-new/ /var/www/html/webclient/ 
-# COPY i2b2-webclient/ /var/www/html/webclient/ 
+COPY i2b2-webclient/ /var/www/html/webclient-old/ 
 
 
 # Copy the required script
 COPY  /Configuration/httpd-shibd-foreground /usr/local/bin/
 
 # Copy Apache config files
-COPY  /Configuration/$ENVIRONMENT/apache/httpd.conf /etc/httpd/conf/
+COPY  /Configuration/$ENVIRONMENT/apache/i2b2.conf /etc/httpd/conf.d/
 COPY  /Configuration/$ENVIRONMENT/apache/ajp.conf /etc/httpd/conf.d/
 
 # Copy Shibboleth files
