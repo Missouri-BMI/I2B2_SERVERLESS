@@ -1,7 +1,4 @@
-[submodule "i2b2-data"]
-	path = Docker/data-installer/i2b2-data
-	url = https://github.com/Missouri-BMI/i2b2-data.git
-	branch = feature/new-ont
+
 [submodule "i2b2-core-server"]
 	path = Docker/i2b2-server/i2b2-core-server
 	url = https://github.com/Missouri-BMI/i2b2-core-server.git
