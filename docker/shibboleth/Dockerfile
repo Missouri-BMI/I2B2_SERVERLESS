@@ -43,6 +43,10 @@ EXPOSE 80
 
 RUN ln -sf /dev/stdout /var/log/shibboleth/shibd.log
 
+
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD curl --fail http://localhost/health || exit 1
+
 # Declare Volumes
 VOLUME ["/etc/shibboleth", "/var/log/httpd", "/var/cache/shibboleth", "/var/cache/httpd", "/var/run/httpd", "/var/log/shibboleth", "/var/run/shibboleth", "/var/lock/subsys"]
 

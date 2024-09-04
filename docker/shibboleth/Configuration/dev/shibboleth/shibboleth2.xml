@@ -37,13 +37,13 @@
             You can also override entityID on /Login query string, or in RequestMap/htaccess.
             -->
             <!-- Modified for i2b2  https://doit.missouri.edu/wp-content/uploads/2014/09/LinuxGuide.pdf -->
-<!--
-            <SSO entityID="https://shib-idp.umsystem.edu/idp/shibboleth" 
+
+            <!-- <SSO entityID="https://shib-idp.umsystem.edu/idp/shibboleth" 
                 discoveryProtocol="SAMLDS" 
                 discoveryURL="https://shib-idp.umsystem.edu/DS/WAYF"> 
                 SAML2 SAML1
-            </SSO>
--->
+            </SSO> -->
+
 	    <SSO discoveryProtocol="SAMLDS" discoveryURL="https://wayf.incommonfederation.org/DS/WAYF">
             SAML2 SAML1
             </SSO>
@@ -98,13 +98,13 @@
 
         <!-- Example of locally maintained metadata. -->
         <!-- Modified for i2b2 https://doit.missouri.edu/wp-content/uploads/2014/09/LinuxGuide.pdf -->
-       <!--
-	    <MetadataProvider type="XML" 
+       
+	    <!-- <MetadataProvider type="XML" 
             url="https://shib-idp.umsystem.edu/idp/shibboleth" 
-            backingFilePath="shib-idp.umsystem.edu.metadata.xml" reloadInterval="7200"/>
-       -->
+            backingFilePath="shib-idp.umsystem.edu.metadata.xml" reloadInterval="7200"/> -->
+      
 	    <!-- InCommon Per-Entity Metadata Distribution Service -->
-<MetadataProvider type="MDQ" id="incommon" ignoreTransport="true" cacheDirectory="inc-mdq-cache" 
+        <MetadataProvider type="MDQ" id="incommon" ignoreTransport="true" cacheDirectory="inc-mdq-cache" 
     maxCacheDuration="86400" minCacheDuration="60"
         baseUrl="https://mdq.incommon.org/">
            <MetadataFilter type="Signature" certificate="inc-md-cert-mdq.pem"/>
