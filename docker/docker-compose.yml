@@ -17,7 +17,7 @@ services:
       - i2b2-wildfly
 
   i2b2-wildfly:
-    image: 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:dev
+    image: i2b2-wildfly:latest
     platform: linux/amd64
     build: 
       context: ./i2b2-server

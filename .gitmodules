@@ -11,3 +11,6 @@
 	path = Docker/i2b2-web/i2b2-webclient-new
 	url = https://github.com/Missouri-BMI/i2b2-webclient-new.git
 	branch = feature/mu
+[submodule "Docker/i2b2-admin/i2b2-webclient"]
+	path = Docker/i2b2-admin/i2b2-webclient
+	url = https://github.com/Missouri-BMI/i2b2-webclient.git
