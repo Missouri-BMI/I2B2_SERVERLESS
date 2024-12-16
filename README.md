@@ -60,6 +60,10 @@ $ cd ./Docker/i2b2-server/
 # Mark the commands below to be run as a batch
 batch
 
+# loggin
+/subsystem=logging/logger=edu.harvard.i2b2:add ok
+/subsystem=logging/logger=edu.harvard.i2b2:write-attribute(name="level", value="DEBUG")
+
 # AJP enable
 /subsystem=undertow/server=default-server/ajp-listener=ajp:add(max-post-size=10485760000,socket-binding=ajp, scheme=http)
 

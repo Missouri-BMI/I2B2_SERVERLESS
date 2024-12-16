@@ -11,10 +11,10 @@ RUN yum update -y && \
     yum clean all
 
 # Set JAVA_HOME environment variable
-ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0
 
 # Add JAVA_HOME to PATH
-ENV PATH $JAVA_HOME/bin:$PATH
+ENV PATH=$JAVA_HOME/bin:$PATH
 
 WORKDIR /opt/jboss
 
