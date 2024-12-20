@@ -1,8 +1,6 @@
 # Use Amazon Linux 2 as the base image
 FROM amazonlinux:2
 
-
-
 # Download required packages
 # RUN apk add \
 #     bash \
@@ -13,22 +11,24 @@ RUN yum update -y && \
     yum clean all
 
 # Set JAVA_HOME environment variable
-ENV JAVA_HOME /usr/lib/jvm/java-1.8.0
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0
 
 # Add JAVA_HOME to PATH
-ENV PATH $JAVA_HOME/bin:$PATH
+ENV PATH=$JAVA_HOME/bin:$PATH
 
 WORKDIR /opt/jboss
 
 ARG ENVIRONMENT
-ENV WILDFLY_VERSION=26.1.3.Final
 
-RUN wget https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -O wildfly-$WILDFLY_VERSION.zip \
-    && unzip wildfly-$WILDFLY_VERSION.zip && mv wildfly-$WILDFLY_VERSION wildfly \
-    && rm -rf wildfly-$WILDFLY_VERSION.zip
+# ENV WILDFLY_VERSION=26.1.3.Final
+# RUN wget https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -O wildfly-$WILDFLY_VERSION.zip \
+#     && unzip wildfly-$WILDFLY_VERSION.zip && mv wildfly-$WILDFLY_VERSION wildfly \
+#     && rm -rf wildfly-$WILDFLY_VERSION.zip
+
+COPY wildfly-26.1.3.Final/ /opt/jboss/wildfly/
 
 # COPY FROM HOST CONTAINER
-COPY /i2b2-core-server/  /tmp/i2b2-core-server/
+COPY i2b2-core-server/  /tmp/i2b2-core-server/
 
 # Build war from i2b2 server source code
 RUN mkdir customization \
@@ -42,8 +42,8 @@ RUN mkdir customization \
 # FROM quay.io/wildfly/wildfly:26.1.2.Final
 
 # Copy Required Script and snowflake JDBC driver
-COPY /configuration/common/* /opt/jboss/customization/
-COPY /configuration/${ENVIRONMENT}/commands.cli /opt/jboss/customization/
+COPY configuration/common/* /opt/jboss/customization/
+COPY configuration/${ENVIRONMENT}/commands.cli /opt/jboss/customization/
 
 # run configuration script
 RUN chmod +x /opt/jboss/customization/build-config.sh \
@@ -55,8 +55,8 @@ RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* 
     && touch /opt/jboss/wildfly/standalone/deployments/i2b2.war.dodeploy
 
 # PORTS
-EXPOSE 8009 
-# EXPOSE 9990
+EXPOSE 8080 8009
+
 # Declare Volumes
 VOLUME ["/tmp", "/opt/jboss/wildfly/standalone/data", "/opt/jboss/wildfly/standalone/log", "/opt/jboss/wildfly/standalone/tmp", "/opt/jboss/wildfly/standalone/deployments", "/opt/jboss/wildfly/standalone/configuration/"]
 # Command for starting wildfly server

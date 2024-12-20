@@ -69,7 +69,7 @@
             proxyPort="443"
             scheme="https"
             secure="true"
-            proxyName="shrine-dev.nextgenbmi.umsystem.edu"
+            proxyName="shrine-washu-dev.nextgenbmi.umsystem.edu"
             connectionTimeout="180000"
             URIEncoding="UTF-8"
             redirectPort="6443" />

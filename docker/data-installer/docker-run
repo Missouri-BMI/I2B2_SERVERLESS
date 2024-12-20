@@ -1,7 +1,0 @@
-#!/bin/bash
-
-docker run \
---platform=linux/amd64 \
-# -v $PWD/i2b2-data:/home/i2b2-data \
-# -v $PWD/config:/home/config \
-i2b2-data-installer

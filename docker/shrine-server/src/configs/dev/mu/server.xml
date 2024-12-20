@@ -58,9 +58,6 @@
             maxThreads="150" minSpareThreads="4"/>
         -->
 
-
-
-
         <!-- A "Connector" using the shared thread pool-->
 
         <Connector
@@ -73,6 +70,18 @@
             connectionTimeout="180000"
             URIEncoding="UTF-8"
             redirectPort="6443" />
+
+        <Connector protocol="org.apache.coyote.ajp.AjpNio2Protocol"
+            packetSize="65536"
+            proxyName="shrine-dev.nextgenbmi.umsystem.edu"
+            proxyPort="443"
+            enableLookups="true"
+            address="0.0.0.0"
+            port="8009"
+            allowedRequestAttributesPattern=".*"
+            secretRequired="false"
+            redirectPort="6060"
+            tomcatAuthentication="false"/>
 
         <!-- <Connector port="6060" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="6443"/> -->
     
