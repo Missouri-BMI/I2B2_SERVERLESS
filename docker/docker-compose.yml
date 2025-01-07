@@ -1,0 +1,37 @@
+services:
+
+  i2b2-web:
+    image: i2b2-web:latest
+    platform: linux/amd64
+    build:
+      context: ./i2b2-web
+      args:
+        - ENVIRONMENT=local
+    container_name: i2b2-web
+    read_only: true
+    ports:
+      - "80:80"
+    networks:
+      - i2b2-net
+    depends_on:
+      - i2b2-wildfly
+
+  i2b2-wildfly:
+    image: i2b2-wildfly:latest
+    platform: linux/amd64
+    build: 
+      context: ./i2b2-server
+      args:
+        - ENVIRONMENT=local
+    container_name: i2b2-wildfly
+    read_only: true
+    ports:
+      - "8009:8009"
+      # - "8080:8080"
+      # - "9990:9990"
+    networks:
+      - i2b2-net
+
+networks:
+  i2b2-net:
+    name: i2b2-net

@@ -1,0 +1,85 @@
+services:
+  i2b2-wildfly:
+    image: i2b2-wildfly:dev
+    platform: linux/amd64
+    build: 
+      context: ./i2b2-server
+      args:
+        - ENVIRONMENT=shrine
+    container_name: i2b2-wildfly
+    read_only: true
+    ports:
+      - "8080:8080"
+    networks:
+      - i2b2-shrine
+  
+  shibboleth-sp:
+    platform: linux/amd64
+    image: shibboleth-sp:shrine-dev
+    container_name: shibboleth-sp
+    read_only: true
+    build:
+      context: ./shibboleth
+      args:
+        - ENVIRONMENT=dev
+        - PROJECT=mu
+    restart: always
+    ports: 
+      - "80:80"
+    networks:
+      - i2b2-shrine
+    
+  shrine-server:
+    platform: linux/amd64
+    image: shrine-server:latest
+    container_name: shrine-server
+    read_only: true
+    build:
+      context: ./shrine-server
+      args:
+        - ENVIRONMENT=dev
+        - PROJECT=mu
+    restart: always
+    ports:
+      - "8009:8009"
+    networks:
+      - i2b2-shrine
+    depends_on:
+      - shibboleth-sp
+      - shrine-db
+
+  shrine-db:
+    platform: linux/amd64
+    image: shrine-db:latest
+    container_name:  shrine-db
+    build:
+      context: ./shrine-data
+      args:
+        - ENVIRONMENT=local
+        - PROJECT=mu
+    environment:
+      - MARIADB_ROOT_PASSWORD=Password123
+    networks:
+      - i2b2-shrine
+    volumes:
+      - shrine-db-volume:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+
+  adminer:
+    platform: linux/amd64
+    image: adminer:latest
+    restart: always
+    ports:
+      - 9090:8080
+    networks:
+      - i2b2-shrine
+
+volumes:
+  shrine-db-volume:
+    name: shrine-db-volume
+
+networks:
+  i2b2-shrine:
+    name: i2b2-shrine

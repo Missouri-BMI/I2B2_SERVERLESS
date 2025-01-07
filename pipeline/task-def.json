@@ -1,0 +1,81 @@
+{
+    "family": "i2b2",
+    "containerDefinitions": [
+        {
+            "name": "i2b2-wildfly",
+            "image": "500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly-readonly",
+            "cpu": 0,
+            "memoryReservation": 300,
+            "portMappings": [
+                {
+                    "name": "i2b2-wildfly-8009-tcp",
+                    "containerPort": 8009,
+                    "hostPort": 8009,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "readonlyRootFilesystem": true,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/i2b2-snowflake",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        },
+        {
+            "name": "i2b2-web",
+            "image": "500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-web-readonly",
+            "cpu": 0,
+            "memoryReservation": 300,
+            "portMappings": [
+                {
+                    "name": "i2b2-web-80-tcp",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "readonlyRootFilesystem": true,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/i2b2-snowflake",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::500206249851:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::500206249851:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "volumes": [],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "4096",
+    "memory": "16384",
+    "runtimePlatform": {
+        "operatingSystemFamily": "LINUX"
+    },
+    "tags": [
+        {
+            "key": "ecs:taskDefinition:createdFrom",
+            "value": "ecs-console-v2"
+        },
+        {
+            "key": "outback",
+            "value": "application-i2b2-dev"
+        }
+    ]
+}
