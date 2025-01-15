@@ -5,23 +5,7 @@
 # pull submodules (i2b2-data, i2b2-webclient, i2b2-core-server)
 git submodule update --recursive
 ```
-## Docker implementation of i2b2-data installer 
-```sh
-# change directory to data-installer
-$ cd ./Docker/data-installer/
 
-# create db configuration files 
-./config/Crcdata/db.properties 
-./config/Hivedata/db.properties
-./config/Metadata/db.properties
-./config/Imdata/db.properties 
-./config/Pmdata/db.properties 
-./config/Workdata/db.properties
-# build and run docker container
-./docker-build
-./docker-run
-
-```
 ## Docker implementation i2b2-webclient
 
 ```sh
@@ -81,7 +65,7 @@ module add --name=net.snowflake --resources=/opt/jboss/customization/snowflake-j
 data-source add \
 --jndi-name=java:/CRCBootStrapDS \
 --name=CRCBootStrapDS \
---connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2HIVE&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true \
+--connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2HIVE&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON \
 --driver-name=snowflake \
 --user-name=YOUR_USER \
 --password=YOUR_PASSWORD \
@@ -91,7 +75,7 @@ data-source add \
 data-source add \
 --jndi-name=java:/QueryToolDemoDS \
 --name=QueryToolDemoDS \
---connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2DATA&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true \
+--connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2DATA&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON \
 --driver-name=snowflake \
 --user-name=YOUR_USER \
 --password=YOUR_PASSWORD \
@@ -101,7 +85,7 @@ data-source add \
 data-source add \
 --jndi-name=java:/OntologyBootStrapDS \
 --name=OntologyBootStrapDS \
---connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2HIVE&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true \
+--connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2HIVE&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON \
 --driver-name=snowflake \
 --user-name=YOUR_USER \
 --password=YOUR_PASSWORD \
@@ -112,7 +96,7 @@ data-source add \
 data-source add \
 --jndi-name=java:/OntologyDemoDS \
 --name=OntologyDemoDS \
---connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2METADATA&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true \
+--connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2METADATA&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON \
 --driver-name=snowflake \
 --user-name=YOUR_USER \
 --password=YOUR_PASSWORD \
@@ -122,7 +106,7 @@ data-source add \
 data-source add \
 --jndi-name=java:/PMBootStrapDS \
 --name=PMBootStrapDS \
---connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2PM&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true \
+--connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2PM&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON \
 --driver-name=snowflake \
 --user-name=YOUR_USER \
 --password=YOUR_PASSWORD \
@@ -132,7 +116,7 @@ data-source add \
 data-source add \
 --jndi-name=java:/WorkplaceBootStrapDS \
 --name=WorkplaceBootStrapDS \
---connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2HIVE&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true \
+--connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2HIVE&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON \
 --driver-name=snowflake \
 --user-name=YOUR_USER \
 --password=YOUR_PASSWORD \
@@ -142,7 +126,7 @@ data-source add \
 data-source add \
 --jndi-name=java:/WorkplaceDemoDS \
 --name=WorkplaceDemoDS \
---connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2WORKDATA&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true \
+--connection-url=jdbc:snowflake://YOUR_ACCOUNT.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2WORKDATA&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON \
 --driver-name=snowflake \
 --user-name=YOUR_USER \
 --password=YOUR_PASSWORD \

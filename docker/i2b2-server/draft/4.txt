@@ -1,2 +1,0 @@
- 		<!-- <fileset dir="${lib}/okta" includes="**/*" /> -->
-	                        <!-- <fileset dir="${lib}/jboss" includes="**/*" /> -->

@@ -1,7 +1,6 @@
 FROM amazonlinux:2
 
 ARG ENVIRONMENT=local
-ARG BRANCH=feature/mu
 
 # copy shibboleth RPM installation file
 COPY /Configuration/shibboleth.repo /etc/yum.repos.d/

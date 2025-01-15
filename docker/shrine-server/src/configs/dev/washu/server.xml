@@ -63,7 +63,7 @@
 
         <!-- A "Connector" using the shared thread pool-->
 
-        <Connector
+        <!-- <Connector
             port="6060"
             protocol="HTTP/1.1"
             proxyPort="443"
@@ -72,8 +72,19 @@
             proxyName="shrine-washu-dev.nextgenbmi.umsystem.edu"
             connectionTimeout="180000"
             URIEncoding="UTF-8"
-            redirectPort="6443" />
+            redirectPort="6443" /> -->
 
+        <Connector protocol="org.apache.coyote.ajp.AjpNio2Protocol"
+            packetSize="65536"
+            proxyName="shrine-washu-dev.nextgenbmi.umsystem.edu"
+            proxyPort="443"
+            enableLookups="true"
+            address="0.0.0.0"
+            port="8009"
+            allowedRequestAttributesPattern=".*"
+            secretRequired="false"
+            redirectPort="6060"
+            tomcatAuthentication="false"/>
         <!-- <Connector port="6060" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="6443"/> -->
     
         <!-- Define a SSL/TLS HTTP/1.1 Connector on port 8443
@@ -82,14 +93,6 @@
              OpenSSL style configuration is required as described in the APR/native
              documentation -->
              
-        <!-- <Connector port="6443" 
-               protocol="org.apache.coyote.http11.Http11NioProtocol"
-               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
-                clientAuth="false" sslProtocol="TLS"
-                keystoreFile="/opt/shrine/shrine-dev-nextgenbmi.jks"
-              keystorePass="Fever3Asylum2Chap"
-          keyAlias="1" /> -->
-
 
         <!-- Define an AJP 1.3 Connector on port 8009 -->
         <!-- <Connector port="6009" protocol="AJP/1.3" redirectPort="8443" /> -->
