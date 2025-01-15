@@ -1,17 +1,13 @@
 # Use Amazon Linux 2 as the base image
 FROM amazonlinux:2
 
-# Download required packages
-# RUN apk add \
-#     bash \
-#     apache-ant
-#     # Update the package list and install Java 8
+# Update the package list and install Java 17
 RUN yum update -y && \
-    yum install -y java-1.8.0-openjdk-devel ant wget unzip && \
+    yum install -y java-17-openjdk-devel ant wget unzip && \
     yum clean all
 
 # Set JAVA_HOME environment variable
-ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # Add JAVA_HOME to PATH
 ENV PATH=$JAVA_HOME/bin:$PATH
@@ -20,12 +16,7 @@ WORKDIR /opt/jboss
 
 ARG ENVIRONMENT
 
-# ENV WILDFLY_VERSION=26.1.3.Final
-# RUN wget https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -O wildfly-$WILDFLY_VERSION.zip \
-#     && unzip wildfly-$WILDFLY_VERSION.zip && mv wildfly-$WILDFLY_VERSION wildfly \
-#     && rm -rf wildfly-$WILDFLY_VERSION.zip
-
-COPY wildfly-26.1.3.Final/ /opt/jboss/wildfly/
+COPY wildfly-34.0.1.Final/ /opt/jboss/wildfly/
 
 # COPY FROM HOST CONTAINER
 COPY i2b2-core-server/  /tmp/i2b2-core-server/
@@ -39,7 +30,6 @@ RUN mkdir customization \
 
 # RUN wildfly configuration
 # https://goldmann.pl/blog/2014/07/23/customizing-the-configuration-of-the-wildfly-docker-image/
-# FROM quay.io/wildfly/wildfly:26.1.2.Final
 
 # Copy Required Script and snowflake JDBC driver
 COPY configuration/common/* /opt/jboss/customization/
