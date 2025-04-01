@@ -44,11 +44,18 @@ RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* 
     && cp  /opt/jboss/customization/i2b2.war /opt/jboss/wildfly/standalone/deployments/ \
     && touch /opt/jboss/wildfly/standalone/deployments/i2b2.war.dodeploy
 
+# Enable BouncyCastle for Snowflake JDBC
+RUN echo 'JAVA_OPTS="$JAVA_OPTS -Dnet.snowflake.jdbc.enableBouncyCastle=TRUE"' >> /opt/jboss/wildfly/bin/standalone.conf
+COPY configuration/${ENVIRONMENT}/rsa_key.p8 /opt/jboss/customization/
+
 # PORTS
 EXPOSE 8080 8009
 
 # Declare Volumes
 VOLUME ["/tmp", "/opt/jboss/wildfly/standalone/data", "/opt/jboss/wildfly/standalone/log", "/opt/jboss/wildfly/standalone/tmp", "/opt/jboss/wildfly/standalone/deployments", "/opt/jboss/wildfly/standalone/configuration/"]
+
 # Command for starting wildfly server
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "--read-only-server-config=standalone.xml", "-b", "0.0.0.0"]
+
+# RUN /opt/jboss/wildfly/bin/add-user.sh admin Password123 --silent
 # CMD ["/opt/jboss/wildfly/bin/standalone.sh", "--read-only-server-config=standalone.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
