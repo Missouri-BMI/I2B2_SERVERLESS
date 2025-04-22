@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Start Shibd
+/etc/shibboleth/shibd-amazon start
+
+
+# Start httpd
+httpd -DFOREGROUND
