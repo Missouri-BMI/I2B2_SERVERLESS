@@ -11,7 +11,7 @@ COPY /Configuration/shibboleth.repo /etc/yum.repos.d/
 # Install required packages
 RUN yum -y update  \
     && yum -y install \
-    httpd24 \
+    httpd \
     php \
     wget \
     unzip \
