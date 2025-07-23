@@ -4,9 +4,6 @@ NO_CACHE=--no-cache
 DEV_REPO=500206249851.dkr.ecr.us-east-2.amazonaws.com/shrine-server
 PROD_REPO=063312575449.dkr.ecr.us-east-2.amazonaws.com/shrine-server
 
-# Targets
-.PHONY:  dev prod dev-mu dev-washu prod-mu prod-washu
-
 dev-mu:
 	docker build \
 		--platform=$(PLATFORM) \

@@ -2,8 +2,6 @@
 
 DOCKER_BUILD = docker build --platform=linux/amd64 --no-cache
 
-.PHONY:  local prod shrine-mu shrine-washu dev shrine shrine-washu-local
-
 # Local build targets
 local:
 	$(DOCKER_BUILD) \
@@ -45,8 +43,8 @@ shrine-washu-prod:
 		--build-arg ENVIRONMENT=shrine-washu-prod .
 
 run-local:
-    docker run \
-    --platform=linux/amd64 \
-    --read-only=true \
-    -p 8080:8080 -p 8009:8009 \
-    i2b2-wildfly:latest
+	docker run \
+	--platform=linux/amd64 \
+	--read-only=true \
+	-p 8080:8080 -p 8009:8009 -p 9990:9990 \
+	500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:dev

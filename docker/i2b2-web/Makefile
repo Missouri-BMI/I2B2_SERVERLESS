@@ -3,9 +3,6 @@
 DOCKER_BUILD = docker build --platform=linux/amd64 --no-cache
 DOCKER_RUN = docker run --platform=linux/amd64 --read-only=true -p 80:80
 
-.PHONY: all local dev prod snowflake run
-
-
 local:
 	$(DOCKER_BUILD) \
 		-t i2b2-web:latest \
