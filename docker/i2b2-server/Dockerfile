@@ -40,13 +40,24 @@ ARG ENVIRONMENT
 WORKDIR /opt/jboss
 
 # --- Wildfly Setup ---
-COPY wildfly-34.0.1.Final/ ./wildfly/
+ARG WILDFLY_VERSION=37.0.1
+RUN wget https://github.com/wildfly/wildfly/releases/download/${WILDFLY_VERSION}.Final/wildfly-${WILDFLY_VERSION}.Final.tar.gz && \
+    tar -xzf wildfly-${WILDFLY_VERSION}.Final.tar.gz && \
+    mv wildfly-${WILDFLY_VERSION}.Final wildfly && \
+    rm wildfly-${WILDFLY_VERSION}.Final.tar.gz
 
 # --- Application Deployment ---
 COPY --from=builder /build/i2b2-core-server/edu.harvard.i2b2.server-common/dist/i2b2.war ./customization/
 
-# Enable BouncyCastle for Snowflake JDBC
-RUN echo 'JAVA_OPTS="$JAVA_OPTS -Dnet.snowflake.jdbc.enableBouncyCastle=TRUE"' >> ./wildfly/bin/standalone.conf
+# Set JVM HEAP Allocation and enable BouncyCastle for Snowflake JDBC
+# Define a build argument for the heap size with a default value (e.g., for dev)
+ARG HEAP_SIZE="-Xms1g -Xmx4g"
+
+# Set the JAVA_OPTS environment variable using the build argument
+ENV JAVA_OPTS=$HEAP_SIZE
+
+# Append additional, non-dynamic JVM options
+ENV JAVA_OPTS="$JAVA_OPTS -Dnet.snowflake.jdbc.enableBouncyCastle=TRUE"
 
 # Configuration files
 COPY configuration/common/* ./customization/

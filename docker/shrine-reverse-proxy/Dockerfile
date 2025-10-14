@@ -18,11 +18,11 @@ RUN yum -y update  \
     shibboleth.x86_64  \
     && yum clean all
 
-# Download and extract the i2b2-webclient from GitHub
-RUN wget https://github.com/Missouri-BMI/i2b2-webclient/archive/refs/heads/$BRANCH.zip -O /tmp/i2b2-webclient.zip \
-    && unzip  /tmp/i2b2-webclient.zip -d /var/www/html/ \
-    && rm /tmp/i2b2-webclient.zip \
-    && mv /var/www/html/i2b2-webclient-* /var/www/html/admin
+# # Download and extract the i2b2-webclient from GitHub
+# RUN wget https://github.com/Missouri-BMI/i2b2-webclient/archive/refs/heads/$BRANCH.zip -O /tmp/i2b2-webclient.zip \
+#     && unzip  /tmp/i2b2-webclient.zip -d /var/www/html/ \
+#     && rm /tmp/i2b2-webclient.zip \
+#     && mv /var/www/html/i2b2-webclient-* /var/www/html/admin
     
 # Copy the required script
 COPY  /Configuration/shibd-foreground /usr/local/bin/

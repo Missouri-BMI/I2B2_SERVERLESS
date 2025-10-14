@@ -6,6 +6,23 @@ pull submodules (i2b2-data, i2b2-webclient, i2b2-core-server)
 # clone the repository and initialize submodules
 git clone --recurse-submodules <repository-url>
 ```
+### Branches Overview
+
+- **i2b2-core-server:**  
+  branch: `release/mu-1.8.1`
+
+- **i2b2-webclient:**  
+  branch: `release/mu`
+
+- **i2b2-webclient-classic:**  
+  branch: `release/mu`
+
+- **Admin consoles for Shrine:**  
+  - General admin: `release/mu-admin`
+  - WashU-specific admin: `release/washu-admin`
+
+- i2b2-data
+  - branch: `snowflake/release-1.8.1`
 
 ## i2b2 Platform in Docker
 

@@ -47,4 +47,7 @@ run-local:
 	--platform=linux/amd64 \
 	--read-only=true \
 	-p 8080:8080 -p 8009:8009 -p 9990:9990 \
-	500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:dev
+	i2b2-wildfly:latest
+
+
+# docker build --build-arg HEAP_SIZE="-Xms4500m -Xmx4500m" -t your-wildfly-prod .

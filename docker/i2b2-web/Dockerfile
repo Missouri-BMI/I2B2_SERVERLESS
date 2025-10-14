@@ -1,35 +1,48 @@
-FROM amazonlinux:2
+## https://shibboleth.atlassian.net/wiki/spaces/SP3/pages/2114781232/Contributions+and+Extensions
+## https://github.com/PneumaSolutions/shib-sp
+
+FROM amazonlinux:2023
 
 ARG ENVIRONMENT=local
 
 # copy shibboleth RPM installation file
-COPY /Configuration/shibboleth.repo /etc/yum.repos.d/
-
-# Install required packages
-RUN yum -y update  \
-    && yum -y install \
-    httpd24 \
-    php \
-    wget \
-    shibboleth.x86_64  \
-    && yum clean all
+COPY /Configuration/Common/shibboleth/shibboleth.repo /etc/yum.repos.d/
 
 
-# Copy Webclient
-COPY i2b2-webclient-new/ /var/www/html/webclient/ 
-COPY i2b2-webclient/ /var/www/html/webclient-old/ 
+# Base OS + httpd + shibboleth + php + wget
+RUN dnf -y update && dnf -y install \
+      httpd \ 
+      php php-fpm \
+      shibboleth.x86_64 \
+      python3 python3-pip \
+  && dnf clean all
 
 
-# Copy the required script
-COPY  /Configuration/httpd-shibd-foreground /usr/local/bin/
+# Python + pip (dnf on AL2023) — then install Supervisor in a venv
+# Install Supervisor into a small venv (reliable on AL2023)
+RUN python3 -m venv /opt/supervisor \
+ && /opt/supervisor/bin/pip install --no-cache-dir --upgrade pip supervisor
+
+
+# RUN mkdir -p /etc/supervisor /etc/supervisor/conf.d /var/log/supervisor /var/run/supervisor
+COPY Configuration/Common/supervisord.conf /etc/supervisor/
+
+# Configure php-fpm to use a Unix socket and not daemonize
+RUN mkdir -p /run/php-fpm && chown apache:apache /run/php-fpm
+
+
+# Copy Shibboleth files
+COPY  /Configuration/Common/shibboleth/shib.conf /etc/httpd/conf.d/
+
+# php-fpm Apache config
+COPY /Configuration/Common/php-fpm.conf /etc/httpd/conf.d/
 
 # Copy Apache config files
 COPY  /Configuration/$ENVIRONMENT/apache/i2b2.conf /etc/httpd/conf.d/
 COPY  /Configuration/$ENVIRONMENT/apache/ajp.conf /etc/httpd/conf.d/
 
-# Copy Shibboleth files
-COPY  /Configuration/$ENVIRONMENT/shibboleth/shib.conf /etc/httpd/conf.d/
 
+# Copy Shibboleth configuration files
 COPY  /Configuration/$ENVIRONMENT/shibboleth/attribute-map.xml \ 
       /Configuration/$ENVIRONMENT/shibboleth/shibboleth2.xml \
       /Configuration/$ENVIRONMENT/shibboleth/inc-md-cert-mdq.pem \
@@ -37,22 +50,33 @@ COPY  /Configuration/$ENVIRONMENT/shibboleth/attribute-map.xml \
       /Configuration/$ENVIRONMENT/shibboleth/sp-key.pem \
     /etc/shibboleth/
 
+# Copy Shibboleth log configuration files
+COPY /Configuration/Common/shibboleth/native.logger /etc/shibboleth/
+COPY /Configuration/Common/shibboleth/shibd.logger /etc/shibboleth/
 
-# File execute permissions
-RUN chmod +x /usr/local/bin/httpd-shibd-foreground \
-            /etc/shibboleth/shibd-amazon \
-            /etc/shibboleth/sp-key.pem
+# Send Apache logs to container stdout/stderr
+RUN sed -i 's#CustomLog "logs/access_log"#CustomLog "/dev/stdout"#' /etc/httpd/conf/httpd.conf \
+ && sed -i 's#ErrorLog "logs/error_log"#ErrorLog "/dev/stderr"#'   /etc/httpd/conf/httpd.conf 
 
 
-RUN echo $'export LD_LIBRARY_PATH=/opt/shibboleth/lib64:$LD_LIBRARY_PATH\n' > /etc/sysconfig/shibd
+# Simple entrypoint that starts supervisord in the foreground (PID 1)
+COPY Configuration/Common/startup.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/startup.sh
 
-# expose ports
+# Webclient apps
+COPY i2b2-webclient/     /var/www/html/webclient/
+COPY i2b2-webclient-classic/         /var/www/html/webclient-classic/
+
+
+# Basic healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD curl -fsS http://127.0.0.1/ || exit 1
+
+# Volumes (optional if you prefer file logs in addition to stdout)
+
+VOLUME ["/tmp", "/etc/shibboleth", "/var/cache/shibboleth", "/var/cache/httpd", "/var/run/httpd", "/var/run/shibboleth", "/var/lock/subsys", "/var/run/supervisor", "/var/log/php-fpm", "/run/php-fpm"]
+
 EXPOSE 80
 
-RUN ln -sf /dev/stdout /var/log/shibboleth/shibd.log
-
-# Declare Volumes
-VOLUME ["/etc/shibboleth", "/var/log/httpd", "/var/cache/shibboleth", "/var/cache/httpd", "/var/run/httpd", "/var/log/shibboleth", "/var/run/shibboleth", "/var/lock/subsys"]
-
-# Run command for starting Apache and Shibboleth
-CMD ["/bin/bash","-C", "httpd-shibd-foreground"]
+# Run Supervisor (manages httpd + shibd)
+CMD ["bin/bash", "-c", "/usr/local/bin/startup.sh"]
