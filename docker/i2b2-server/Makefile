@@ -1,6 +1,6 @@
 # Makefile
 
-DOCKER_BUILD = docker build --platform=linux/amd64 --no-cache
+DOCKER_BUILD = docker build --platform=linux/amd64
 
 # Local build targets
 local:
@@ -11,7 +11,7 @@ local:
 # Dev build targets
 mu-dev:
 	$(DOCKER_BUILD) \
-		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:dev \
+		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:mu-v1.8.2 \
 		--build-arg ENVIRONMENT=dev .
 
 

@@ -1,13 +1,14 @@
 # ----------- Stage 1: Build i2b2-core-server WAR -----------
-FROM amazonlinux:2 AS builder
+FROM amazonlinux:2023 AS builder
 
 # Install build dependencies
 RUN yum update -y && \
-    yum install -y java-17-openjdk-devel ant wget unzip && \
+    yum install -y java-17-amazon-corretto-devel ant && \
     yum clean all && rm -rf /var/cache/yum
 
-# Set correct JAVA_HOME for Amazon Linux 2
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+# Set correct JAVA_HOME for Amazon Linux 2023
+ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+
 
 # Add JAVA_HOME to PATH
 ENV PATH=$JAVA_HOME/bin:$PATH
@@ -23,15 +24,15 @@ RUN cd i2b2-core-server/edu.harvard.i2b2.server-common && \
     ant clean dist war
 
 # ----------- Stage 2: Setup Wildfly and Deploy WAR -----------
-FROM amazonlinux:2
+FROM amazonlinux:2023
 
-# Install build dependencies
+# Install Java 17 runtime
 RUN yum update -y && \
-    yum install -y java-17-openjdk-devel ant wget unzip && \
+    yum install -y java-17-amazon-corretto wget zip && \
     yum clean all && rm -rf /var/cache/yum
 
-# Set correct JAVA_HOME for Amazon Linux 2
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+# Set correct JAVA_HOME for Amazon Linux 2023
+ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
 
 # Add JAVA_HOME to PATH
 ENV PATH=$JAVA_HOME/bin:$PATH
@@ -41,10 +42,10 @@ WORKDIR /opt/jboss
 
 # --- Wildfly Setup ---
 ARG WILDFLY_VERSION=37.0.1
-RUN wget https://github.com/wildfly/wildfly/releases/download/${WILDFLY_VERSION}.Final/wildfly-${WILDFLY_VERSION}.Final.tar.gz && \
-    tar -xzf wildfly-${WILDFLY_VERSION}.Final.tar.gz && \
+RUN wget https://github.com/wildfly/wildfly/releases/download/${WILDFLY_VERSION}.Final/wildfly-${WILDFLY_VERSION}.Final.zip && \
+    unzip wildfly-${WILDFLY_VERSION}.Final.zip && \
     mv wildfly-${WILDFLY_VERSION}.Final wildfly && \
-    rm wildfly-${WILDFLY_VERSION}.Final.tar.gz
+    rm wildfly-${WILDFLY_VERSION}.Final.zip
 
 # --- Application Deployment ---
 COPY --from=builder /build/i2b2-core-server/edu.harvard.i2b2.server-common/dist/i2b2.war ./customization/
