@@ -25,48 +25,8 @@ git clone --recurse-submodules <repository-url>
   - branch: `snowflake/release-1.8.1`
 
 ## i2b2 Platform in Docker
-
-### Docker implementation: i2b2-webclient
-
-```sh
-# change directory to i2b2-web
-$ cd ./Docker/i2b2-web/
-```
-
-#### provide your own configuration files for configuring httpd and shibd services
-./Configuration/dev/apache/ajp.conf
-> Note: Modify and revise Apache, Shibboleth and other configuration files  in `./Docker/i2b2-web/Configurations/` path
-
-```
-<VirtualHost 127.0.0.1:80>
-  ProxyRequests Off 
-  ProxyPreserveHost Off 
-  <Location /i2b2/services/> 
-        Require ip 127.0.0.1 
-        ProxyPass ajp://127.0.0.1:8009/i2b2/services/ secret=<secret>
-  </Location>
-</VirtualHost>
-```
-
-./Configuration/dev/apache/i2b2.conf
-
-```
-ServerName https://i2b2-dev.nextgenbmi.umsystem.edu/
-
-RedirectMatch ^/$ /webclient/
-```
-
-
-#### Configure Shibboleth
-./Configuration/dev/shibboleth (attribute-map.xml, shibboleth2.xml sp-cert.pem and sp-key.pem. use certificate.cnf to generate keys)
-
-#### build and run docker container
-```
-# build
-make local
-# run
-make run
-```
+i2b2 webclient
+find readme.md in docker/i2b2-web
 
 ### Docker implementation: i2b2-core-server
 > Note: create commands.cli in `./Docker/i2b2-server/configuration/` directory to configure the wildfly datasource for i2b2 cells.

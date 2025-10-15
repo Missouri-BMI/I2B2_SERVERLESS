@@ -8,6 +8,7 @@
 *.cnf
 *.rpm
 *.csv
+*.pem
 **/db.properties
 **/cred.json
 **/commands.cli
