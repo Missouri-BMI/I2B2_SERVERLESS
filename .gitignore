@@ -5,7 +5,7 @@
 **/*venv
 **/output
 **/.ipynb_checkpoints
-*.cnf
+**/certificate.cnf
 *.rpm
 *.csv
 *.pem

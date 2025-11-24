@@ -79,7 +79,7 @@ EXPOSE 8080 8009
 # EXPOSE 8080 8009 9990
 
 # Optional: Only mount persistent folders
-VOLUME ["/tmp", "/opt/jboss/wildfly/standalone/data", "/opt/jboss/wildfly/standalone/log", "/opt/jboss/wildfly/standalone/tmp", "/opt/jboss/wildfly/standalone/deployments", "/opt/jboss/wildfly/standalone/configuration/"]
+VOLUME ["/tmp", "/opt/jboss/wildfly/standalone/data", "/opt/jboss/wildfly/standalone/log", "/opt/jboss/wildfly/standalone/tmp", "/opt/jboss/wildfly/standalone/deployments"]
 
 # Start Wildfly in read-only config mode
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "--read-only-server-config=standalone.xml", "-b", "0.0.0.0"]

@@ -1,0 +1,21 @@
+[req]
+prompt=no
+default_bits=2048
+encrypt_key=no
+default_md=sha1
+distinguished_name=dn
+# PrintableStrings only
+string_mask=MASK:0002
+x509_extensions=ext
+
+default_keyfile=shibboleth/sp-key.pem
+
+[dn]
+# change DNS
+CN=<DNS>
+
+[ext]
+subjectAltName= DNS.1:<DNS>, \
+                URI.1:<DNS>/shibboleth
+subjectKeyIdentifier=hash
+

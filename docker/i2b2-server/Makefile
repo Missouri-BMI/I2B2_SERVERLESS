@@ -17,37 +17,37 @@ mu-dev:
 
 shrine-dev:
 	$(DOCKER_BUILD) \
-		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine \
+		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-v1.8.2 \
 		--build-arg ENVIRONMENT=shrine .
 
 shrine-washu-dev:
 	$(DOCKER_BUILD) \
-		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-washu \
+		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-washu-v1.8.2 \
 		--build-arg ENVIRONMENT=shrine-washu .
 
 
 # Prod build targets
 mu-prod:
 	$(DOCKER_BUILD) \
-		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:prod \
+		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:mu-v1.8.2 \
 		--build-arg ENVIRONMENT=prod .
 
 shrine-mu-prod:
 	$(DOCKER_BUILD) \
-		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-mu \
+		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-mu-v1.8.2 \
 		--build-arg ENVIRONMENT=shrine-prod .
 
 shrine-washu-prod:
 	$(DOCKER_BUILD) \
-		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-washu \
+		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-washu-v1.8.2 \
 		--build-arg ENVIRONMENT=shrine-washu-prod .
-
-run-local:
-	docker run \
-	--platform=linux/amd64 \
-	--read-only=true \
-	-p 8080:8080 -p 8009:8009 -p 9990:9990 \
-	i2b2-wildfly:latest
 
 
 # docker build --build-arg HEAP_SIZE="-Xms4500m -Xmx4500m" -t your-wildfly-prod .
+run:
+	docker run --rm -it \
+	--read-only \
+ 	--platform=linux/amd64 \
+	-p 8080:8080 \
+	-p 9990:9990 \
+  	063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:mu-v1.8.2

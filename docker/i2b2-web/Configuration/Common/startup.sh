@@ -1,6 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -euo pipefail
 
+# In read-only mode, we assume /run/php-fpm is already a writable tmpfs
+# Start Shibboleth daemon
+/usr/sbin/shibd -f -F &
 
-echo "[entrypoint] starting supervisord (shibd + httpd)"
-exec /opt/supervisor/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+# Start PHP-FPM
+php-fpm --nodaemonize &
+
+# Start Apache in foreground
+exec httpd -DFOREGROUND

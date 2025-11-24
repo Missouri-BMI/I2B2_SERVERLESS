@@ -9,7 +9,7 @@ This Docker container runs i2b2 Web client and i2b2 webclient classic with Apach
 Shared configuration files are stored in `Configuration/Common`.
 
 ### Target-Specific Configuration
-Credential and secret files must be created for each target environment (dev, prod, local) using `template-target` as a base.
+Credential and secret files must be created for each target environment (dev, prod, local) using `template-target` as a base. eg dev/mu; prod/mu-shrine etc.
 
 **Setup Steps:**
 
@@ -19,39 +19,14 @@ Credential and secret files must be created for each target environment (dev, pr
 **Apache Configuration:**
 - `apache/ajp.conf` - Configure secrets
 - `apache/i2b2.conf` - Set server name and directives
+- `apache/sp.conf` - Shibboleth apache side configuration
 
 **Shibboleth Configuration:**
 - `shibboleth/shibboleth2.xml` - Configure entity-id
 - `shibboleth/attribute-map.xml` - Use default settings
-
-### Generating Shibboleth Certificates
-
-Create a certificate configuration file at `shibboleth/certificate.cnf`:
-
-```
-[req]
-prompt=no
-default_bits=2048
-encrypt_key=no
-default_md=sha1
-distinguished_name=dn
-# PrintableStrings only
-string_mask=MASK:0002
-x509_extensions=ext
-
-default_keyfile=shibboleth/sp-key.pem
-
-[dn]
-CN=i2b2-dev.nextgenbmi.umsystem.edu
-
-[ext]
-subjectAltName= DNS.1:i2b2-dev.nextgenbmi.umsystem.edu, \
-                URI.1:https://i2b2-dev.nextgenbmi.umsystem.edu/shibboleth
-subjectKeyIdentifier=hash
-```
-
-Then, execute `certificate.sh`. It will create `sp-cert.pem` and `sp-key.pem` in shibboleth directory
+- `shibboleth/certificate.cnf` - Use to generate shibboleth pub/private keys
+It will create `sp-cert.pem` and `sp-key.pem` in shibboleth directory
 
 ## Building and Running
 
-Use the Makefile for build and deployment tasks. Run `make help` for available commands.
+Use the Makefile for build and deployment tasks. 

@@ -3,51 +3,42 @@
 
 FROM amazonlinux:2023
 
-ARG ENVIRONMENT=local
+## [dev | prod]
+ARG ENVIRONMENT=dev 
+
+## [mu | mu-shrine | washu-shrine]
+ARG TARGET=mu 
 
 # copy shibboleth RPM installation file
 COPY /Configuration/Common/shibboleth/shibboleth.repo /etc/yum.repos.d/
 
-
 # Base OS + httpd + shibboleth + php + wget
 RUN dnf -y update && dnf -y install \
       httpd \ 
-      php php-fpm \
+      php php-fpm php-soap php-xml php-mbstring \
       shibboleth.x86_64 \
-      python3 python3-pip \
+      wget unzip \
   && dnf clean all
 
 
-# Python + pip (dnf on AL2023) — then install Supervisor in a venv
-# Install Supervisor into a small venv (reliable on AL2023)
-RUN python3 -m venv /opt/supervisor \
- && /opt/supervisor/bin/pip install --no-cache-dir --upgrade pip supervisor
+COPY /Configuration/Common/www.conf /etc/php-fpm.d/www.conf
 
-
-# RUN mkdir -p /etc/supervisor /etc/supervisor/conf.d /var/log/supervisor /var/run/supervisor
-COPY Configuration/Common/supervisord.conf /etc/supervisor/
-
-# Configure php-fpm to use a Unix socket and not daemonize
-RUN mkdir -p /run/php-fpm && chown apache:apache /run/php-fpm
-
-
-# Copy Shibboleth files
-COPY  /Configuration/Common/shibboleth/shib.conf /etc/httpd/conf.d/
 
 # php-fpm Apache config
 COPY /Configuration/Common/php-fpm.conf /etc/httpd/conf.d/
 
 # Copy Apache config files
-COPY  /Configuration/$ENVIRONMENT/apache/i2b2.conf /etc/httpd/conf.d/
-COPY  /Configuration/$ENVIRONMENT/apache/ajp.conf /etc/httpd/conf.d/
+COPY  /Configuration/$ENVIRONMENT/$TARGET/apache/i2b2.conf /etc/httpd/conf.d/
+COPY  /Configuration/$ENVIRONMENT/$TARGET/apache/ajp.conf /etc/httpd/conf.d/
+COPY  /Configuration/$ENVIRONMENT/$TARGET/apache/sp.conf /etc/httpd/conf.d/
 
 
 # Copy Shibboleth configuration files
-COPY  /Configuration/$ENVIRONMENT/shibboleth/attribute-map.xml \ 
-      /Configuration/$ENVIRONMENT/shibboleth/shibboleth2.xml \
-      /Configuration/$ENVIRONMENT/shibboleth/inc-md-cert-mdq.pem \
-      /Configuration/$ENVIRONMENT/shibboleth/sp-cert.pem \
-      /Configuration/$ENVIRONMENT/shibboleth/sp-key.pem \
+COPY  /Configuration/$ENVIRONMENT/$TARGET/shibboleth/attribute-map.xml \ 
+      /Configuration/$ENVIRONMENT/$TARGET/shibboleth/shibboleth2.xml \
+      /Configuration/$ENVIRONMENT/$TARGET/shibboleth/inc-md-cert-mdq.pem \
+      /Configuration/$ENVIRONMENT/$TARGET/shibboleth/sp-cert.pem \
+      /Configuration/$ENVIRONMENT/$TARGET/shibboleth/sp-key.pem \
     /etc/shibboleth/
 
 # Copy Shibboleth log configuration files
@@ -59,18 +50,32 @@ RUN sed -i 's#CustomLog "logs/access_log"#CustomLog "/dev/stdout"#' /etc/httpd/c
  && sed -i 's#ErrorLog "logs/error_log"#ErrorLog "/dev/stderr"#'   /etc/httpd/conf/httpd.conf 
 
 
+# Webclient apps
+COPY i2b2-webclient/     /var/www/html/webclient/
+
+
+# Download and extract the i2b2-webclient-classic from GitHub based on environment
+RUN CLIENT_PATH="webclient-classic"; \
+    BRANCH="release/mu"; \
+    if [ "$TARGET" = "mu-shrine" ]; then \
+      BRANCH="release/mu-admin"; \
+      CLIENT_PATH="admin"; \
+    elif [ "$TARGET" = "washu-shrine" ]; then \
+      BRANCH="release/washu-admin"; \
+      CLIENT_PATH="admin"; \
+    fi && \
+    wget https://github.com/Missouri-BMI/i2b2-webclient-classic/archive/refs/heads/$BRANCH.zip -O /tmp/i2b2-webclient.zip && \
+    unzip /tmp/i2b2-webclient.zip -d /var/www/html/ && \
+    rm /tmp/i2b2-webclient.zip && \
+    mv /var/www/html/i2b2-webclient-* /var/www/html/$CLIENT_PATH
+
 # Simple entrypoint that starts supervisord in the foreground (PID 1)
 COPY Configuration/Common/startup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh
 
-# Webclient apps
-COPY i2b2-webclient/     /var/www/html/webclient/
-COPY i2b2-webclient-classic/         /var/www/html/webclient-classic/
-
-
 # Basic healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-  CMD curl -fsS http://127.0.0.1/ || exit 1
+  CMD curl -fsS http://127.0.0.1/health || exit 1
 
 # Volumes (optional if you prefer file logs in addition to stdout)
 
@@ -78,5 +83,14 @@ VOLUME ["/tmp", "/etc/shibboleth", "/var/cache/shibboleth", "/var/cache/httpd", 
 
 EXPOSE 80
 
-# Run Supervisor (manages httpd + shibd)
+# Pre-create all necessary directories for services to write to
+RUN mkdir -p /run/httpd /run/php-fpm /run/shibboleth \
+             /var/cache/httpd /var/cache/php-fpm /var/cache/shibboleth \
+             /var/log/httpd /var/log/php-fpm \
+             /var/lib/php/session /var/lib/php/wsdlcache \
+  && chown -R apache:apache /run/httpd /run/php-fpm /run/shibboleth \
+                            /var/cache/httpd /var/cache/php-fpm /var/cache/shibboleth \
+                            /var/log/httpd /var/log/php-fpm \
+                            /var/lib/php/session /var/lib/php/wsdlcache
+
 CMD ["bin/bash", "-c", "/usr/local/bin/startup.sh"]
