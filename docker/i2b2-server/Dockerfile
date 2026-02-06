@@ -1,64 +1,88 @@
-# Use Amazon Linux 2 as the base image
-FROM amazonlinux:2
+# ----------- Stage 1: Build i2b2-core-server WAR -----------
+FROM amazonlinux:2023 AS builder
 
-# Download required packages
-# RUN apk add \
-#     bash \
-#     apache-ant
-#     # Update the package list and install Java 8
+# Install build dependencies
 RUN yum update -y && \
-    yum install -y java-1.8.0-openjdk-devel ant wget unzip && \
-    yum clean all
+    yum install -y java-17-amazon-corretto-devel ant && \
+    yum clean all && rm -rf /var/cache/yum
 
-# Set JAVA_HOME environment variable
-ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0
+# Set correct JAVA_HOME for Amazon Linux 2023
+ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+
 
 # Add JAVA_HOME to PATH
 ENV PATH=$JAVA_HOME/bin:$PATH
 
-WORKDIR /opt/jboss
+
+WORKDIR /build
+
+# Copy source code
+COPY i2b2-core-server/ ./i2b2-core-server/
+
+# Build WAR file
+RUN cd i2b2-core-server/edu.harvard.i2b2.server-common && \
+    ant clean dist war
+
+# ----------- Stage 2: Setup Wildfly and Deploy WAR -----------
+FROM amazonlinux:2023
+
+# Install Java 17 runtime
+RUN yum update -y && \
+    yum install -y java-17-amazon-corretto wget zip && \
+    yum clean all && rm -rf /var/cache/yum
+
+# Set correct JAVA_HOME for Amazon Linux 2023
+ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+
+# Add JAVA_HOME to PATH
+ENV PATH=$JAVA_HOME/bin:$PATH
 
 ARG ENVIRONMENT
+WORKDIR /opt/jboss
 
-# ENV WILDFLY_VERSION=26.1.3.Final
-# RUN wget https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.zip -O wildfly-$WILDFLY_VERSION.zip \
-#     && unzip wildfly-$WILDFLY_VERSION.zip && mv wildfly-$WILDFLY_VERSION wildfly \
-#     && rm -rf wildfly-$WILDFLY_VERSION.zip
+# --- Wildfly Setup ---
+ARG WILDFLY_VERSION=37.0.1
+RUN wget https://github.com/wildfly/wildfly/releases/download/${WILDFLY_VERSION}.Final/wildfly-${WILDFLY_VERSION}.Final.zip && \
+    unzip wildfly-${WILDFLY_VERSION}.Final.zip && \
+    mv wildfly-${WILDFLY_VERSION}.Final wildfly && \
+    rm wildfly-${WILDFLY_VERSION}.Final.zip
 
-COPY wildfly-26.1.3.Final/ /opt/jboss/wildfly/
+# --- Application Deployment ---
+COPY --from=builder /build/i2b2-core-server/edu.harvard.i2b2.server-common/dist/i2b2.war ./customization/
 
-# COPY FROM HOST CONTAINER
-COPY i2b2-core-server/  /tmp/i2b2-core-server/
+# Set JVM HEAP Allocation and enable BouncyCastle for Snowflake JDBC
+# Define a build argument for the heap size with a default value (e.g., for dev)
+ARG HEAP_SIZE="-Xms1g -Xmx4g"
 
-# Build war from i2b2 server source code
-RUN mkdir customization \
-    && cd /tmp/i2b2-core-server/edu.harvard.i2b2.server-common \
-    && ant clean dist war \
-    && cp /tmp/i2b2-core-server/edu.harvard.i2b2.server-common/dist/i2b2.war /opt/jboss/customization/ \
-    && rm -rf /tmp/i2b2-core-server
+# Set the JAVA_OPTS environment variable using the build argument
+ENV JAVA_OPTS=$HEAP_SIZE
 
-# RUN wildfly configuration
-# https://goldmann.pl/blog/2014/07/23/customizing-the-configuration-of-the-wildfly-docker-image/
-# FROM quay.io/wildfly/wildfly:26.1.2.Final
+# Append additional, non-dynamic JVM options
+ENV JAVA_OPTS="$JAVA_OPTS -Dnet.snowflake.jdbc.enableBouncyCastle=TRUE"
 
-# Copy Required Script and snowflake JDBC driver
-COPY configuration/common/* /opt/jboss/customization/
-COPY configuration/${ENVIRONMENT}/commands.cli /opt/jboss/customization/
+# Configuration files
+COPY configuration/common/* ./customization/
+COPY configuration/${ENVIRONMENT}/commands.cli ./customization/
+COPY configuration/${ENVIRONMENT}/rsa_key.p8 ./customization/
 
-# run configuration script
-RUN chmod +x /opt/jboss/customization/build-config.sh \
-    && /opt/jboss/customization/build-config.sh
+# Build and configure
+RUN chmod +x ./customization/build-config.sh && \
+    ./customization/build-config.sh
 
-# Copy archieve configurations and deploy the WAR
+# Deploy WAR into Wildfly
 RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* \
     && cp  /opt/jboss/customization/i2b2.war /opt/jboss/wildfly/standalone/deployments/ \
     && touch /opt/jboss/wildfly/standalone/deployments/i2b2.war.dodeploy
 
-# PORTS
+# Expose ports
 EXPOSE 8080 8009
+# EXPOSE 8080 8009 9990
 
-# Declare Volumes
-VOLUME ["/tmp", "/opt/jboss/wildfly/standalone/data", "/opt/jboss/wildfly/standalone/log", "/opt/jboss/wildfly/standalone/tmp", "/opt/jboss/wildfly/standalone/deployments", "/opt/jboss/wildfly/standalone/configuration/"]
-# Command for starting wildfly server
+# Optional: Only mount persistent folders
+VOLUME ["/tmp", "/opt/jboss/wildfly/standalone/data", "/opt/jboss/wildfly/standalone/log", "/opt/jboss/wildfly/standalone/tmp", "/opt/jboss/wildfly/standalone/deployments"]
+
+# Start Wildfly in read-only config mode
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "--read-only-server-config=standalone.xml", "-b", "0.0.0.0"]
+
+# RUN /opt/jboss/wildfly/bin/add-user.sh admin Password123 --silent
 # CMD ["/opt/jboss/wildfly/bin/standalone.sh", "--read-only-server-config=standalone.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
