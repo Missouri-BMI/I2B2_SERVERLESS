@@ -3,11 +3,11 @@ FROM amazonlinux:2023 AS builder
 
 # Install build dependencies
 RUN yum update -y && \
-    yum install -y java-17-amazon-corretto-devel ant && \
+    yum install -y java-21-amazon-corretto-devel ant && \
     yum clean all && rm -rf /var/cache/yum
 
 # Set correct JAVA_HOME for Amazon Linux 2023
-ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
 
 
 # Add JAVA_HOME to PATH
@@ -26,13 +26,13 @@ RUN cd i2b2-core-server/edu.harvard.i2b2.server-common && \
 # ----------- Stage 2: Setup Wildfly and Deploy WAR -----------
 FROM amazonlinux:2023
 
-# Install Java 17 runtime
+# Install Java 21 runtime
 RUN yum update -y && \
-    yum install -y java-17-amazon-corretto wget zip && \
+    yum install -y java-21-amazon-corretto wget zip && \
     yum clean all && rm -rf /var/cache/yum
 
 # Set correct JAVA_HOME for Amazon Linux 2023
-ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
 
 # Add JAVA_HOME to PATH
 ENV PATH=$JAVA_HOME/bin:$PATH

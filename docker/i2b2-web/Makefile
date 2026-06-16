@@ -1,7 +1,7 @@
 DOCKER_BUILD = docker build --platform=linux/amd64
 
 IMAGE_NAME = i2b2-web
-VERSION = v1.8.2
+VERSION = v1.8.3
 
 DEV_REGISTRY = 500206249851.dkr.ecr.us-east-2.amazonaws.com/$(IMAGE_NAME)
 PROD_REGISTRY = 063312575449.dkr.ecr.us-east-2.amazonaws.com/$(IMAGE_NAME)

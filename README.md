@@ -12,10 +12,10 @@ see docker/i2b2-server, i2b2-web, shrine-server README.md file for building and 
 ### Branches Overview
 
 - **i2b2-core-server:**  
-  branch: `release/mu-1.8.2`
+  branch: `release/mu-1.8.3`
 
 - **i2b2-webclient:**  
-  branch: `release/mu-1.8.2`
+  branch: `release/mu-1.8.3`
 
 - **i2b2-webclient-classic:**  
   branch: `release/mu`
@@ -25,7 +25,7 @@ see docker/i2b2-server, i2b2-web, shrine-server README.md file for building and 
   - WashU-specific admin: `release/washu-admin`
 
 - i2b2-data
-  - branch: `snowflake/release-1.8.2`
+  - branch: `snowflake/release-1.8.3`
 
 
 ## i2b2 dockers in AWS

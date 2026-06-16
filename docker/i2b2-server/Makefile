@@ -1,45 +1,56 @@
 # Makefile
 
-DOCKER_BUILD = docker build --platform=linux/amd64
+# Build variables (override on the command line, e.g. `make mu-dev VERSION=v1.8.3`)
+PLATFORM    ?= linux/amd64
+AWS_REGION  ?= us-east-2
+DEV_ACCOUNT  ?= 500206249851
+PROD_ACCOUNT ?= 063312575449
+IMAGE_NAME  ?= i2b2-wildfly
+VERSION     ?= v1.8.3
+
+DEV_REGISTRY  = $(DEV_ACCOUNT).dkr.ecr.$(AWS_REGION).amazonaws.com
+PROD_REGISTRY = $(PROD_ACCOUNT).dkr.ecr.$(AWS_REGION).amazonaws.com
+
+DOCKER_BUILD = docker build --platform=$(PLATFORM)
 
 # Local build targets
 local:
 	$(DOCKER_BUILD) \
-		-t i2b2-wildfly:latest \
+		-t $(IMAGE_NAME):latest \
 		--build-arg ENVIRONMENT=local .
 
 # Dev build targets
 mu-dev:
 	$(DOCKER_BUILD) \
-		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:mu-v1.8.2 \
+		-t $(DEV_REGISTRY)/$(IMAGE_NAME):mu-$(VERSION) \
 		--build-arg ENVIRONMENT=dev .
 
 
 shrine-dev:
 	$(DOCKER_BUILD) \
-		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-v1.8.2 \
+		-t $(DEV_REGISTRY)/$(IMAGE_NAME):shrine-$(VERSION) \
 		--build-arg ENVIRONMENT=shrine .
 
 shrine-washu-dev:
 	$(DOCKER_BUILD) \
-		-t 500206249851.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-washu-v1.8.2 \
+		-t $(DEV_REGISTRY)/$(IMAGE_NAME):shrine-washu-$(VERSION) \
 		--build-arg ENVIRONMENT=shrine-washu .
 
 
 # Prod build targets
 mu-prod:
 	$(DOCKER_BUILD) \
-		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:mu-v1.8.2 \
+		-t $(PROD_REGISTRY)/$(IMAGE_NAME):mu-$(VERSION) \
 		--build-arg ENVIRONMENT=prod .
 
 shrine-mu-prod:
 	$(DOCKER_BUILD) \
-		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-mu-v1.8.2 \
+		-t $(PROD_REGISTRY)/$(IMAGE_NAME):shrine-mu-$(VERSION) \
 		--build-arg ENVIRONMENT=shrine-prod .
 
 shrine-washu-prod:
 	$(DOCKER_BUILD) \
-		-t 063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:shrine-washu-v1.8.2 \
+		-t $(PROD_REGISTRY)/$(IMAGE_NAME):shrine-washu-$(VERSION) \
 		--build-arg ENVIRONMENT=shrine-washu-prod .
 
 
@@ -47,7 +58,7 @@ shrine-washu-prod:
 run:
 	docker run --rm -it \
 	--read-only \
- 	--platform=linux/amd64 \
+ 	--platform=$(PLATFORM) \
 	-p 8080:8080 \
 	-p 9990:9990 \
-  	063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-wildfly:mu-v1.8.2
+  	$(PROD_REGISTRY)/$(IMAGE_NAME):mu-$(VERSION)
