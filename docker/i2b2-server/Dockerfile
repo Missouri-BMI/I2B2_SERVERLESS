@@ -6,38 +6,24 @@ RUN yum update -y && \
     yum install -y java-21-amazon-corretto-devel ant && \
     yum clean all && rm -rf /var/cache/yum
 
-# Set correct JAVA_HOME for Amazon Linux 2023
 ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
-
-
-# Add JAVA_HOME to PATH
 ENV PATH=$JAVA_HOME/bin:$PATH
 
-
 WORKDIR /build
-
-# Copy source code
 COPY i2b2-core-server/ ./i2b2-core-server/
-
-# Build WAR file
 RUN cd i2b2-core-server/edu.harvard.i2b2.server-common && \
     ant clean dist war
 
-# ----------- Stage 2: Setup Wildfly and Deploy WAR -----------
+
 FROM amazonlinux:2023
 
-# Install Java 21 runtime
 RUN yum update -y && \
-    yum install -y java-21-amazon-corretto wget zip && \
+    yum install -y java-21-amazon-corretto wget zip unzip tar gzip && \
     yum clean all && rm -rf /var/cache/yum
 
-# Set correct JAVA_HOME for Amazon Linux 2023
 ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
-
-# Add JAVA_HOME to PATH
 ENV PATH=$JAVA_HOME/bin:$PATH
 
-ARG ENVIRONMENT
 WORKDIR /opt/jboss
 
 # --- Wildfly Setup ---
@@ -47,42 +33,36 @@ RUN wget https://github.com/wildfly/wildfly/releases/download/${WILDFLY_VERSION}
     mv wildfly-${WILDFLY_VERSION}.Final wildfly && \
     rm wildfly-${WILDFLY_VERSION}.Final.zip
 
-# --- Application Deployment ---
+# --- Application + config ---
 COPY --from=builder /build/i2b2-core-server/edu.harvard.i2b2.server-common/dist/i2b2.war ./customization/
 
-# Set JVM HEAP Allocation and enable BouncyCastle for Snowflake JDBC
-# Define a build argument for the heap size with a default value (e.g., for dev)
 ARG HEAP_SIZE="-Xms1g -Xmx4g"
-
-# Set the JAVA_OPTS environment variable using the build argument
 ENV JAVA_OPTS=$HEAP_SIZE
-
-# Append additional, non-dynamic JVM options
 ENV JAVA_OPTS="$JAVA_OPTS -Dnet.snowflake.jdbc.enableBouncyCastle=TRUE"
 
-# Configuration files
+# Common (non-secret) build assets: JDBC drivers (snowflake, postgres) + build-config.sh.
 COPY configuration/common/* ./customization/
-COPY configuration/${ENVIRONMENT}/commands.cli ./customization/
-COPY configuration/${ENVIRONMENT}/rsa_key.p8 ./customization/
+RUN chmod +x ./customization/build-config.sh
 
-# Build and configure
-RUN chmod +x ./customization/build-config.sh && \
-    ./customization/build-config.sh
+# THIS variant's datasource config (commands.cli + Snowflake private key), selected by the
+# ENVIRONMENT build arg (dev | prod | shrine | shrine-prod | shrine-washu | shrine-washu-prod | local).
+ARG ENVIRONMENT=dev
+COPY configuration/${ENVIRONMENT}/ ./customization/
 
-# Deploy WAR into Wildfly
-RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* \
-    && cp  /opt/jboss/customization/i2b2.war /opt/jboss/wildfly/standalone/deployments/ \
-    && touch /opt/jboss/wildfly/standalone/deployments/i2b2.war.dodeploy
+# Deploy the WAR and apply the datasource CLI to standalone.xml AT BUILD TIME.
+RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/* && \
+    cp /opt/jboss/customization/i2b2.war /opt/jboss/wildfly/standalone/deployments/ && \
+    touch /opt/jboss/wildfly/standalone/deployments/i2b2.war.dodeploy && \
+    bash /opt/jboss/customization/build-config.sh
 
-# Expose ports
 EXPOSE 8080 8009
-# EXPOSE 8080 8009 9990
 
-# Optional: Only mount persistent folders
-VOLUME ["/tmp", "/opt/jboss/wildfly/standalone/data", "/opt/jboss/wildfly/standalone/log", "/opt/jboss/wildfly/standalone/tmp", "/opt/jboss/wildfly/standalone/deployments"]
+VOLUME ["/tmp", \
+        "/opt/jboss/wildfly/standalone/configuration", \
+        "/opt/jboss/wildfly/standalone/data", \
+        "/opt/jboss/wildfly/standalone/log", \
+        "/opt/jboss/wildfly/standalone/tmp", \
+        "/opt/jboss/wildfly/standalone/deployments"]
 
-# Start Wildfly in read-only config mode
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "--read-only-server-config=standalone.xml", "-b", "0.0.0.0"]
-
-# RUN /opt/jboss/wildfly/bin/add-user.sh admin Password123 --silent
-# CMD ["/opt/jboss/wildfly/bin/standalone.sh", "--read-only-server-config=standalone.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+# Start WildFly with the baked (already-configured) standalone.xml.
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]

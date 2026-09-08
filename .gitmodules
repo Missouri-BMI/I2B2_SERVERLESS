@@ -2,7 +2,7 @@
 [submodule "i2b2-core-server"]
 	path = docker/i2b2-server/i2b2-core-server
 	url = https://github.com/Missouri-BMI/i2b2-core-server.git
-	branch = release/mu-1.8.3
+	branch = snowflake/v1.8.3
 
 [submodule "i2b2-webclient"]
 	path = docker/i2b2-web/i2b2-webclient

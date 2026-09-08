@@ -1,74 +1,60 @@
-# Use the CentOS base image
-FROM tomcat:9-jdk17-corretto
+FROM amazonlinux:2023
+
+ARG TOMCAT_VERSION=9.0.121
+ENV CATALINA_HOME=/usr/local/tomcat
+ENV PATH=$CATALINA_HOME/bin:$PATH
+
+RUN dnf -y update && \
+    dnf -y install tar gzip unzip wget java-17-amazon-corretto-headless mariadb105 gawk && \
+    dnf clean all && rm -rf /var/cache/dnf
+
+# Install Tomcat and strip the default webapps to reduce the attack surface.
+RUN mkdir -p "$CATALINA_HOME" && \
+    wget -q "https://archive.apache.org/dist/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz" -O /tmp/tomcat.tgz && \
+    tar xzf /tmp/tomcat.tgz -C "$CATALINA_HOME" --strip-components=1 && \
+    rm -f /tmp/tomcat.tgz && \
+    rm -rf "$CATALINA_HOME"/webapps/examples "$CATALINA_HOME"/webapps/docs \
+           "$CATALINA_HOME"/webapps/manager "$CATALINA_HOME"/webapps/host-manager \
+           "$CATALINA_HOME"/webapps/ROOT
+
+# WAR (application artifact) + common (non-secret) executables.
+COPY src/shrine-4.4.1/shrine-api.war /usr/local/tomcat/webapps/
+
+COPY src/executables/setenv.sh /usr/local/tomcat/bin/setenv.sh
+COPY src/executables/docker-entrypoint.sh /usr/local/tomcat/bin/docker-entrypoint.sh
+COPY src/executables/mariadb-java-client-3.3.2.jar /usr/local/tomcat/lib/
+
+# SHRINE 4.4.1 schema DDLs (ADAPTER/QEP) loaded by the entrypoint before Tomcat starts.
+COPY shrine-setup/ /usr/local/tomcat/lib/shrine-setup/
 
 ARG ENVIRONMENT=dev
 ARG PROJECT=mu
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/context.xml   /usr/local/tomcat/conf/context.xml
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/server.xml    /usr/local/tomcat/conf/server.xml
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/creds.conf    /usr/local/tomcat/lib/creds.conf
+COPY src/configs/${ENVIRONMENT}/${PROJECT}/shrine.conf   /usr/local/tomcat/lib/shrine.conf
+COPY src/keystore/${ENVIRONMENT}/${PROJECT}/output/      /usr/local/tomcat/lib/
 
-RUN yum -y update && \
-    yum install -y \
-    postfix \
-    ntp \
-    wget \
-    tar \
-    unzip \
-    md5sum && \
-    yum clean all
 
-# COPY WAR FILE
-COPY src/shrine-4.4.0/apps/shrine-api-war/target/shrine-api.war /usr/local/tomcat/webapps/
-
-## copy executables
-COPY src/executables/${ENVIRONMENT}/commands.sh /etc/init.d/
-COPY src/executables/mariadb-java-client-3.3.2.jar /usr/local/tomcat/lib/
-COPY src/executables/setenv.sh /usr/local/tomcat/bin/setenv.sh 
-
-## copy configs
-COPY src/configs/${ENVIRONMENT}/${PROJECT}/context.xml /usr/local/tomcat/conf/
-COPY src/configs/${ENVIRONMENT}/${PROJECT}/password.conf /usr/local/tomcat/lib/
-COPY src/configs/${ENVIRONMENT}/${PROJECT}/server.xml /usr/local/tomcat/conf/
-COPY src/configs/${ENVIRONMENT}/${PROJECT}/shrine.conf /usr/local/tomcat/lib/
+COPY src/data/act-4.2/lucene_index/       /usr/local/tomcat/lib/lucene_index/
+COPY src/data/act-4.2/suggest_index/      /usr/local/tomcat/lib/suggest_index/
+COPY src/data/act-4.2/AdapterMappings.csv /usr/local/tomcat/lib/AdapterMappings.csv
+COPY src/data/act-4.2/ENACT_LogoFile.png  /usr/local/tomcat/lib/ENACT_LogoFile.png
 
 
 
-## copy keystore
-COPY src/keystore/${ENVIRONMENT}/${PROJECT}/output/ /usr/local/tomcat/
+RUN chmod +x /usr/local/tomcat/bin/setenv.sh /usr/local/tomcat/bin/docker-entrypoint.sh
 
-
-# copy data
-COPY src/data/act-4.1/ENACT_LogoFile_2023.png /usr/local/tomcat/lib/ENACT_LogoFile.png
-
-## https://open.catalyst.harvard.edu/wiki/display/SHRINE/SHRINE+Lucene+Index+Files+-+For+ENACT+Ontology+Version+4.1.0
-
-COPY src/data/act-4.1/AdapterMappingV41012224.csv /usr/local/tomcat/lib/AdapterMappingV41.csv
-# RUN cd /usr/local/tomcat/lib/ && \
-#     wget https://shrine-ontologies.s3.amazonaws.com/act/releases/lucene_index-4.1.0-SHRINE-4.2.0.zip -O lucene_index.zip && \
-#     wget https://shrine-ontologies.s3.amazonaws.com/act/releases/suggest_index-4.1.0-SHRINE-4.2.0.zip -O suggest_index.zip && \
-#     unzip lucene_index.zip && \
-#     unzip suggest_index.zip && \
-#     rm lucene_index.zip suggest_index.zip
-
-COPY src/data/act-4.1/lucene_index/* /usr/local/tomcat/lib/lucene_index/
-COPY src/data/act-4.1/suggest_index/* /usr/local/tomcat/lib/suggest_index/
-
-
-RUN chmod +x /etc/init.d/commands.sh \ 
-            /usr/local/tomcat/bin/setenv.sh \
-            /usr/local/tomcat/conf/context.xml \
-            /usr/local/tomcat/lib/shrine.conf \
-            /usr/local/tomcat/lib/password.conf \
-            /usr/local/tomcat/conf/logging.properties \
-            /usr/local/tomcat/lib/ENACT_LogoFile.png \
-            /usr/local/tomcat/lib/AdapterMappingV41.csv \
-            /usr/local/tomcat/conf/server.xml
 
 EXPOSE 6060
 
+
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /usr/local/tomcat/logs/shrine-api.log
-	# && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Declare Volumes
 VOLUME ["/usr/local/tomcat"]
 
-# Run the script when the container starts
-CMD ["/etc/init.d/commands.sh"]
+# Ensure the ADAPTER/QEP databases + schemas exist, then run Tomcat in the foreground.
+ENTRYPOINT ["/usr/local/tomcat/bin/docker-entrypoint.sh"]
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run", "-d"]

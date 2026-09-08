@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  i2b2 (mu) app NETWORK EDGE — the internet-facing ALB, its listener + target group,
+  and the two security groups (ALB + ECS service). Created here (not in the app stack)
+  so the compute stack (deployments/app-i2b2.yaml) only owns the task definition +
+  service and imports these by name. Reuses the EXISTING VPC + public subnets
+  (parameters, never created). One ALB -> one target group -> the web container (:80).
+
+Parameters:
+  Environment:      { Type: String, Default: dev }
+  VpcId:            { Type: AWS::EC2::VPC::Id, Description: EXISTING VPC }
+  PublicSubnetIds:  { Type: List<AWS::EC2::Subnet::Id>, Description: EXISTING public subnets for the ALB }
+
+Resources:
+  AlbSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub 'i2b2-${Environment} ALB - public HTTP/HTTPS ingress'
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - { IpProtocol: tcp, FromPort: 80,  ToPort: 80,  CidrIp: 0.0.0.0/0, Description: HTTP }
+        - { IpProtocol: tcp, FromPort: 443, ToPort: 443, CidrIp: 0.0.0.0/0, Description: HTTPS }
+      Tags: [{ Key: Name, Value: !Sub 'i2b2-${Environment}-alb-sg' }]
+
+  ServiceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub 'i2b2-${Environment} ECS service - ingress from ALB only'
+      VpcId: !Ref VpcId
+      Tags: [{ Key: Name, Value: !Sub 'i2b2-${Environment}-svc-sg' }]
+
+  # Web container (:80) — reachable only from this app's ALB.
+  ServiceIngressFromAlb:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref ServiceSecurityGroup
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      SourceSecurityGroupId: !Ref AlbSecurityGroup
+      Description: HTTP from the app ALB
+
+  Alb:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: !Sub 'i2b2-${Environment}'
+      Type: application
+      Scheme: internet-facing
+      SecurityGroups: [!Ref AlbSecurityGroup]
+      Subnets: [!Select [0, !Ref PublicSubnetIds], !Select [1, !Ref PublicSubnetIds]]
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VpcId
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      HealthCheckPath: /health
+      Matcher: { HttpCode: "200-399" }
+
+  Listener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref Alb
+      Port: 80
+      Protocol: HTTP
+      DefaultActions: [{ Type: forward, TargetGroupArn: !Ref TargetGroup }]
+
+Outputs:
+  AlbSecurityGroupId:     { Value: !Ref AlbSecurityGroup,     Export: { Name: !Sub '${AWS::StackName}-AlbSecurityGroupId' } }
+  ServiceSecurityGroupId: { Value: !Ref ServiceSecurityGroup, Export: { Name: !Sub '${AWS::StackName}-ServiceSecurityGroupId' } }
+  TargetGroupArn:         { Value: !Ref TargetGroup,          Export: { Name: !Sub '${AWS::StackName}-TargetGroupArn' } }
+  AlbArn:                 { Value: !Ref Alb,                  Export: { Name: !Sub '${AWS::StackName}-AlbArn' } }
+  AlbDnsName:             { Value: !GetAtt Alb.DNSName,       Export: { Name: !Sub '${AWS::StackName}-AlbDnsName' } }
+  Url:                    { Value: !Sub 'http://${Alb.DNSName}' }

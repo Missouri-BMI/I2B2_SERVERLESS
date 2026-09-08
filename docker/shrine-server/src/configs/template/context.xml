@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- =========================================================================
+     TEMPLATE for src/configs/<env>/<project>/context.xml (git-ignored per env).
+     Copy to that path and replace every {{PLACEHOLDER}}.
+
+     SHRINE 4.4.1 looks up exactly jdbc/adapter and jdbc/qep; query-history,
+     audit and steward tables live inside the ADAPTER and QEP databases.
+
+     Placeholders:
+       {{DB_HOST}}      MariaDB/RDS host (e.g. shrine-db.<account>.rds.amazonaws.com,
+                        or "shrine-db" for local docker-compose)
+       {{DB_USER}}      datasource user (e.g. shrineAdmin)
+       {{DB_PASSWORD}}  datasource password
+     ========================================================================= -->
+<Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <Resource name="jdbc/adapter" auth="Container" type="javax.sql.DataSource"
+              maxTotal="128" maxIdle="32" maxWaitMillis="10000"
+              username="{{DB_USER}}" password="{{DB_PASSWORD}}" driverClassName="org.mariadb.jdbc.Driver"
+              url="jdbc:mariadb://{{DB_HOST}}:3306/ADAPTER?serverTimezone=UTC"
+              testOnBorrow="true" validationQuery="SELECT 1" />
+
+    <Resource name="jdbc/qep" auth="Container" type="javax.sql.DataSource"
+              maxTotal="512" maxIdle="32" maxWaitMillis="10000"
+              username="{{DB_USER}}" password="{{DB_PASSWORD}}" driverClassName="org.mariadb.jdbc.Driver"
+              url="jdbc:mariadb://{{DB_HOST}}:3306/QEP?serverTimezone=UTC"
+              testOnBorrow="true" validationQuery="SELECT 1" />
+</Context>

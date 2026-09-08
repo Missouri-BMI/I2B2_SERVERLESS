@@ -1,9 +1,29 @@
+# =============================================================================
+# TEMPLATE for configuration/<env>/commands.cli  (git-ignored per env).
+# Copy to configuration/<env>/commands.cli and replace every {{PLACEHOLDER}}.
+# WildFly reads this at startup to register JDBC drivers + datasources.
+#
+# Placeholders:
+#   {{AJP_SECRET}}          shared secret; MUST match apache/ajp.conf ProxyPass secret
+#   {{SNOWFLAKE_ACCOUNT}}   Snowflake account locator (e.g. ABCDEFG-XY12345)
+#   {{SNOWFLAKE_DB}}        Snowflake database (e.g. I2B2_<ENV>)
+#   {{SNOWFLAKE_WAREHOUSE}} Snowflake warehouse (e.g. I2B2_<ENV>_WH)
+#   {{SNOWFLAKE_ROLE}}      Snowflake role (e.g. I2B2_<ENV>_APP_ROLE)
+#   {{SNOWFLAKE_USER}}      Snowflake user (e.g. I2B2_<ENV>_USER)
+#   {{SNOWFLAKE_PK_PWD}}    private-key file password for rsa_key.p8
+#   {{PG_HOST}}             Postgres host:port target
+#   {{PG_DB}}               Postgres database name, e.g. i2b2_mu
+#   {{PG_USER}}             Postgres application user
+#   {{PG_PASSWORD}}         Postgres application password
+# =============================================================================
+
 # system
 
 batch
 
 # Add this to your commands.cli to bypass the lookup
 /subsystem=webservices:write-attribute(name=wsdl-host, value="127.0.0.1")
+
 
 # Logs enabled
 /subsystem=logging/console-handler=CONSOLE:write-attribute(name=level, value=INFO)
@@ -14,8 +34,7 @@ batch
 # AJP enable
 /subsystem=undertow/server=default-server/ajp-listener=ajp:add(max-post-size=10485760000,socket-binding=ajp, scheme=http)
 
-# replace your secret....
-/subsystem=undertow/configuration=filter/expression-filter=secret-checker:add(expression="not equals(%{r,secret}, '<your-secret>') -> response-code(403)")
+/subsystem=undertow/configuration=filter/expression-filter=secret-checker:add(expression="not equals(%{r,secret}, '{{AJP_SECRET}}') -> response-code(403)")
 
 /subsystem=undertow/server=default-server/host=default-host/filter-ref=secret-checker:add(predicate="equals(%p, 8009)")
 
@@ -33,18 +52,18 @@ module add --name=net.snowflake --resources=/opt/jboss/customization/snowflake-j
 data-source add \
 --jndi-name=java:/QueryToolDemoDS \
 --name=QueryToolDemoDS \
---connection-url=jdbc:snowflake://<your-account#TTT-YYDB>.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2DATA&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON&private_key_file=/opt/jboss/customization/rsa_key.p8&private_key_file_pwd=<your-private-key> \
+--connection-url=jdbc:snowflake://{{SNOWFLAKE_ACCOUNT}}.snowflakecomputing.com/?db={{SNOWFLAKE_DB}}&schema=I2B2DATA&warehouse={{SNOWFLAKE_WAREHOUSE}}&role={{SNOWFLAKE_ROLE}}&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON&private_key_file=/opt/jboss/customization/rsa_key.p8&private_key_file_pwd={{SNOWFLAKE_PK_PWD}} \
 --driver-name=snowflake \
---user-name=I2B2_DEV_USER \
+--user-name={{SNOWFLAKE_USER}} \
 --max-pool-size=200 \
 --enabled=true
 
 data-source add \
 --jndi-name=java:/OntologyDemoDS \
 --name=OntologyDemoDS \
---connection-url=jdbc:snowflake://<your-account#TTT-YYDB>.snowflakecomputing.com/?db=I2B2_DEV&schema=I2B2METADATA&warehouse=I2B2_DEV_WH&role=I2B2_DEV_APP_ROLE&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON&private_key_file=/opt/jboss/customization/rsa_key.p8&private_key_file_pwd=<your-private-key> \
+--connection-url=jdbc:snowflake://{{SNOWFLAKE_ACCOUNT}}.snowflakecomputing.com/?db={{SNOWFLAKE_DB}}&schema=I2B2METADATA&warehouse={{SNOWFLAKE_WAREHOUSE}}&role={{SNOWFLAKE_ROLE}}&CLIENT_RESULT_COLUMN_CASE_INSENSITIVE=true&JDBC_QUERY_RESULT_FORMAT=JSON&private_key_file=/opt/jboss/customization/rsa_key.p8&private_key_file_pwd={{SNOWFLAKE_PK_PWD}} \
 --driver-name=snowflake \
---user-name=I2B2_DEV_USER \
+--user-name={{SNOWFLAKE_USER}} \
 --max-pool-size=200 \
 --enabled=true
 
@@ -64,50 +83,50 @@ module add --name=org.postgresql --resources=/opt/jboss/customization/postgresql
 data-source add \
 --jndi-name=java:/CRCBootStrapDS \
 --name=CRCBootStrapDS \
---connection-url=jdbc:postgresql://<your-db>:5432/i2b2?currentSchema=i2b2hive \
+--connection-url=jdbc:postgresql://{{PG_HOST}}/{{PG_DB}}?currentSchema=i2b2hive \
 --driver-name=postgresql \
---user-name=postgres \
---password=<your-pass> \
+--user-name={{PG_USER}} \
+--password={{PG_PASSWORD}} \
 --max-pool-size=200 \
 --enabled=true
 
 data-source add \
 --jndi-name=java:/OntologyBootStrapDS \
 --name=OntologyBootStrapDS \
---connection-url=jdbc:postgresql://<your-db>:5432/i2b2?currentSchema=i2b2hive \
+--connection-url=jdbc:postgresql://{{PG_HOST}}/{{PG_DB}}?currentSchema=i2b2hive \
 --driver-name=postgresql \
---user-name=postgres \
---password=<your-pass> \
+--user-name={{PG_USER}} \
+--password={{PG_PASSWORD}} \
 --max-pool-size=200 \
 --enabled=true
 
 data-source add \
 --jndi-name=java:/PMBootStrapDS \
 --name=PMBootStrapDS \
---connection-url=jdbc:postgresql://<your-db>:5432/i2b2?currentSchema=i2b2pm \
+--connection-url=jdbc:postgresql://{{PG_HOST}}/{{PG_DB}}?currentSchema=i2b2pm \
 --driver-name=postgresql \
---user-name=postgres \
---password=<your-pass> \
+--user-name={{PG_USER}} \
+--password={{PG_PASSWORD}} \
 --max-pool-size=200 \
 --enabled=true
 
 data-source add \
 --jndi-name=java:/WorkplaceBootStrapDS \
 --name=WorkplaceBootStrapDS \
---connection-url=jdbc:postgresql://<your-db>:5432/i2b2?currentSchema=i2b2hive \
+--connection-url=jdbc:postgresql://{{PG_HOST}}/{{PG_DB}}?currentSchema=i2b2hive \
 --driver-name=postgresql \
---user-name=postgres \
---password=<your-pass> \
+--user-name={{PG_USER}} \
+--password={{PG_PASSWORD}} \
 --max-pool-size=200 \
 --enabled=true
 
 data-source add \
 --jndi-name=java:/WorkplaceDemoDS \
 --name=WorkplaceDemoDS \
---connection-url=jdbc:postgresql://<your-db>:5432/i2b2?currentSchema=i2b2workdata \
+--connection-url=jdbc:postgresql://{{PG_HOST}}/{{PG_DB}}?currentSchema=i2b2workdata \
 --driver-name=postgresql \
---user-name=postgres \
---password=<your-pass> \
+--user-name={{PG_USER}} \
+--password={{PG_PASSWORD}} \
 --max-pool-size=200 \
 --enabled=true
 
