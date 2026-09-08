@@ -6,15 +6,6 @@
 #   - shrine-server : SHRINE API (Tomcat)               -> http://localhost:6060/shrine-api/
 #   - shrine-db     : MariaDB for SHRINE audit/history schemas
 #
-# All three images build with ENVIRONMENT=local (see each component's
-# Configuration/configs "local" set). i2b2 data sources (Snowflake + remote
-# Postgres) are defined in i2b2-server/configuration/local/commands.cli and
-# remain remote — only SHRINE's MariaDB is local.
-#
-# NOTE: shrine-server expects a prebuilt WAR at
-#   shrine-server/src/shrine-4.4.0/apps/shrine-api-war/target/shrine-api.war
-# Build/place it before running `docker compose build shrine-server`.
-#
 # Usage:
 #   docker compose build
 #   docker compose up
@@ -27,9 +18,10 @@ services:
     build:
       context: ./i2b2-server
       args:
-        - ENVIRONMENT=local
+        ENVIRONMENT: local
     container_name: i2b2-wildfly
-    read_only: true
+    # The "local" datasource config is baked at build (ENVIRONMENT=local); WildFly starts
+    # with the already-configured standalone.xml.
     ports:
       - "8080:8080"
       - "8009:8009"
@@ -42,10 +34,10 @@ services:
     build:
       context: ./i2b2-web
       args:
-        - ENVIRONMENT=local
-        - TARGET=mu
+        ENVIRONMENT: local
+        TARGET: mu
     container_name: i2b2-web
-    read_only: true
+    # The "local" Apache/Shibboleth config + webclient (mu) are baked at build.
     ports:
       - "80:80"
     networks:
@@ -59,14 +51,10 @@ services:
     build:
       context: ./shrine-server
       args:
-        - ENVIRONMENT=local
-        - PROJECT=mu
+        ENVIRONMENT: local
+        PROJECT: mu
     container_name: shrine-server
-    read_only: true
-    # SHRINE Tomcat's rootfs is read-only; give it a writable /tmp
-    # (the app data lives under the /usr/local/tomcat volume from the image).
-    tmpfs:
-      - /tmp
+    # The "local" config + ENACT ontology are baked at build (ENVIRONMENT=local, PROJECT=mu).
     ports:
       - "6060:6060"
     networks:

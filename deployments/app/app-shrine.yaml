@@ -1,0 +1,114 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  SHRINE app COMPUTE (mu | washu, chosen by the Project parameter) — ECS service + task
+  definition (i2b2-wildfly + shrine-server + shrine-reverse-proxy). Config is baked into the
+  per-variant images. The network edge (target group + service security group) is passed as
+  parameters. Imports the platform stack for the execution role + log group.
+
+Parameters:
+  Project:
+    Type: String
+    Default: mu
+    AllowedValues: [mu, washu]
+    Description: which SHRINE node this stack deploys (drives image tags + names)
+  PlatformStackName:      { Type: String, Default: i2b2-platform, Description: platform stack (role + logs) }
+  Environment:            { Type: String, Default: dev }
+  DesiredCount:           { Type: Number, Default: 1 }
+  ClusterName:            { Type: String, Description: EXISTING ECS cluster name }
+  PrivateSubnetIds:       { Type: List<AWS::EC2::Subnet::Id>, Description: EXISTING private subnets for the tasks }
+  ServiceSecurityGroupId: { Type: AWS::EC2::SecurityGroup::Id, Description: container security group }
+  TargetGroupArn:         { Type: String, Description: ALB target group the reverse proxy registers with }
+  AlbDnsName:             { Type: String, Default: '', Description: ALB DNS name (for the Url output) }
+  Registry:               { Type: String, Default: '500206249851.dkr.ecr.us-east-2.amazonaws.com', Description: ECR registry }
+  Version:                { Type: String, Default: v1.8.3 }
+
+Mappings:
+  # i2b2-wildfly image tag per SHRINE node.
+  WildflyTag:
+    mu:    { tag: shrine }
+    washu: { tag: shrine-washu }
+
+Resources:
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub 'shrine-${Project}-${Environment}'
+      Cpu: "4096"
+      Memory: "8192"
+      NetworkMode: awsvpc
+      RequiresCompatibilities: [FARGATE]
+      RuntimePlatform: { CpuArchitecture: X86_64, OperatingSystemFamily: LINUX }
+      ExecutionRoleArn: { Fn::ImportValue: !Sub '${PlatformStackName}-ExecutionRoleArn' }
+      EphemeralStorage: { SizeInGiB: 50 }   # three images incl. the ~3.5 GB baked ENACT ontology
+      ContainerDefinitions:
+        - Name: i2b2-wildfly
+          Image: !Sub ['${R}/i2b2-wildfly:${T}-${Version}', { R: !Ref Registry, T: !FindInMap [WildflyTag, !Ref Project, tag] }]
+          Essential: true
+          Cpu: 1536
+          Memory: 3072
+          ReadonlyRootFilesystem: true   # writable paths are the Dockerfile VOLUMEs (ephemeral, seeded)
+          PortMappings:
+            - { ContainerPort: 8080, Protocol: tcp, Name: i2b2-wildfly-8080 }
+            - { ContainerPort: 8009, Protocol: tcp, Name: i2b2-wildfly-8009 }
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: { Fn::ImportValue: !Sub '${PlatformStackName}-LogGroupName' }
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: !Sub 'shrine-${Project}-wildfly'
+        - Name: shrine-server
+          Image: !Sub '${Registry}/shrine-server:${Project}-${Version}'
+          Essential: true
+          Cpu: 1536
+          Memory: 3072
+          ReadonlyRootFilesystem: true   # writable paths are the Dockerfile VOLUMEs (ephemeral, seeded)
+          PortMappings: [{ ContainerPort: 6060, Protocol: tcp, Name: tomcat }]
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: { Fn::ImportValue: !Sub '${PlatformStackName}-LogGroupName' }
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: !Sub 'shrine-${Project}-server'
+        - Name: shrine-reverse-proxy
+          Image: !Sub '${Registry}/i2b2-web:${Project}-shrine-${Version}'
+          Essential: true
+          Cpu: 1024
+          Memory: 2048
+          ReadonlyRootFilesystem: true   # writable paths are the Dockerfile VOLUMEs (ephemeral, seeded)
+          PortMappings: [{ ContainerPort: 80, Protocol: tcp, Name: shrine-proxy-80 }]
+          HealthCheck:
+            Command: [CMD-SHELL, "curl --fail http://localhost/health || exit 1"]
+            Interval: 30
+            Timeout: 5
+            Retries: 3
+            StartPeriod: 120
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: { Fn::ImportValue: !Sub '${PlatformStackName}-LogGroupName' }
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: !Sub 'shrine-${Project}-proxy'
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub 'shrine-${Project}-${Environment}'
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref TaskDefinition
+      DesiredCount: !Ref DesiredCount
+      LaunchType: FARGATE
+      HealthCheckGracePeriodSeconds: 600
+      DeploymentConfiguration: { MinimumHealthyPercent: 100, MaximumPercent: 200 }
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          SecurityGroups: [!Ref ServiceSecurityGroupId]
+          Subnets: [!Select [0, !Ref PrivateSubnetIds], !Select [1, !Ref PrivateSubnetIds]]
+      LoadBalancers:
+        - ContainerName: shrine-reverse-proxy
+          ContainerPort: 80
+          TargetGroupArn: !Ref TargetGroupArn
+
+Outputs:
+  Url:         { Value: !Sub 'http://${AlbDnsName}' }
+  ServiceName: { Value: !GetAtt Service.Name }

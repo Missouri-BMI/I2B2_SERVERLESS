@@ -1,2 +1,0 @@
-shrine-perftest-node01.catalyst.harvard.edu
-shrine-perftest-node02.catalyst.harvard.edu

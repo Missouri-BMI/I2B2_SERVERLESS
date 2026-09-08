@@ -38,4 +38,5 @@ docker/shrine-db/load-scripts/**
 docker/shrine-server/src/keystore/**
 docker/shrine-server/src/data/**
 
-
+# Build artifacts (WARs are built in Docker / provided out-of-band; too large for git)
+*.war

@@ -1,1 +1,0 @@
--- Adapter update tables/data --

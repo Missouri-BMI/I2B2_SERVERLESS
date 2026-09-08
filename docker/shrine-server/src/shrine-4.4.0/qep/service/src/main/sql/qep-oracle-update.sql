@@ -1,1 +1,0 @@
--- Query-entry-point update tables/data --

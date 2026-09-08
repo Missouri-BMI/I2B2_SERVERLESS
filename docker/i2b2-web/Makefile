@@ -1,52 +1,32 @@
-DOCKER_BUILD = docker build --platform=linux/amd64
+# i2b2-web — PER-VARIANT images. The (env, target) Apache/Shibboleth config + served
+# webclient are baked in at build (ENVIRONMENT + TARGET build args); the tag encodes the
+# TARGET (mu | mu-shrine | washu-shrine), the registry encodes the account.
 
-IMAGE_NAME = i2b2-web
-VERSION = v1.8.3
+PLATFORM     ?= linux/amd64
+VERSION      ?= v1.8.3
+IMAGE        ?= i2b2-web
+AWS_REGION   ?= us-east-2
+DEV_REGISTRY  = 500206249851.dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE)
+PROD_REGISTRY = 063312575449.dkr.ecr.$(AWS_REGION).amazonaws.com/$(IMAGE)
 
-DEV_REGISTRY = 500206249851.dkr.ecr.us-east-2.amazonaws.com/$(IMAGE_NAME)
-PROD_REGISTRY = 063312575449.dkr.ecr.us-east-2.amazonaws.com/$(IMAGE_NAME)
+# $(1)=image tag  $(2)=build args  $(3)=target registry
+define build_push
+	docker build --platform=$(PLATFORM) $(2) -t $(IMAGE):$(1) .
+	docker tag $(IMAGE):$(1) $(3):$(1)
+	docker push $(3):$(1)
+endef
 
-.PHONY: dev dev-mu-shrine dev-washu-shrine prod prod-mu-shrine prod-washu-shrine 
+.PHONY: mu-dev mu-prod mu-shrine-dev mu-shrine-prod washu-shrine-dev washu-shrine-prod
 
-dev:
-	$(DOCKER_BUILD) \
-		-t $(DEV_REGISTRY):mu-$(VERSION) \
-			--build-arg ENVIRONMENT=dev \
-			--build-arg TARGET=mu .
-
-dev-mu-shrine:
-	$(DOCKER_BUILD) \
-		-t $(DEV_REGISTRY):mu-shrine-$(VERSION) \
-			--build-arg ENVIRONMENT=dev \
-			--build-arg TARGET=mu-shrine .
-
-dev-washu-shrine:
-	$(DOCKER_BUILD) \
-		-t $(DEV_REGISTRY):washu-shrine-$(VERSION) \
-			--build-arg ENVIRONMENT=dev \
-			--build-arg TARGET=washu-shrine .
-
-prod:
-	$(DOCKER_BUILD) \
-		-t $(PROD_REGISTRY):mu-$(VERSION) \
-		--build-arg ENVIRONMENT=prod \
-		--build-arg TARGET=mu .
-
-prod-mu-shrine:
-	$(DOCKER_BUILD) \
-		-t $(PROD_REGISTRY):mu-shrine-$(VERSION) \
-		--build-arg ENVIRONMENT=prod \
-		--build-arg TARGET=mu-shrine .
-
-prod-washu-shrine:
-	$(DOCKER_BUILD) \
-		-t $(PROD_REGISTRY):washu-shrine-$(VERSION) \
-			--build-arg ENVIRONMENT=prod \
-			--build-arg TARGET=washu-shrine .
-
-run:
-	docker run --read-only --rm -it \
-	--platform=linux/amd64 \
- 	-p 80:80 \
-	-p 443:443 \
-  	063312575449.dkr.ecr.us-east-2.amazonaws.com/i2b2-web:mu-v1.8.2
+mu-dev:
+	$(call build_push,mu-$(VERSION),--build-arg ENVIRONMENT=dev --build-arg TARGET=mu,$(DEV_REGISTRY))
+mu-prod:
+	$(call build_push,mu-$(VERSION),--build-arg ENVIRONMENT=prod --build-arg TARGET=mu,$(PROD_REGISTRY))
+mu-shrine-dev:
+	$(call build_push,mu-shrine-$(VERSION),--build-arg ENVIRONMENT=dev --build-arg TARGET=mu-shrine,$(DEV_REGISTRY))
+mu-shrine-prod:
+	$(call build_push,mu-shrine-$(VERSION),--build-arg ENVIRONMENT=prod --build-arg TARGET=mu-shrine,$(PROD_REGISTRY))
+washu-shrine-dev:
+	$(call build_push,washu-shrine-$(VERSION),--build-arg ENVIRONMENT=dev --build-arg TARGET=washu-shrine,$(DEV_REGISTRY))
+washu-shrine-prod:
+	$(call build_push,washu-shrine-$(VERSION),--build-arg ENVIRONMENT=prod --build-arg TARGET=washu-shrine,$(PROD_REGISTRY))
