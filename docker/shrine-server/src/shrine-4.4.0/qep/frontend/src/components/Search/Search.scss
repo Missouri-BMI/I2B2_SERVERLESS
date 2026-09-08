@@ -1,0 +1,41 @@
+@import "assets/style/theme.scss";
+.Search {
+  .fa-times-circle,
+  .fa-search {
+    position: relative;
+    color: $grey4;
+  }
+  .fa-search {
+    font-size: 0.6rem;
+    left: 20px;
+  }
+  .fa-times-circle {
+    font-size: $font-size2;
+    right: 20px;
+    display: none;
+    cursor: pointer;
+  }
+  input {
+    @include custom-input;
+    margin-left: 2.5%;
+    text-align: left;
+    &:focus {
+      text-indent: 28px;
+      width: 90%;
+      ~ .clear .fa-times-circle,
+      ~ .fa-search {
+        display: inline;
+        color: $accent_color;
+      }
+    }
+    width: 85%;
+    text-indent: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    transition: all 0.15s ease-in-out;
+  }
+  input:last-child {
+    display: none;
+  }
+}

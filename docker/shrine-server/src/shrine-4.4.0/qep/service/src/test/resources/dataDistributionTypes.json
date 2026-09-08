@@ -1,0 +1,30 @@
+{
+  "Demographic Distribution" : [
+    {
+      "value" : "PATIENT_AGE_COUNT_XML",
+      "description" : "Age patient breakdown"
+    },
+    {
+      "value" : "PATIENT_GENDER_COUNT_XML",
+      "description" : "Gender patient breakdown"
+    },
+    {
+      "value" : "PATIENT_RACE_COUNT_XML",
+      "description" : "Race patient breakdown"
+    },
+    {
+      "value" : "PATIENT_VITALSTATUS_COUNT_XML",
+      "description" : "Vital Status patient breakdown"
+    }
+  ],
+  "Advanced" : [
+    {
+      "value" : "PATIENT_TOP3DIAG_XML",
+      "description" : "Top 3 diagnoses breakdown"
+    },
+    {
+      "value" : "PATIENT_TOP20MEDS_XML",
+      "description" : "Top 20 Medications"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "Test",
+  "notes": null,
+  "faved": false,
+  "dataDistributionTypes" : [],
+  "conceptGroups": [],
+  "timeline": {
+    "timelineEvents": [
+      {
+        "isExcluded": false,
+        "options": {
+          "startDate": null,
+          "endDate": null,
+          "occurrences": 1
+        },
+        "concepts": [
+          {
+            "displayName": "Certain infectious and parasitic diseases (a00-b99)",
+            "path": "\\\\ICD10_ICD9\\Diagnoses\\(A00-B99) Cert~ugmm\\",
+            "constraint": null
+          }
+        ]
+      },
+      {
+        "isExcluded": false,
+        "options": {
+          "startDate": null,
+          "endDate": null,
+          "occurrences": 1
+        },
+        "concepts": [
+          {
+            "displayName": "Diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism (d50-d89)",
+            "path": "\\\\ICD10_ICD9\\Diagnoses\\(D50-D89) Dise~nx0c\\",
+            "constraint": null
+          }
+        ]
+      }
+    ],
+    "timelineLinks": [
+      {
+        "BasicTimelineLink": {
+          "previousEventConstraint": {
+            "boundary": "START",
+            "anchor": "ANY"
+          },
+          "thisEventConstraint": {
+            "boundary": "START",
+            "anchor": "ANY"
+          },
+          "relationship" : "Before"
+        }
+      }
+    ]
+  }
+}

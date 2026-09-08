@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QueryHistoryContainer should render correctly 1`] = `
+<Fragment>
+  <ContextProvider
+    value={
+      Object {
+        "favTexts": null,
+        "handleFavQuery": [Function],
+        "handleRenameQuery": [Function],
+        "loadResult": [Function],
+        "pageBack": [Function],
+        "pageForward": [Function],
+        "results": Array [],
+        "selectedQueryId": null,
+        "showPageBack": false,
+        "showPageForward": false,
+      }
+    }
+  >
+    <QueryHistory
+      favTexts={null}
+      isFetching={false}
+      onSort={[Function]}
+    />
+  </ContextProvider>
+</Fragment>
+`;

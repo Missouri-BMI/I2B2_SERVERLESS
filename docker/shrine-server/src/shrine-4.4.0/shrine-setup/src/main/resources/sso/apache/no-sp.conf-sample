@@ -1,0 +1,31 @@
+## ADJUST_FOR_YOUR_SITE (ServerName, ProxyPass)
+ServerName <your hostname>
+Timeout 300
+ProxyTimeout 300
+
+ProxyIOBufferSize 65536
+ProxyPass "/shrine-api/" "ajp://<your hostname>:8009/shrine-api/"
+ProxyPassReverse "/shrine-api/" "ajp://<your hostname>:8009/shrine-api/"
+
+## hits to just the bare hostname should go to landing page
+<LocationMatch "^/$">
+  RewriteEngine On
+  RewriteRule .* /shrine-api/shrine-webclient
+</LocationMatch>
+
+## use serverName above when constructing self-referential URLs
+UseCanonicalName On
+
+<LocationMatch "(/shrine-api/(staticData|ontology|qep|shrine-webclient|authorizer))">
+
+    # no caching
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+
+    # isSsoMode cookie -- append, do not clobber other cookies
+    # https://stackoverflow.com/questions/16599643/set-multiple-cookies-in-apache
+    RewriteEngine On
+    RewriteRule .* -  [CO=isSsoMode:false:shrine-sso-node01.catalyst.harvard.edu:0:/:true:false]
+
+</LocationMatch>

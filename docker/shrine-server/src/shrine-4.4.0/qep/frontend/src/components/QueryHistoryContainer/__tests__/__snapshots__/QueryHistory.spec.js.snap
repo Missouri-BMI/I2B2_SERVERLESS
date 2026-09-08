@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QueryHistory should render correctly 1`] = `
+<div
+  className="QueryHistory"
+>
+  <WithStyles(ForwardRef(Grid))
+    className="title-grid"
+    container={true}
+  >
+    <WithStyles(ForwardRef(Typography))
+      className="title"
+    >
+      Previous Results
+    </WithStyles(ForwardRef(Typography))>
+  </WithStyles(ForwardRef(Grid))>
+  <div
+    className="content-wrapper"
+  >
+    <WithStyles(ForwardRef(Table))
+      className="table table-hover table-mc-light-blue"
+    >
+      <WithStyles(ForwardRef(TableHead))>
+        <WithStyles(ForwardRef(TableRow))>
+          <WithStyles(ForwardRef(TableCell))>
+            <i
+              aria-hidden="true"
+              className="fa fa-circle-o"
+            />
+          </WithStyles(ForwardRef(TableCell))>
+          <SortHeader
+            id="queryName"
+            isFetching={false}
+            label="Name"
+            onSort={[Function]}
+            selected={false}
+          />
+          <SortHeader
+            id="dateCreated"
+            isFetching={false}
+            label="Run Date"
+            onSort={[Function]}
+            selected={true}
+          />
+          <SortHeader
+            id="queryFaved"
+            isFetching={false}
+            label={
+              <ForwardRef(WithStyles)
+                arrow={true}
+                classes={
+                  Object {
+                    "tooltip": "query-history-fav-tooltip",
+                  }
+                }
+                disableHoverListener={false}
+                enterDelay={1000}
+                title={
+                  <ForwardRef(WithStyles)>
+                    two
+                  </ForwardRef(WithStyles)>
+                }
+              >
+                <i
+                  aria-hidden="true"
+                  className="fa fa-star"
+                />
+              </ForwardRef(WithStyles)>
+            }
+            onSort={[Function]}
+            selected={false}
+          />
+          <WithStyles(ForwardRef(TableCell))>
+            <i
+              aria-hidden="true"
+              className="fa fa-pencil"
+            />
+          </WithStyles(ForwardRef(TableCell))>
+        </WithStyles(ForwardRef(TableRow))>
+      </WithStyles(ForwardRef(TableHead))>
+      <ResultsBody />
+    </WithStyles(ForwardRef(Table))>
+  </div>
+</div>
+`;

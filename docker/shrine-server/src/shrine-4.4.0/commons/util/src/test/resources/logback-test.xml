@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- This is default whenever Loggable is imported. Custom logback-test.xml in classpath of importing modules have priority.
+        By default log to console. Test modules should never need logback-test.xml, only when a log file is desired. -->
+    <appender name="shrine" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="net.shrine.log.CustomPatternLayout">
+                <pattern>%d{yyyy-MMM-dd HH:mm:ss.SSS, UTC} | %5p | SHRINE-API | %-25class{0} | %-15t | %m %n%ex</pattern>
+            </layout>
+        </encoder>
+    </appender>
+    <appender name="R" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="net.shrine.log.CustomPatternLayout" >
+                <pattern>%d{yyyy-MMM-dd HH:mm:ss.SSS, UTC} | %5p | SHRINE-ROOT | %-25class{0} | %-15t | %m %n%ex</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <logger name="net.shrine.log.CustomPatternLayoutTest" additivity="false" level="info">
+        <appender-ref ref="shrine"/>
+    </logger>
+    <logger name="net.shrine" additivity="false" level="warn">
+        <appender-ref ref="shrine"/>
+    </logger>
+    <root level="warn">
+        <appender-ref ref="R"/>
+    </root>
+</configuration>

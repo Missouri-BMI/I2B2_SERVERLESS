@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QueryStatus should render correctly 1`] = `
+<span>
+  <Status
+    className="QueryNonError"
+    statusText="Submitted"
+  />
+  <span>
+     - 
+    <b>
+      0
+    </b>
+     sites with patients, up to 
+    <b>
+      0
+    </b>
+     total patients 
+  </span>
+  <WithStyles(ForwardRef(Tooltip))
+    arrow={true}
+    classes={
+      Object {
+        "tooltip": "query-definition-help-text",
+      }
+    }
+    title={
+      <ForwardRef(WithStyles)>
+        Sites reporting “x patients or fewer” are assumed to have a count of zero patients
+      </ForwardRef(WithStyles)>
+    }
+  >
+    <i
+      className="fa fa-info-circle info"
+    />
+  </WithStyles(ForwardRef(Tooltip))>
+</span>
+`;

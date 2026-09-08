@@ -1,0 +1,29 @@
+@import "assets/style/theme.scss";
+
+.ToggleContainer {
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid $grey2;
+  width: calc(100% - 10px);
+  position: relative;
+  min-height: 40px;
+  border-radius: 4px;
+  display: none;
+  &.open {
+    padding-left: 8px;
+    display: block;
+    .minimize-toggle-container {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      margin-right: 4px;
+      text-align: right;
+      font-size: 10px;
+      color: rgba(0, 0, 0, 0.65);
+      &:hover {
+        cursor: pointer;
+        color: rgb(0, 0, 0);
+      }
+    }
+  }
+}

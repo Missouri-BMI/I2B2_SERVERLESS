@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineLinkView should render correctly 1`] = `
+<div
+  className="TimelineView"
+>
+  <div>
+    <EventView
+      event={
+        Object {
+          "concepts": Array [],
+          "containsDemographic": false,
+          "isExcluded": false,
+          "options": Object {
+            "endDate": null,
+            "occurrences": 1,
+            "startDate": null,
+          },
+        }
+      }
+      eventId={0}
+      header="Event 1"
+      optional={false}
+    />
+    <TimelineLinkView
+      event1Index={0}
+      event2Index={1}
+      timelineLink={
+        Object {
+          "BasicTimelineLink": Object {
+            "previousEventConstraint": Object {
+              "anchor": "ANY",
+              "boundary": "START",
+            },
+            "primaryTimeSpan": null,
+            "relationship": "Before",
+            "secondaryTimeSpan": null,
+            "thisEventConstraint": Object {
+              "anchor": "ANY",
+              "boundary": "START",
+            },
+          },
+        }
+      }
+    />
+  </div>
+  <div>
+    <EventView
+      event={
+        Object {
+          "concepts": Array [],
+          "containsDemographic": false,
+          "isExcluded": false,
+          "options": Object {
+            "endDate": null,
+            "occurrences": 1,
+            "startDate": null,
+          },
+        }
+      }
+      eventId={1}
+      header="Event 2"
+      optional={false}
+    />
+  </div>
+  <EventViewAdder
+    addTimelineEvent={[Function]}
+    maxEventsReached={[Function]}
+  />
+</div>
+`;

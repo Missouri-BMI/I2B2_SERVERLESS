@@ -1,0 +1,66 @@
+@import "assets/style/theme.scss";
+.QueryResultView {
+  padding: 0;
+  height: calc(100% - 50px);
+  margin: 36px 0px 20px 0;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  .query-result-flex-container:first-child {
+    flex: 0 0 auto;
+  }
+  .query-result-flex-container:last-child {
+    flex: 1 0 auto;
+    height: 0px;
+    overflow: visible;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .QueryResultContent {
+    padding: 10px 32px 0 32px;
+    .results-and-distribution {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      .MuiTableContainer-root {
+        overflow: visible;
+      }
+    }
+  }
+
+  .MuiDivider-middle {
+    margin-top: 8px;
+  }
+
+  .no-query-message {
+    text-align: center;
+    color: #878787;
+    margin-top: 24px;
+    padding: 8px;
+    .MuiTypography-root {
+      font-size: 1rem;
+      font-style: italic;
+    }
+  }
+
+  .Loader {
+    position: relative;
+    margin-left: 250px;
+    margin-right: auto;
+    > div {
+      position: relative;
+      top: -50px;
+    }
+  }
+
+  .ToggleErrorSites {
+    float: right;
+    .ToggleSwitch {
+      margin-right: 0;
+    }
+  }
+}

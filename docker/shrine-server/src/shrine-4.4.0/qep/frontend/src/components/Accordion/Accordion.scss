@@ -1,0 +1,67 @@
+@import "assets/style/theme.scss";
+
+.Accordion {
+  .accordion-toggle {
+    min-height: 44px;
+    &.Mui-expanded {
+      min-height: 24px;
+    }
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  .heading {
+    @include options-link;
+    padding-right: 4px;
+  }
+
+  .fa.fa-chevron-down.accordion-chevron {
+    transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    font-size: 0.6rem;
+    margin-left: 8px;
+  }
+
+  &.MuiExpansionPanel-root {
+    &.Mui-expanded {
+      margin: 0;
+      .fa.fa-chevron-down.accordion-chevron {
+        transform: rotate(180deg);
+      }
+
+      .MuiButton-root {
+        max-width: 400px;
+      }
+    }
+    background: none;
+    box-shadow: none;
+
+    .MuiButton-root {
+      text-align: left;
+      max-width: 800px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .MuiExpansionPanelSummary-content {
+      margin: 0;
+      position: absolute;
+      top: 0;
+      left: 8px;
+    }
+  }
+
+  .accordion-content {
+    flex-direction: column;
+    padding-left: 16px;
+  }
+
+  .fa-undo {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.65);
+    &:hover {
+      color: rgb(0, 0, 0);
+    }
+  }
+}

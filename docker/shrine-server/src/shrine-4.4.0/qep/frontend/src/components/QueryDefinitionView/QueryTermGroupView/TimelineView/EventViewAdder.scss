@@ -1,0 +1,25 @@
+@import "assets/style/theme.scss";
+
+.EventViewAdder {
+  > div:first-child {
+    margin-left: 0px;
+  }
+  > div {
+    margin-left: 8px;
+  }
+  display: flex;
+  background-color: $timeline2;
+  height: 40px;
+  width: 100%;
+  text-align: left;
+  color: #fbfbfb;
+  align-items: center;
+
+  .addTEvent{
+    padding-left: 0px;
+  }
+
+  .addTEvent label{
+    margin-left: 10px;
+  }
+}

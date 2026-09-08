@@ -1,0 +1,22 @@
+{
+  "none": [
+    "All Concepts"
+  ],
+  "codeCategory": [
+    "Demographics",
+    "Diagnoses",
+    "Laboratory Tests",
+    "Medications",
+    "Procedures",
+    "Visit Details"
+  ],
+  "codeSet": [
+    "ICD-9-CM",
+    "ICD-10",
+    "ICD10-ICD9",
+    "ICD-9-Proc",
+    "CPT-4",
+    "HCPCS",
+    "ICD-10-PCS"
+  ]
+}

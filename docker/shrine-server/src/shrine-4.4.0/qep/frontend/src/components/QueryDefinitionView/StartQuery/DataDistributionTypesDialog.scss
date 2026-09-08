@@ -1,0 +1,38 @@
+@import "assets/style/theme.scss";
+.DataDistributionTypesDialog {
+  @include light-theme-modal(600px);
+
+  .data-dist-type-content{
+    padding: 15px;
+    width: 100%;
+    max-height : 440px;
+    overflow: auto;
+  }
+  .data-dist-type-label{
+    padding: 0;
+  }
+
+  .field-set {
+    margin: 10px 0 10px 0;
+    width: 100%;
+  }
+
+  .field-label {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+
+  .MuiCheckbox-root{
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .DialogContent hr {
+    border: 0.5px solid #2782a1;
+  }
+
+  .MuiDivider-root {
+    height: 0;
+  }
+}

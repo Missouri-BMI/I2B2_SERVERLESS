@@ -1,0 +1,13 @@
+{
+  "id": 0,
+  "versionInfo": {
+    "protocolVersion": 2,
+    "shrineVersion": "3.3.0",
+    "itemVersion": 1,
+    "createDate": 0,
+    "changeDate": 0
+  },
+  "userName": "testResearcherName",
+  "userDomainName": "testUserDomainName",
+  "nodeId": 0
+}

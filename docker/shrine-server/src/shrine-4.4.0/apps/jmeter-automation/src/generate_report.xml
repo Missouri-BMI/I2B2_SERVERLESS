@@ -1,0 +1,14 @@
+<project name="JMeter Report" default="report" basedir=".">
+
+    <target name="report">
+        <tstamp>
+            <format property="TODAY_DATE_TIME" pattern="MM/dd/yyyy hh:mm aa"
+                    unit="hour"/>
+        </tstamp>
+        <echo message="Generating report from results in ${basedir}/target/jmeter/results"/>
+        <xslt style="src/jmeter_report.xsl" destdir="${basedir}/output/reports/" basedir="${basedir}/target/jmeter/results" includes="*.jtl" extension=".html">
+            <param name="DATE_TIME" expression="${TODAY_DATE_TIME}" type="STRING"/>
+        </xslt>
+    </target>
+</project>
+

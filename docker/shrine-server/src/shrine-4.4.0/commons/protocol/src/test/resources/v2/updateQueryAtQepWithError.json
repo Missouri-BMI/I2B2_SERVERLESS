@@ -1,0 +1,16 @@
+{
+  "queryId": 0,
+  "problemDigest": {
+    "codec": "net.shrine.problem.TestProblem",
+    "stampText": "1970-01-01T00:00:00Z on 0.0.0.0 Unknown",
+    "summary": "test summary",
+    "description": "test description",
+    "detailsText": null,
+    "exceptionDigest": null,
+    "epoch": 0
+  },
+  "expectedItemVersion": 2,
+  "changeDate": 0,
+  "queryStatus": "HubError",
+  "encodedClass": "UpdateQueryAtQepWithError"
+}

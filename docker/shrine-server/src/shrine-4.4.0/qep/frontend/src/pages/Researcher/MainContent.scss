@@ -1,0 +1,36 @@
+.Researcher {
+  height: 86vh;
+  .MainContent {
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .flex-container > div {
+      transition: all 0.25s;
+      width: 65%;
+    }
+
+    .right-content,
+    .left-content {
+      height: 84vh;
+    }
+
+    .flex-container > div.left-content {
+      max-width: 0%;
+      display: flex;
+      flex-flow: column;
+      &.open {
+        max-width: 35% !important;
+      }
+
+      &.closed {
+        border: none;
+        > * {
+          display: none;
+        }
+      }
+    }
+  }
+}

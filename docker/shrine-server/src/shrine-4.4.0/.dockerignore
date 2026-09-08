@@ -1,0 +1,9 @@
+*
+!docker/custom-lifecycle/**
+!docker/scripts/**
+!shrine-setup/target/**
+!apps/shrine-api-war/target/shrine-api-war*.war
+!hub/service/src/main/sql/**
+!hub/network-lifecycle-tool/target/shrine-network-lifecycle-tool-*.zip
+!qep/researcher-metrics-tool/target/shrine-researcher-metrics-*.zip
+!kafka/**

@@ -1,0 +1,18 @@
+{
+  "queryId": 0,
+  "adapterNodeKey": "testNode",
+  "status": "IdAssigned",
+  "statusMessage": "test status message",
+  "crcQueryInstanceId": null,
+  "adapterTime": 1234,
+  "encodedClass": "UpdateCrcQueuedResultWithProgress",
+  "resultMetadata": {
+    "obfuscatingParameters": {
+      "binSize": 5,
+      "stdDev": 6.5,
+      "noiseClamp": 10,
+      "lowLimit": 10
+    },
+    "custom": null
+  }
+}

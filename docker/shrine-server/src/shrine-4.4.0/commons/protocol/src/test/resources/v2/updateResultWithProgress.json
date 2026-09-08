@@ -1,0 +1,7 @@
+{
+  "queryId": 0,
+  "adapterNodeKey": "testNode",
+  "status": "IdAssigned",
+  "statusMessage": "test status message",
+  "encodedClass": "UpdateResultWithProgress"
+}

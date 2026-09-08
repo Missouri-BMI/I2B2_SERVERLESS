@@ -1,0 +1,18 @@
+.ResultsBody {
+  .paging-btn:hover {
+    td {
+      background-color: white !important;
+    }
+  }
+  .load-next-btn,
+  .load-previous-btn {
+    &:hover {
+      border: 1px solid rgba(0, 0, 0, 0.23);
+    }
+    font-size: 0.8rem;
+    text-transform: capitalize;
+  }
+  /*
+    
+  */
+}

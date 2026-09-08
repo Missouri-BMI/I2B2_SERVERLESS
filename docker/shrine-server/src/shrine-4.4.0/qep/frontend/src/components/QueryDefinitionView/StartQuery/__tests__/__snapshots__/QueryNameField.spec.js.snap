@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QueryNameField should render correctly 1`] = `
+<ValidatedTextField
+  InputProps={
+    Object {
+      "endAdornment": <ForwardRef(WithStyles)
+        position="end"
+      >
+        <ForwardRef(WithStyles)
+          arrow={true}
+          classes={
+            Object {
+              "tooltip": "shrine-tooltip",
+            }
+          }
+          title={
+            <ForwardRef(WithStyles)>
+              Autogenerate name
+            </ForwardRef(WithStyles)>
+          }
+        >
+          <ForwardRef(WithStyles)
+            className="generate fa-solid fa-bolt-lightning"
+            role="button"
+          />
+        </ForwardRef(WithStyles)>
+      </ForwardRef(WithStyles)>,
+    }
+  }
+  allowLeadingSpace={false}
+  invalidCharsRegex="[!|^|\`~]|(<script\\\\s)|(</?script>)"
+  maxCharacters={10}
+  maxTextLength={250}
+  name="Test Field"
+  onTextChange={[Function]}
+  required={true}
+/>
+`;

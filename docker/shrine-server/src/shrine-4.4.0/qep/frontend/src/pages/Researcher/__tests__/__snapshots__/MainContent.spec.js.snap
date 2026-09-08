@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainContent should render correctly 1`] = `
+<div
+  className="row mb-2 MainContent"
+>
+  <div
+    className="flex-container"
+  >
+    <div
+      className="left-content open"
+    >
+      <Component />
+    </div>
+    <div
+      className="right-content"
+    >
+      <LeftContentToggleBtn
+        open={true}
+        setOpen={[Function]}
+      />
+      <Component />
+    </div>
+  </div>
+</div>
+`;

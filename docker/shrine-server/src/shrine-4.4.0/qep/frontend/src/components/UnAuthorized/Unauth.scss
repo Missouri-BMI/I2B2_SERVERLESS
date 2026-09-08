@@ -1,0 +1,23 @@
+//@import "assets/style/theme.scss";
+p.unauth {
+  // lifted from the paragraph "Define Inclusion and Exclusion Criteria"
+  box-sizing: border-box;
+  color: rgb(106, 102, 110);
+  display: inline-block;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 22.4px;
+  font-weight: 400;
+  letter-spacing: 0.21px;
+  line-height: 33.6px;
+  margin-block-end: 0px;
+  margin-block-start: 0px;
+  margin-inline-end: 0px;
+  margin-inline-start: 0px;
+  text-align: left;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  // added
+  padding: 40px 50px 50px 50px;
+
+}

@@ -1,0 +1,34 @@
+{
+  "id": 0,
+  "versionInfo": {
+    "protocolVersion": 2,
+    "shrineVersion": "3.3.0",
+    "itemVersion": 1,
+    "createDate": 0,
+    "changeDate": 0
+  },
+  "queryId": 0,
+  "adapterNodeId": 0,
+  "adapterNodeName": "testNode",
+  "status": "IdAssigned",
+  "statusMessage": "test ErrorFromCrc message",
+  "problemDigest": {
+    "codec": "net.shrine.problem.TestProblem",
+    "stampText": "1970-01-01T00:00:00Z on 0.0.0.0 Unknown",
+    "summary": "test summary",
+    "description": "test description",
+    "detailsText": null,
+    "exceptionDigest": null,
+    "epoch": 0
+  },
+  "resultMetadata": {
+    "obfuscatingParameters": {
+      "binSize": 5,
+      "stdDev": 6.5,
+      "noiseClamp": 10,
+      "lowLimit": 10
+    },
+    "custom": null
+  },
+  "encodedClass": "ErrorResult"
+}

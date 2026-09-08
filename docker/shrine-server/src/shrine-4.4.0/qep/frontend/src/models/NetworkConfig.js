@@ -1,0 +1,75 @@
+import PropTypes from "prop-types";
+
+import { Error } from "./Error";
+
+export const NetworkConfig = ({
+  isFetching = false,
+  error = Error(),
+  domain = null,
+  name = null,
+  bannerText = null,
+  shrineUrl = null,
+  siteAdminEmail = null,
+  termsOfUseText = null,
+  unauthorizedMessage = null,
+  usernameLabel = null,
+  passwordLabel = null,
+  defaultNumberOfOntologyChildren = null,
+  queryFavingInstructions = null,
+  favingIconInstructions = null,
+  favPlaceholderText = null,
+  nextStepsUrl = null,
+  helpLinks = {},
+  ssoLinks = {},
+  ssoLogoutUrl= null,
+  authType = null,
+  sessionTimeoutMs = null,
+} = {}) => {
+  const response = {
+    isFetching,
+    error,
+    domain,
+    name,
+    bannerText,
+    shrineUrl,
+    siteAdminEmail,
+    termsOfUseText,
+    unauthorizedMessage,
+    usernameLabel,
+    passwordLabel,
+    defaultNumberOfOntologyChildren,
+    queryFavingInstructions,
+    favingIconInstructions,
+    favPlaceholderText,
+    nextStepsUrl,
+    helpLinks,
+    ssoLinks,
+    ssoLogoutUrl,
+    authType,
+    sessionTimeoutMs,
+  };
+
+  return response;
+};
+
+NetworkConfig.propTypes = {
+  domain: PropTypes.string,
+  name: PropTypes.string,
+  bannerText: PropTypes.string,
+  shrineUrl: PropTypes.string,
+  siteAdminEmail: PropTypes.string,
+  termsOfUseText: PropTypes.string,
+  unauthorizedMessage: PropTypes.string,
+  usernameLabel: PropTypes.string,
+  passwordLabel: PropTypes.string,
+  defaultNumberOfOntologyChildren: PropTypes.number,
+  queryFavingInstructions: PropTypes.string,
+  favingIconInstructions: PropTypes.string,
+  favPlaceholderText: PropTypes.string,
+  nextStepsUrl: PropTypes.string,
+  helpLinks: PropTypes.shape({}),
+  ssoLinks: PropTypes.shape({}),
+  ssoLogoutUrl: PropTypes.string,
+  authType: PropTypes.string,
+  sessionTimeoutMs: PropTypes.string,
+};

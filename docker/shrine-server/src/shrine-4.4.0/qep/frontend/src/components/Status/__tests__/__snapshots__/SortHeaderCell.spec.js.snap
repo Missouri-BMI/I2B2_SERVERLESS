@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortHeaderCell Should render correctly 1`] = `
+<WithStyles(ForwardRef(TableCell))
+  className="SortHeaderCell"
+>
+  <span
+    role="button"
+  >
+    <WithStyles(ForwardRef(Typography))>
+      <i
+        aria-hidden="true"
+        className="fa mock-sort-icon-asc"
+      />
+    </WithStyles(ForwardRef(Typography))>
+  </span>
+</WithStyles(ForwardRef(TableCell))>
+`;

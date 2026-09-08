@@ -1,0 +1,9 @@
+{
+  "flagValues" : null,
+  "units" : null,
+  "enumValues" : [
+    "PRESENT",
+    "ABSENT",
+    "INDETERMINATE"
+  ]
+}

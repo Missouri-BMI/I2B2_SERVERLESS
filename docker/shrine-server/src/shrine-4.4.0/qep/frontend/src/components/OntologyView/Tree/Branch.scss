@@ -1,0 +1,73 @@
+.Branch {
+  &.inactive-concept > .MuiTreeItem-content {
+    color: grey;
+  }
+
+  &.non-draggable-concept {
+    .MuiTreeItem-content {
+      cursor: auto;
+      user-select: none;
+    }
+  }
+
+  &.non-draggable-concept.dragging {
+    .MuiTreeItem-content {
+      cursor: url("blocked.png"), not-allowed;
+    }
+  }
+
+  &.draggable-concept {
+    .MuiTreeItem-content {
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  // Copy behavior of MaterialUI tree view
+  .tree-item-label-container {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .tree-item-icon {
+    padding-right: 5px;
+  }
+
+  .MuiTreeItem-content:hover {
+    background-color: rgba(0, 0, 0, 0);
+    .tree-item-icon,
+    .display-name {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+  .MuiTreeItem-root:focus > .MuiTreeItem-content {
+    background-color: rgba(0, 0, 0, 0);
+    .tree-item-icon,
+    .display-name {
+      background-color: #bdbdbd;
+    }
+  }
+
+  span.highlight {
+    background-color: #ffff90;
+  }
+
+  .MuiTreeItem-label {
+    width: auto;
+  }
+
+  .metadata-icon {
+    margin-left: 5px;
+  }
+}
+
+.metadata-popper {
+  .metadata {
+    border: 1px solid;
+    background-color: #fff;
+    max-width: 350px;
+    max-height: 200px;
+    overflow: auto;
+    padding: 8px;
+  }
+}

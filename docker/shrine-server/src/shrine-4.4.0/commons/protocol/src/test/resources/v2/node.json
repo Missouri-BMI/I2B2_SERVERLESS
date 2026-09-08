@@ -1,0 +1,18 @@
+{
+  "id": 0,
+  "versionInfo": {
+    "protocolVersion": 2,
+    "shrineVersion": "3.3.0",
+    "itemVersion": 1,
+    "createDate": 0,
+    "changeDate": 0
+  },
+  "name": "testNode",
+  "key": "testNode",
+  "userDomainName": "testnode.domain",
+  "momQueueName": "testMomQueueName",
+  "adminEmail": "email@foo",
+  "sendQueries": true,
+  "understandsProtocol": 2,
+  "momId": "testNode"
+}

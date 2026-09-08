@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailsText should render correctly 1`] = `
+<span>
+  If you would like to report this error, please copy the entire message below and paste
+  <br />
+  into an 
+  <a
+    href="mailto:test@mock.com?subject=mock%20email%20subject"
+  >
+    email
+  </a>
+   to your local site administrator.
+</span>
+`;

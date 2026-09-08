@@ -1,0 +1,70 @@
+.HeaderMenu {
+  position: absolute;
+  right: 10%;
+  font-size: 1.5rem;
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.header-menu-options {
+  ul {
+    .help-link {
+      color: rgba(0, 0, 0, 0.7);
+      transition: background-color 0.3s ease-out;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      .fa {
+        margin-right: 8px;
+      }
+    }
+    .version-info {
+      color: rgba(0, 0, 0, 0.75);
+      font-size: 0.75rem;
+      width: 100%;
+    }
+    li {
+      margin-left: 8px;
+      margin-right: 8px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+      .menu-item-content {
+        width: 100%;
+        text-align: center;
+        display:flex;
+        flex-direction: column;
+      }
+      .MuiTouchRipple-root {
+        display: none;
+      }
+      .user-icon {
+        font-size: 4rem;
+        color: #2782a3;
+      }
+      .domain {
+        color: rgba(0, 0, 0, 0.5);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+  }
+
+  /* mui overrides */
+  .MuiListItem-button:hover {
+    background-color: white;
+  }
+}
+
+.HeaderMenuTooltip {
+  font-style: italic;
+  box-shadow: 0px 4px 18px -3px rgba(0, 0, 0, 0.64);
+  background-color: rgba(99, 99, 99, 0.8) !important;
+  font-size: 1rem !important;
+}

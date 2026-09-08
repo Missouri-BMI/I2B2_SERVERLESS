@@ -1,0 +1,45 @@
+.paging-btn {
+  &:hover {
+    background: white;
+  }
+}
+.ResultRow {
+  &.updated > td {
+    font-weight: bold;
+  }
+
+  .status-icons {
+    .fa-circle.error,
+    .fa-circle-thin.error {
+      opacity: 0;
+    }
+    .fa-circle.complete,
+    .fa-circle-thin.complete,
+    .fa-circle.pending,
+    .fa-circle-thin.pending {
+      opacity: 100%;
+      color: #009432;
+    }
+
+    .fa-exclamation-circle {
+      opacity: 0;
+    }
+    .fa-exclamation-circle.error {
+      opacity: 100%;
+      color: #ea2027;
+      background-color: inherit;
+    }
+
+    .fa-circle.pending {
+      /* Clipping the top half of the icon so that it appears half full */
+      clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);
+      color: #009432;
+    }
+  }
+}
+
+.result-row-tooltip {
+  box-shadow: 0px 4px 18px -3px rgba(0, 0, 0, 0.64);
+  font-style: italic;
+  background-color: rgba(99, 99, 99, 0.8) !important;
+}

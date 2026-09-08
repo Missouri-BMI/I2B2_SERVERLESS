@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Researcher should render correctly 1`] = `
+<div
+  className="container Researcher"
+>
+  <MainContent
+    LeftContent={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(WrappedQueryHistoryContainer)",
+        "type": [Function],
+      }
+    }
+    RightContent={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(WrappedQueryResultContainer)",
+        "type": [Function],
+      }
+    }
+  />
+  <Connect(WrappedIdleTimer)
+    onTimeoutWarning={[Function]}
+  />
+  <Connect(WrappedTermsOfUse) />
+</div>
+`;

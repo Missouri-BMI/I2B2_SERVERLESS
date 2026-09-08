@@ -1,0 +1,26 @@
+.inline-input {
+  &.HighValue {
+    margin-left: 8px;
+  }
+  &.HighValue,
+  &.LowValue {
+    width: 100px;
+    label {
+      min-width: 120px;
+      top: 34px;
+    }
+    input {
+      text-align: center;
+    }
+    display: none;
+    .MuiInput-underline {
+      position: relative;
+      top: 2px;
+    }
+  }
+  &.LowValue.show-unit,
+  &.LowValue.show-range,
+  &.HighValue.show-range {
+    display: inherit;
+  }
+}

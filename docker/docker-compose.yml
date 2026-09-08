@@ -1,12 +1,49 @@
+# Single local stack for the i2b2 + SHRINE serverless deployment.
+#
+# Brings up all three application containers plus a local MariaDB for SHRINE:
+#   - i2b2-wildfly  : i2b2 core server (WildFly)         -> http://localhost:8080/i2b2/
+#   - i2b2-web      : Apache + webclient + Shibboleth SP -> http://localhost/
+#   - shrine-server : SHRINE API (Tomcat)               -> http://localhost:6060/shrine-api/
+#   - shrine-db     : MariaDB for SHRINE audit/history schemas
+#
+# All three images build with ENVIRONMENT=local (see each component's
+# Configuration/configs "local" set). i2b2 data sources (Snowflake + remote
+# Postgres) are defined in i2b2-server/configuration/local/commands.cli and
+# remain remote — only SHRINE's MariaDB is local.
+#
+# NOTE: shrine-server expects a prebuilt WAR at
+#   shrine-server/src/shrine-4.4.0/apps/shrine-api-war/target/shrine-api.war
+# Build/place it before running `docker compose build shrine-server`.
+#
+# Usage:
+#   docker compose build
+#   docker compose up
+
 services:
 
+  i2b2-wildfly:
+    image: i2b2-wildfly:local
+    platform: linux/amd64
+    build:
+      context: ./i2b2-server
+      args:
+        - ENVIRONMENT=local
+    container_name: i2b2-wildfly
+    read_only: true
+    ports:
+      - "8080:8080"
+      - "8009:8009"
+    networks:
+      - i2b2-net
+
   i2b2-web:
-    image: i2b2-web:latest
+    image: i2b2-web:local
     platform: linux/amd64
     build:
       context: ./i2b2-web
       args:
         - ENVIRONMENT=local
+        - TARGET=mu
     container_name: i2b2-web
     read_only: true
     ports:
@@ -16,21 +53,48 @@ services:
     depends_on:
       - i2b2-wildfly
 
-  i2b2-wildfly:
-    image: i2b2-wildfly:latest
+  shrine-server:
+    image: shrine-server:local
     platform: linux/amd64
-    build: 
-      context: ./i2b2-server
+    build:
+      context: ./shrine-server
       args:
         - ENVIRONMENT=local
-    container_name: i2b2-wildfly
+        - PROJECT=mu
+    container_name: shrine-server
     read_only: true
+    # SHRINE Tomcat's rootfs is read-only; give it a writable /tmp
+    # (the app data lives under the /usr/local/tomcat volume from the image).
+    tmpfs:
+      - /tmp
     ports:
-      - "8009:8009"
-      - "8080:8080"
-      - "9990:9990"
+      - "6060:6060"
     networks:
       - i2b2-net
+    depends_on:
+      - i2b2-wildfly
+      - shrine-db
+    restart: always
+
+  shrine-db:
+    image: mariadb:11
+    platform: linux/amd64
+    container_name: shrine-db
+    environment:
+      - MARIADB_ROOT_PASSWORD=Password123
+    ports:
+      - "3306:3306"
+    networks:
+      - i2b2-net
+    volumes:
+      - shrine-db-volume:/var/lib/mysql
+      # Creates the SHRINE schemas + shrineAdmin user on first startup.
+      - ./shrine-server/db-init:/docker-entrypoint-initdb.d:ro
+    restart: always
+
+volumes:
+  shrine-db-volume:
+    name: shrine-db-volume
 
 networks:
   i2b2-net:

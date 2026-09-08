@@ -1,0 +1,14 @@
+\\ACT_DX_ICD10_2018\ACT\Diagnosis\ICD10\V2_2018AA\A20098492\	Diagnoses	Diagnosis	Diagnoses ICD-10
+\\ACT_DX_ICD9_2018\ACT\Diagnosis\ICD9\V2_2018AA\A18090800\	Diagnoses	Diagnosis	Diagnoses ICD-9-CM
+\\ACT_LAB_LOINC_2018\ACT\Lab\LOINC\V2_2018AA\A6321000\A23478825\A28298479\	Laboratory Tests	Laboratory Test
+\\ACT_MED_VA_2018\ACT\Medications\MedicationsByVaClass\V2_09302018\	Medications	Medication
+\\ACT_PX_CPT_2018\ACT\Procedures\CPT4\V2_2018AA\A23576389\	Procedures	Procedure	Procedures CPT-4
+\\ACT_PX_HCPCS_2018\ACT\Procedures\HCPCS\V2_2018AA\A13475665\	Procedures	Procedure	Procedures HCPCS
+\\ACT_PX_ICD10_2018\ACT\Procedures\ICD10\V2_2018AA\A16077350\	Procedures	Procedure	Procedures ICD-10-PCS
+\\ACT_PX_ICD9_2018\ACT\Procedures\ICD9\V2_2018AA\A18090800\A8352133\	Procedures	Procedure	Procedures ICD-9-Proc
+\\ACT_DEMO\ACT\Demographics\	Demographics	Demographic
+\\ACT_DX_10_9\Diagnoses\	Diagnoses	Diagnosis	Diagnoses ICD10-ICD9
+\\ACT_LAB\ACT\Labs\	Laboratory Tests	Laboratory Test
+\\ACT_VISIT\ACT\Visit Details\	Visit Details	Visit Detail
+\\ACT_MED_ALPHA_2018\ACT\Medications\MedicationsByAlpha\V2_12112018\RxNormUMLSRxNav\	Medications	Medication
+\\ACT_COVID_V1\ACT\UMLS_C0031437\SNOMED_3947185011\	Covid-19	Covid-19

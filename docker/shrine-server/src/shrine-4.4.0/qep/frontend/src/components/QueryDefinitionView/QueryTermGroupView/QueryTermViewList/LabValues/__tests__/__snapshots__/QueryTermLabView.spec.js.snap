@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QueryTermLabView should render correctly 1`] = `
+<QueryTermView
+  onDeleteTermClicked={[MockFunction]}
+  term={
+    Object {
+      "category": "mock category",
+      "constraint": Object {
+        "constraintType": "BETWEEN",
+        "unit": "ml",
+        "value": Array [
+          1,
+          3,
+        ],
+      },
+      "displayName": "mock name",
+      "labDetail": Object {
+        "flagValues": Array [
+          "Normal",
+          "High",
+          "Low",
+        ],
+        "units": Array [
+          "ml",
+          "ltr",
+          "quart",
+        ],
+      },
+      "path": "mock path",
+    }
+  }
+/>
+`;

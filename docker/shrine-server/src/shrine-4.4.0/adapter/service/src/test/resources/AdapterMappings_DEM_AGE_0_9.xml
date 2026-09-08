@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AdapterMappings>
+    <hostname>localhost-test</hostname>
+    <timestamp>1970-01-01T00:00:00.000-05:00</timestamp>
+    <mappings>
+        <entry>
+            <key>\\i2b2\i2b2\Demographics\Age\0-9 years old\</key>
+            <value>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:0</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:1</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:2</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:3</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:4</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:5</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:6</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:7</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:8</local_key>
+                <local_key>\\i2b2\LOCAL\DEM|AGE:9</local_key>
+            </value>
+        </entry>
+        <entry>
+            <key>\\i2b2\i2b2\Demographics\</key>
+            <value>
+                <local_key>\\i2b2\LOCAL\DEM</local_key>
+            </value>
+        </entry>
+    </mappings>
+</AdapterMappings>

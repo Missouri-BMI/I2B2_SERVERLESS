@@ -1,0 +1,94 @@
+@import "assets/style/theme.scss";
+.OntologyView {
+  margin: 0;
+  margin-top: 36px;
+  margin-left: 20px;
+  display: flex;
+  flex-flow: column;
+  height: calc(100% - 50px);
+  label.MuiFormLabel-root {
+    font-style: italic;
+  }
+  label + .MuiInput-formControl {
+    margin-right: 24px;
+  }
+  .title-grid {
+    background-color: $designerOrange;
+    border-radius: 5px 5px 0 0;
+    flex-grow: 0;
+    align-items: center;
+    .concepts-title {
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      color: white;
+      width: 95%;
+      font-size: 1.4rem;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      text-align: center;
+      position: relative;
+      top: 4px;
+    }
+  }
+  .content-wrapper {
+    padding-left: 16px;
+    border: 1px solid #999;
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+    overflow: auto;
+    .dropdown-grid {
+      display: block;
+      margin-top: 8px;
+      margin-right: 24px;
+      > div {
+        width: 80%;
+      }
+      > div:first-child {
+        width: 20%;
+      }
+      .filter-label {
+        position: relative;
+        top: 30px;
+      }
+      .filter-dropdown {
+        width: 100%;
+        margin-left: 20%;
+      }
+    }
+    .search-grid {
+      align-items: center;
+      .search-text-field {
+        max-width: 85%;
+        flex-basis: 85%;
+        transition: all 0.1s ease-in-out;
+        > div {
+          width: 99%;
+        }
+      }
+      .button-field {
+        max-width: 15%;
+        flex-basis: 15%;
+        text-align: right;
+      }
+    }
+  }
+  .Loader {
+    width: 35%;
+    background: rgba(255, 255, 255, 0.5);
+    height: 75vh;
+    left: 0px;
+    & > div {
+      position: relative;
+      top: 0;
+      bottom: 0;
+      left: -10%;
+      right: 10%;
+      padding: 5%;
+    }
+  }
+}
+
+.filter-dropdown-option {
+  min-height: 20px !important;
+}

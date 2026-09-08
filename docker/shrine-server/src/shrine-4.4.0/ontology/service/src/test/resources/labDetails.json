@@ -1,0 +1,14 @@
+{
+  "flagValues" : [
+    "Normal",
+    "High",
+    "Low"
+  ],
+  "units" : [
+    "g/24H",
+    "g/24 H",
+    "mg/24h",
+    "mg/24 H"
+  ],
+  "enumValues" : null
+}

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Status should render correctly 1`] = `
+<span
+  className="mock class name"
+>
+  mock status text
+</span>
+`;

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QueryTermViewList should render correctly 1`] = `
+<div
+  className="DropArea"
+>
+  <QueryTermView
+    index={0}
+    key="mock path"
+    onConstraintChange={[Function]}
+    onDeleteTermClicked={[MockFunction]}
+    term={
+      Object {
+        "key": "mock/term/path/mockdiagnosis",
+        "name": "mock diagnosis",
+        "path": "mock path",
+      }
+    }
+  />
+  <QueryTermView
+    index={1}
+    key="mock path"
+    onConstraintChange={[Function]}
+    onDeleteTermClicked={[MockFunction]}
+    term={
+      Object {
+        "key": "mock/term/path/mockdemographic",
+        "name": "mock demographic",
+        "path": "mock path",
+      }
+    }
+  />
+  <QueryTermView
+    index={2}
+    key="mock path"
+    onConstraintChange={[Function]}
+    onDeleteTermClicked={[MockFunction]}
+    term={
+      Object {
+        "key": "mock/term/path/mocklab",
+        "name": "mock lab",
+        "path": "mock path",
+      }
+    }
+  />
+</div>
+`;

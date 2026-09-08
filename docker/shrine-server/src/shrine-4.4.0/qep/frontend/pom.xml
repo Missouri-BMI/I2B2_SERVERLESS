@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+			<groupId>net.shrine</groupId>
+			<artifactId>shrine-base</artifactId>
+			<version>4.4.0</version>
+			<relativePath>../../pom.xml</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<name>SHRINE QEP Frontend</name>
+	<artifactId>shrine-qep-frontend</artifactId>
+  <packaging>pom</packaging>
+	<build>
+		<plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${maven-exec-plugin-version}</version>
+				<executions>
+						<execution>
+								<id>exec-npm-legacy-webclient-build</id>
+								<phase>generate-sources</phase>
+								<configuration>
+										<executable>npm</executable>
+										<workingDirectory>.</workingDirectory>
+										<arguments>
+												<argument>run</argument>
+												<argument>build-prod</argument>
+										</arguments>
+								</configuration>
+									<goals>
+										<goal>exec</goal>
+								</goals>
+						</execution>
+					</executions>
+				</plugin>
+      </plugins>
+	</build>
+</project>

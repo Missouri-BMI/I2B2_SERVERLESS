@@ -1,0 +1,112 @@
+@import "assets/style/theme.scss";
+header.Header {
+  line-height: 1;
+  border-bottom: 1px solid rgba(55, 31, 121, 0.5);
+  background-color: $designerBlue;
+  color: #7b787e;
+  img.banner {
+    height: 7vh;
+    position: relative;
+  }
+  a {
+    text-decoration: none;
+    color: white;
+    .fa-external-link {
+      margin-left: 8px;
+    }
+  }
+  .banner-container {
+    display: inline-flex;
+    width: 15%;
+    justify-content: left;
+  }
+  .tab-container {
+    display: inline-flex;
+    height: 100%;
+    .logout-btn {
+      color: white;
+      border: 1px solid;
+      position: absolute;
+      right: 0;
+      margin-right: 28px;
+      top: 16px;
+      height: 32px;
+      font-size: 0.8rem;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  .MuiToolbar-gutters {
+    padding-left: 20px;
+  }
+
+  h3 {
+    color: rgb(55, 31, 121);
+    display: inline-block;
+    position: relative;
+    top: 13px;
+  }
+  .ToggleViewButton {
+    margin-right: 10px;
+  }
+  button {
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .MuiTabs-root {
+    position: relative;
+    height: 100%;
+    .MuiTabs-flexContainer {
+      height: 100%;
+    }
+  }
+  .MuiTab-textColorInherit {
+    background-color: transparent;
+    color: white;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .MuiTab-textColorInherit {
+    font-size: 1rem;
+  }
+  .MuiTabs-indicator {
+    left: 0;
+    width: 160px;
+    height: 6px;
+    background-color: #ffffff;
+  }
+
+  .banner-text {
+    width: 20%;
+    text-align: center;
+    padding: 8px;
+    margin-left: 12px;
+    margin-right: 16px;
+    color: #eef7ff;
+    font-weight: normal;
+    background-color: transparent;
+  }
+
+  .banner-text-top {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .MuiAvatar-root {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+  }
+
+  .MuiAvatar-img {
+    height: 7vh;
+    width: auto;
+  }
+}

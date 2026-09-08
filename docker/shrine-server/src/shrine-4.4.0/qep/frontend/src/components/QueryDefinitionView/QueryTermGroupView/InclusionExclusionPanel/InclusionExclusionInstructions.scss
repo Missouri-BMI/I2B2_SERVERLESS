@@ -1,0 +1,10 @@
+.Includable {
+  &:first-child {
+    .create-first-group {
+      display: block;
+    }
+    .create-group {
+      display: none;
+    }
+  }
+}

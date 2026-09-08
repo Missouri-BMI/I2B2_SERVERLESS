@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionResultStatusList should render correctly 1`] = `
+<WithStyles(ForwardRef(Paper))
+  className="InstitutionResultStatusList query-result-flex-container"
+  elevation={0}
+>
+  <WithStyles(ForwardRef(TableContainer))
+    className="institution-result-container"
+  >
+    <WithStyles(ForwardRef(Table))
+      size="small"
+      stickyHeader={true}
+    >
+      <InstitutionResultHeader />
+      <WithStyles(ForwardRef(TableBody))>
+        <InstitutionResultStatus
+          key="null"
+          result={
+            Object {
+              "breakdowns": Array [],
+              "count": null,
+              "errorDetailInfo": Object {
+                "hasError": false,
+                "hasProblemDigest": false,
+                "problemDigest": "No details available",
+                "status": null,
+              },
+              "institutionName": null,
+              "internalStatus": null,
+              "resultMetadata": Object {
+                "custom": null,
+                "obfuscatingParameters": null,
+              },
+              "status": null,
+              "statusMessage": null,
+            }
+          }
+        />
+      </WithStyles(ForwardRef(TableBody))>
+    </WithStyles(ForwardRef(Table))>
+  </WithStyles(ForwardRef(TableContainer))>
+</WithStyles(ForwardRef(Paper))>
+`;

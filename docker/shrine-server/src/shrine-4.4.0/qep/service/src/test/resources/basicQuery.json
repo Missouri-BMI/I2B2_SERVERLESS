@@ -1,0 +1,31 @@
+{
+  "name" : "test query",
+  "notes" : null,
+  "faved": false,
+  "dataDistributionTypes" : [],
+  "conceptGroups" : [
+    {
+      "concepts" : [
+        {
+          "displayName" : "Female",
+          "path" : "\\\\SHRINE\\SHIRNE\\Demographics\\Sex\\Female\\",
+          "constraint" : {
+            "constraintType" : "LT",
+            "value" : [
+              "1"
+            ],
+            "unit" : "mmol/L"
+          }
+        }
+      ],
+      "panelTiming" : null,
+      "isExcluded" : false,
+      "options" : {
+        "startDate" : null,
+        "endDate" : null,
+        "occurrences" : 1
+      }
+    }
+  ],
+  "timeline" : null
+}

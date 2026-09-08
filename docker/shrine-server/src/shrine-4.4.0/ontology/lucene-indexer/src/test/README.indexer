@@ -1,0 +1,38 @@
+(1) There is a utility class called called CreateTestFile, found in:
+
+  ../src/main/scala/net/shrine/ontology/indexer/CreateTestFile.scala
+
+  This class can be used to re-generate "resources/act_ontology_subset.txt", using as
+  inputs "resources/category_definition.txt" and a complete ontology file such as "ACT_ontology_covid19.txt"
+  (way too large to be committed, ask someone on the team for a copy)
+
+  Its output is on Git and should be updated when CreateTestFile is run based on a new ontology
+  and/or category definition
+
+
+(2) Running LuceneIndexerTest
+
+  LuceneIndexerTest.testCreateIndex() relies on the following two files:
+
+  resources/act_ontology_subset.txt
+  resources/category_definition_with_unicode_characters.txt
+
+  These files are committed to the resources folder.
+
+
+(3) The LuceneIndexer class is at:
+
+  ../src/main/scala/net/shrine/ontology/indexer/LuceneIndexer.scala
+
+  which also uses "resources/act_ontology_subset.txt" and "ACT_ontology_covid19.txt" and
+  generates a lucene_index.zip file.
+
+
+NOTES:
+
+  category_definition_with_unicode_characters.txt and category_definition.txt must be kept in sync manually.
+  The only difference should be extra unicode characters in category_definition_with_unicode_characters.txt, to
+  match the unicode characters added by CreateTestFile
+
+
+

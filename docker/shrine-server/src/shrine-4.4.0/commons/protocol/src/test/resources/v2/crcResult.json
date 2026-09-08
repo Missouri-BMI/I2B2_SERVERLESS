@@ -1,0 +1,37 @@
+{
+  "id": 0,
+  "versionInfo": {
+    "protocolVersion": 2,
+    "shrineVersion": "3.3.0",
+    "itemVersion": 1,
+    "createDate": 0,
+    "changeDate": 0
+  },
+  "queryId": 0,
+  "adapterNodeId": 0,
+  "adapterNodeName": "testNode",
+  "status": "IdAssigned",
+  "statusMessage": "test status message",
+  "crcQueryInstanceId": 0,
+  "count": 0,
+  "resultType": {
+    "name": "PATIENT_COUNT_XML",
+    "isBreakdown": false,
+    "i2b2Options": {
+      "description": "Number of patients",
+      "displayType": "CATNUM"
+    },
+    "id": 4
+  },
+  "resultMetadata": {
+    "obfuscatingParameters": {
+      "binSize": 5,
+      "stdDev": 6.5,
+      "noiseClamp": 10,
+      "lowLimit": 10
+    },
+    "custom": null
+  },
+  "breakdowns": null,
+  "encodedClass": "CountResult"
+}

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleContainer should render correctly 1`] = `
+<ToggleContainer
+  isOpen={true}
+  onClose={[MockFunction]}
+>
+  <div
+    className="ToggleContainer open"
+  >
+    <div
+      className="minimize-toggle-container"
+      onClick={[MockFunction]}
+      role="button"
+    >
+      <i
+        className="fa fa-window-minimize"
+      />
+    </div>
+    <MockChildComponent>
+      <div
+        className="MockChildComponent"
+      >
+        mock child
+      </div>
+    </MockChildComponent>
+  </div>
+</ToggleContainer>
+`;

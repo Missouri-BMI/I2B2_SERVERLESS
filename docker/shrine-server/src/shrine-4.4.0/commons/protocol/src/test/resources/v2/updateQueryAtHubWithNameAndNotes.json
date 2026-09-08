@@ -1,0 +1,7 @@
+{
+  "queryId": 0,
+  "expectedItemVersion": null,
+  "queryName": "test query name",
+  "queryNotes": "test query notes",
+  "encodedClass": "UpdateQueryAtHubWithNameAndNotes"
+}

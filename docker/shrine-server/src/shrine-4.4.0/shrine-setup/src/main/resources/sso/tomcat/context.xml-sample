@@ -1,0 +1,6 @@
+<!-- as per https://support.waters.com/KB_Inf/NuGenesis/WKB202740_How_to_enable_HTTPOnly_and_Secure_cookies_in_Apache_Tomcat -->
+<Context swallowOutput="true" cookies="true" sessionCookiePath="/">
+
+    ...
+
+</Context>

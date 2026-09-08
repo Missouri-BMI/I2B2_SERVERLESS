@@ -1,0 +1,64 @@
+@import "assets/style/theme.scss";
+// -- bootstrap overrides --
+// bootstrap?  can be removed
+@media (min-width: 992px) {
+  .container {
+    max-width: 1900px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 1900px;
+  }
+}
+@media (min-width: 576px) {
+  .container {
+    max-width: 1900px;
+  }
+}
+
+// - keep --
+body,
+#app {
+  overflow: hidden;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// bootstrap?  can be removed
+.container {
+  overflow: hidden;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+// bootstrap?  can be removed
+a[hidden],
+ol[hidden],
+ul[hidden],
+li[hidden],
+form[hidden],
+input[hidden],
+button[hidden],
+div[hidden],
+span[hidden] {
+  display: none;
+}
+
+.shrine-tooltip {
+  @include shrine-tooltip;
+}

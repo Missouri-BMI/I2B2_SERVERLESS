@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QueryResultView should render correctly 1`] = `
+<Styled(MuiBox)
+  className="QueryResultView"
+>
+  <QueryResultHeader
+    disableButton={true}
+    onReloadQueryClick={[Function]}
+  />
+  <div
+    className="no-query-message"
+  >
+    <WithStyles(ForwardRef(Typography))>
+      Select a row from the Previous Results panel to view criteria details and patient counts.
+    </WithStyles(ForwardRef(Typography))>
+  </div>
+</Styled(MuiBox)>
+`;

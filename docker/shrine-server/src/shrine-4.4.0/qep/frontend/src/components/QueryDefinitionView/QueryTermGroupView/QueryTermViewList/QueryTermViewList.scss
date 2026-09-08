@@ -1,0 +1,7 @@
+.DropArea {
+  min-height: 24px;
+
+  &.dragged-over {
+    background-color: #d1f0ff;
+  }
+}

@@ -1,0 +1,13 @@
+@import "assets/style/theme.scss";
+
+.GroupHeader {
+  z-index: 1;
+  width: 100%;
+  display: flex;
+
+  .event-icon {
+    margin-left: auto;
+    margin-right: 1.5em;
+    margin-top: 0.5em;
+  }
+}

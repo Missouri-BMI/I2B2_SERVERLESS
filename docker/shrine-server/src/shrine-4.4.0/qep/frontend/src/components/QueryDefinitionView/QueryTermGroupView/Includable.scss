@@ -1,0 +1,28 @@
+@import "assets/style/theme.scss";
+
+.Includable {
+  &:first-child {
+    .inclusion {
+      .find-patients {
+        display: block;
+      }
+      .and {
+        display: none;
+      }
+    }
+  }
+
+  .inclusion {
+    .and,
+    .find-patients {
+      width: 50%;
+      text-align: left;
+    }
+    .and {
+      display: block;
+    }
+    .find-patients {
+      display: none;
+    }
+  }
+}

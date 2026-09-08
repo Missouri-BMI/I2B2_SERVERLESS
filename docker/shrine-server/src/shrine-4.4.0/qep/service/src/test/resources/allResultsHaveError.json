@@ -1,0 +1,101 @@
+{
+  "rowCount" : 1,
+  "rowOffset" : 0,
+  "selectedQuery" : {
+    "query" : {
+      "networkId" : "50",
+      "queryName" : "TestQuery",
+      "queryNotes" : null,
+      "dateCreated" : ,
+      "changeDate" : ,
+      "queryFaved" : false,
+      "status" : "Network Error",
+      "internalStatus" : "Sent to Adapters",
+      "isQueryError" : false,
+      "isResultsError" : true,
+      "isQueryComplete" : true,
+      "problemDigest" : {
+        "codec" : "net.shrine.qep.AllResultsHaveErrorProblem",
+        "stampText" : "Thu May 14 07:53:48 EDT 2020 on TecRef-LT-286624 Adapter",
+        "summary" : "All results returned an  error for query 50 .",
+        "description" : "Query 50 found but all its results are in an error state.",
+        "detailsText" : null,
+        "exceptionDigest" : null,
+        "epoch" : 1589457228527
+      },
+      "observed" : true,
+      "queryAsHtmlString" : "<span class=\"criteriaPanelSeparator\">Find patients</span> <span class=\"criteriaPanelSeparator\"> with</span> (Demographics 10-17 years old) or (Demographics No Information) starting from 03/01/2020 to 03/06/2020 and occurs at least 6 times<br/><span class=\"criteriaPanelSeparator\">and</span> <span class=\"criteriaPanelSeparator\"> without</span> (Demographics Black or African American) or (Demographics 85-89 years old)<br/><span class=\"criteriaPanelSeparator\">and</span> <span class=\"criteriaPanelSeparator\"> with</span> (Laboratory Tests Bicarbonate in Blood abnormal flag high)"
+    },
+    "results" : [
+      {
+        "resultId" : 502,
+        "networkQueryId" : 50,
+        "instanceId" : 100,
+        "adapterNode" : "HARVARD",
+        "count" : 30000,
+        "status" : "Site Error",
+        "internalStatus" : "Error In Shrine",
+        "statusMessage" : null,
+        "changeDate" : 1556572887664,
+        "breakdowns" : [
+        ],
+        "problemDigest" : null,
+        "resultMetadata" : {
+          "obfuscatingParameters" : null,
+          "custom" : null
+        }
+      },
+      {
+        "resultId" : 501,
+        "networkQueryId" : 50,
+        "instanceId" : 120,
+        "adapterNode" : "NU",
+        "count" : 80000,
+        "status" : "Site Error",
+        "internalStatus" : "Error In Shrine",
+        "statusMessage" : null,
+        "changeDate" : 1556572887662,
+        "breakdowns" : [
+        ],
+        "problemDigest" : null,
+        "resultMetadata" : {
+          "obfuscatingParameters" : null,
+          "custom" : null
+        }
+      }
+    ],
+    "aggregateDemographics" : [
+    ],
+    "siteCount" : 0,
+    "patientCount" : 0,
+    "isComplete" : true,
+    "dataVersion" : 1556572887669
+  },
+  "isAllQueriesComplete" : true,
+  "allQueries" : [
+    {
+      "networkId" : "50",
+      "queryName" : "TestQuery",
+      "queryNotes" : null,
+      "dateCreated" : 1556572887669,
+      "changeDate" : 1556572887669,
+      "queryFaved" : false,
+      "status" : "Network Error",
+      "internalStatus" : "Sent to Adapters",
+      "isQueryError" : false,
+      "isResultsError" : true,
+      "isQueryComplete" : true,
+      "problemDigest" : {
+        "codec" : "net.shrine.qep.AllResultsHaveErrorProblem",
+        "stampText" : "Thu May 14 07:53:46 EDT 2020 on TecRef-LT-286624 Adapter",
+        "summary" : "All results returned an  error for query 50 .",
+        "description" : "Query 50 found but all its results are in an error state.",
+        "detailsText" : null,
+        "exceptionDigest" : null,
+        "epoch" : 1589457226562
+      },
+      "observed" : true,
+      "queryAsHtmlString" : null
+    }
+  ]
+}

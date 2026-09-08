@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>shrine-base</artifactId>
+        <groupId>net.shrine</groupId>
+        <version>4.4.0</version>
+        <relativePath>/../../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>ping-war</artifactId>
+    <name>Ping War</name>
+    <packaging>war</packaging>
+    <build>
+     <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+        </plugin>
+     </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>net.shrine</groupId>
+            <artifactId>ping-app</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

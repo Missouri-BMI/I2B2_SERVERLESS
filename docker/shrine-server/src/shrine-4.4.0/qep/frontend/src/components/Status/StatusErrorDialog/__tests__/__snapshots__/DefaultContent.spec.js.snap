@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultContent should render correctly 1`] = `
+<div
+  className="StatusBoxText problemDigestContent"
+>
+  <p>
+    An unknown error has occurred. If this is a recurring issue please contact your local SHRINE administrator.
+  </p>
+</div>
+`;

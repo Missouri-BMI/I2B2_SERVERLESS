@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FetchError should render correctly 1`] = `
+<div
+  className="FetchError"
+>
+  <div>
+    Error connecting to: 
+     mock url
+  </div>
+  <div>
+    This is a mock error
+  </div>
+</div>
+`;

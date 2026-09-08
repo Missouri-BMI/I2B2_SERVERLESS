@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StartQuery should enable Get Counts button if isEnabled is true 1`] = `
+<div
+  className="StartQuery tutorialStep4"
+>
+  <WithStyles(ForwardRef(Typography))
+    className="search-title"
+  >
+    Search XYZ network
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(ExpansionPanel))
+    className="search-form"
+    expanded={true}
+  >
+    <WithStyles(ForwardRef(ExpansionPanelDetails))>
+      <div
+        className="startQueryForm"
+      >
+        <div
+          className="startQueryColumn"
+        >
+          <WithStyles(ForwardRef(Grid))
+            alignItems="baseline"
+            container={true}
+            direction="row"
+          >
+            <WithStyles(ForwardRef(FormControl))
+              className="query-name-control "
+            >
+              <QueryNameField
+                label="Enter name"
+                onGenerateName={[Function]}
+                onTextChange={[Function]}
+                value=""
+              />
+            </WithStyles(ForwardRef(FormControl))>
+          </WithStyles(ForwardRef(Grid))>
+        </div>
+        <div
+          className="startQueryColumn"
+        >
+          <div
+            className="demographic-distribution"
+          >
+            <WithStyles(ForwardRef(Checkbox))
+              checked={false}
+              className="demograpic-distribution-checkbox"
+              onChange={[Function]}
+            />
+            <div
+              className="demo-distribution-label"
+            >
+              Include demographic
+              <div>
+                distributions
+              </div>
+            </div>
+            <div
+              className="advanced-distribution"
+            >
+              <WithStyles(ForwardRef(Link))
+                href="#"
+                onClick={[Function]}
+              >
+                advanced options
+              </WithStyles(ForwardRef(Link))>
+            </div>
+          </div>
+        </div>
+        <div
+          className="startQueryColumn"
+        >
+          <WithStyles(ForwardRef(Button))
+            className="btn-primary btn count-button"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Count Patients
+          </WithStyles(ForwardRef(Button))>
+        </div>
+      </div>
+    </WithStyles(ForwardRef(ExpansionPanelDetails))>
+  </WithStyles(ForwardRef(ExpansionPanel))>
+</div>
+`;
+
+exports[`StartQuery should render correctly 1`] = `
+<div
+  className="StartQuery tutorialStep4"
+>
+  <WithStyles(ForwardRef(Typography))
+    className="search-title"
+  >
+    Search XYZ network
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(ExpansionPanel))
+    className="search-form"
+    expanded={true}
+  >
+    <WithStyles(ForwardRef(ExpansionPanelDetails))>
+      <div
+        className="startQueryForm"
+      >
+        <div
+          className="startQueryColumn"
+        >
+          <WithStyles(ForwardRef(Grid))
+            alignItems="baseline"
+            container={true}
+            direction="row"
+          >
+            <WithStyles(ForwardRef(FormControl))
+              className="query-name-control "
+            >
+              <QueryNameField
+                label="Enter name"
+                onGenerateName={[Function]}
+                onTextChange={[Function]}
+                value=""
+              />
+            </WithStyles(ForwardRef(FormControl))>
+          </WithStyles(ForwardRef(Grid))>
+        </div>
+        <div
+          className="startQueryColumn"
+        >
+          <div
+            className="demographic-distribution"
+          >
+            <WithStyles(ForwardRef(Checkbox))
+              checked={false}
+              className="demograpic-distribution-checkbox"
+              onChange={[Function]}
+            />
+            <div
+              className="demo-distribution-label"
+            >
+              Include demographic
+              <div>
+                distributions
+              </div>
+            </div>
+            <div
+              className="advanced-distribution"
+            >
+              <WithStyles(ForwardRef(Link))
+                href="#"
+                onClick={[Function]}
+              >
+                advanced options
+              </WithStyles(ForwardRef(Link))>
+            </div>
+          </div>
+        </div>
+        <div
+          className="startQueryColumn"
+        >
+          <WithStyles(ForwardRef(Button))
+            className="btn-primary btn count-button"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Count Patients
+          </WithStyles(ForwardRef(Button))>
+        </div>
+      </div>
+    </WithStyles(ForwardRef(ExpansionPanelDetails))>
+  </WithStyles(ForwardRef(ExpansionPanel))>
+</div>
+`;

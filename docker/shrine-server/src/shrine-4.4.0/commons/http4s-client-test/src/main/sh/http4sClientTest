@@ -1,0 +1,31 @@
+#!/bin/bash
+
+CONFIG_HOME=`dirname $0`
+
+CONFIG_FILE_DIR=${CONFIG_HOME}/conf
+
+mkdir -p ${CONFIG_FILE_DIR}
+
+CONFIG_CLASSPATH=.:${CONFIG_FILE_DIR}
+
+LIB_DIR=${CONFIG_HOME}/lib
+
+#
+#Set up our classpath with our library dependencies...
+for jar in `find ${LIB_DIR}/*.jar`;
+do
+    CONFIG_CLASSPATH=${jar}:${CONFIG_CLASSPATH}
+done
+
+#
+#Guess JAVA_HOME if it's not set
+if [ ${#JAVA_HOME} == 0 ]; then
+    JAVA_HOME=/usr/local/java
+fi
+
+JVM_ARGS="-Xmx1024m"
+
+JAVA_COMMAND="java ${JVM_ARGS} -cp ${CONFIG_CLASSPATH} net.shrine.utilities.http4sclienttest.Http4sClientTest $@"
+
+${JAVA_COMMAND}
+

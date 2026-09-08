@@ -1,0 +1,1603 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRange should render correctly 1`] = `
+<DateRange
+  endDate={0}
+  endDateError={false}
+  endDateLabel=""
+  minDate={null}
+  onClear={[MockFunction]}
+  onEndDateChange={[MockFunction]}
+  onStartDateChange={[MockFunction]}
+  startDate={0}
+  startDateError={false}
+  startDateLabel=""
+>
+  <div
+    className="DateRange"
+  >
+    <div
+      className="date-range-label"
+    >
+      <WithStyles(ForwardRef(Typography))>
+        <ForwardRef(Typography)
+          classes={
+            Object {
+              "alignCenter": "MuiTypography-alignCenter",
+              "alignJustify": "MuiTypography-alignJustify",
+              "alignLeft": "MuiTypography-alignLeft",
+              "alignRight": "MuiTypography-alignRight",
+              "body1": "MuiTypography-body1",
+              "body2": "MuiTypography-body2",
+              "button": "MuiTypography-button",
+              "caption": "MuiTypography-caption",
+              "colorError": "MuiTypography-colorError",
+              "colorInherit": "MuiTypography-colorInherit",
+              "colorPrimary": "MuiTypography-colorPrimary",
+              "colorSecondary": "MuiTypography-colorSecondary",
+              "colorTextPrimary": "MuiTypography-colorTextPrimary",
+              "colorTextSecondary": "MuiTypography-colorTextSecondary",
+              "displayBlock": "MuiTypography-displayBlock",
+              "displayInline": "MuiTypography-displayInline",
+              "gutterBottom": "MuiTypography-gutterBottom",
+              "h1": "MuiTypography-h1",
+              "h2": "MuiTypography-h2",
+              "h3": "MuiTypography-h3",
+              "h4": "MuiTypography-h4",
+              "h5": "MuiTypography-h5",
+              "h6": "MuiTypography-h6",
+              "noWrap": "MuiTypography-noWrap",
+              "overline": "MuiTypography-overline",
+              "paragraph": "MuiTypography-paragraph",
+              "root": "MuiTypography-root",
+              "srOnly": "MuiTypography-srOnly",
+              "subtitle1": "MuiTypography-subtitle1",
+              "subtitle2": "MuiTypography-subtitle2",
+            }
+          }
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body1"
+          >
+            Date Range:
+          </p>
+        </ForwardRef(Typography)>
+      </WithStyles(ForwardRef(Typography))>
+    </div>
+    <div
+      className="start-date"
+    >
+      <MuiPickersUtilsProvider
+        utils={[Function]}
+      >
+        <PickerWithState
+          InputLabelProps={
+            Object {
+              "shrink": true,
+            }
+          }
+          KeyboardButtonProps={
+            Object {
+              "aria-label": "change date",
+            }
+          }
+          allowKeyboardControl={true}
+          autoOk={true}
+          disableToolbar={true}
+          error={false}
+          format="MM/DD/YYYY"
+          helperText=""
+          invalidDateMessage="Invalid Date Format"
+          label="Concepts must occur from"
+          maxDate={2100-01-01T00:00:00.000Z}
+          maxDateMessage="Date should not be after maximal date"
+          minDate={null}
+          minDateMessage="Date should not be before minimal date"
+          onChange={[MockFunction]}
+          openTo="date"
+          placeholder="MM/DD/YYYY"
+          value={0}
+          variant="inline"
+          views={
+            Array [
+              "year",
+              "date",
+            ]
+          }
+        >
+          <Wrapper
+            DateInputProps={
+              Object {
+                "format": "MM/DD/YYYY",
+                "inputValue": "12/31/1969",
+                "onChange": [Function],
+                "openPicker": [Function],
+                "validationError": "",
+              }
+            }
+            InputComponent={[Function]}
+            InputLabelProps={
+              Object {
+                "shrink": true,
+              }
+            }
+            KeyboardButtonProps={
+              Object {
+                "aria-label": "change date",
+              }
+            }
+            error={false}
+            format="MM/DD/YYYY"
+            helperText=""
+            label="Concepts must occur from"
+            onAccept={[Function]}
+            onClear={[Function]}
+            onDismiss={[Function]}
+            onSetToday={[Function]}
+            open={false}
+            placeholder="MM/DD/YYYY"
+            variant="inline"
+          >
+            <InlineWrapper
+              DateInputProps={
+                Object {
+                  "format": "MM/DD/YYYY",
+                  "inputValue": "12/31/1969",
+                  "onChange": [Function],
+                  "openPicker": [Function],
+                  "validationError": "",
+                }
+              }
+              InputComponent={[Function]}
+              InputLabelProps={
+                Object {
+                  "shrink": true,
+                }
+              }
+              KeyboardButtonProps={
+                Object {
+                  "aria-label": "change date",
+                }
+              }
+              error={false}
+              format="MM/DD/YYYY"
+              helperText=""
+              label="Concepts must occur from"
+              onAccept={[Function]}
+              onClear={[Function]}
+              onDismiss={[Function]}
+              onSetToday={[Function]}
+              open={false}
+              placeholder="MM/DD/YYYY"
+            >
+              <KeyboardDateInput
+                InputLabelProps={
+                  Object {
+                    "shrink": true,
+                  }
+                }
+                KeyboardButtonProps={
+                  Object {
+                    "aria-label": "change date",
+                  }
+                }
+                error={false}
+                format="MM/DD/YYYY"
+                helperText=""
+                inputRef={
+                  Object {
+                    "current": <input
+                      aria-invalid="false"
+                      class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                      placeholder="MM/DD/YYYY"
+                      type="text"
+                      value="12/31/1969"
+                    />,
+                  }
+                }
+                inputValue="12/31/1969"
+                keyboardIcon={<KeyboardIcon />}
+                label="Concepts must occur from"
+                onChange={[Function]}
+                openPicker={[Function]}
+                placeholder="MM/DD/YYYY"
+                validationError=""
+              >
+                <Rifm
+                  format={[Function]}
+                  key="__/__/____"
+                  onChange={[Function]}
+                  refuse={/\\[\\^\\\\d\\]\\+/gi}
+                  value="12/31/1969"
+                >
+                  <WithStyles(ForwardRef(TextField))
+                    InputLabelProps={
+                      Object {
+                        "shrink": true,
+                      }
+                    }
+                    InputProps={
+                      Object {
+                        "endAdornment": <ForwardRef(WithStyles)
+                          position="end"
+                        >
+                          <ForwardRef(WithStyles)
+                            aria-label="change date"
+                            onClick={[Function]}
+                          >
+                            <KeyboardIcon />
+                          </ForwardRef(WithStyles)>
+                        </ForwardRef(WithStyles)>,
+                      }
+                    }
+                    error={false}
+                    helperText=""
+                    inputRef={
+                      Object {
+                        "current": <input
+                          aria-invalid="false"
+                          class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                          placeholder="MM/DD/YYYY"
+                          type="text"
+                          value="12/31/1969"
+                        />,
+                      }
+                    }
+                    label="Concepts must occur from"
+                    onChange={[Function]}
+                    placeholder="MM/DD/YYYY"
+                    value="12/31/1969"
+                  >
+                    <ForwardRef(TextField)
+                      InputLabelProps={
+                        Object {
+                          "shrink": true,
+                        }
+                      }
+                      InputProps={
+                        Object {
+                          "endAdornment": <ForwardRef(WithStyles)
+                            position="end"
+                          >
+                            <ForwardRef(WithStyles)
+                              aria-label="change date"
+                              onClick={[Function]}
+                            >
+                              <KeyboardIcon />
+                            </ForwardRef(WithStyles)>
+                          </ForwardRef(WithStyles)>,
+                        }
+                      }
+                      classes={
+                        Object {
+                          "root": "MuiTextField-root",
+                        }
+                      }
+                      error={false}
+                      helperText=""
+                      inputRef={
+                        Object {
+                          "current": <input
+                            aria-invalid="false"
+                            class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                            placeholder="MM/DD/YYYY"
+                            type="text"
+                            value="12/31/1969"
+                          />,
+                        }
+                      }
+                      label="Concepts must occur from"
+                      onChange={[Function]}
+                      placeholder="MM/DD/YYYY"
+                      value="12/31/1969"
+                    >
+                      <WithStyles(ForwardRef(FormControl))
+                        className="MuiTextField-root"
+                        color="primary"
+                        disabled={false}
+                        error={false}
+                        fullWidth={false}
+                        required={false}
+                        variant="standard"
+                      >
+                        <ForwardRef(FormControl)
+                          className="MuiTextField-root"
+                          classes={
+                            Object {
+                              "fullWidth": "MuiFormControl-fullWidth",
+                              "marginDense": "MuiFormControl-marginDense",
+                              "marginNormal": "MuiFormControl-marginNormal",
+                              "root": "MuiFormControl-root",
+                            }
+                          }
+                          color="primary"
+                          disabled={false}
+                          error={false}
+                          fullWidth={false}
+                          required={false}
+                          variant="standard"
+                        >
+                          <div
+                            className="MuiFormControl-root MuiTextField-root"
+                          >
+                            <WithStyles(ForwardRef(InputLabel))
+                              shrink={true}
+                            >
+                              <ForwardRef(InputLabel)
+                                classes={
+                                  Object {
+                                    "animated": "MuiInputLabel-animated",
+                                    "asterisk": "MuiInputLabel-asterisk",
+                                    "disabled": "Mui-disabled",
+                                    "error": "Mui-error",
+                                    "filled": "MuiInputLabel-filled",
+                                    "focused": "Mui-focused",
+                                    "formControl": "MuiInputLabel-formControl",
+                                    "marginDense": "MuiInputLabel-marginDense",
+                                    "outlined": "MuiInputLabel-outlined",
+                                    "required": "Mui-required",
+                                    "root": "MuiInputLabel-root",
+                                    "shrink": "MuiInputLabel-shrink",
+                                  }
+                                }
+                                shrink={true}
+                              >
+                                <WithStyles(ForwardRef(FormLabel))
+                                  className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink"
+                                  classes={
+                                    Object {
+                                      "asterisk": "MuiInputLabel-asterisk",
+                                      "disabled": "Mui-disabled",
+                                      "error": "Mui-error",
+                                      "focused": "Mui-focused",
+                                      "required": "Mui-required",
+                                    }
+                                  }
+                                  data-shrink={true}
+                                >
+                                  <ForwardRef(FormLabel)
+                                    className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink"
+                                    classes={
+                                      Object {
+                                        "asterisk": "MuiFormLabel-asterisk MuiInputLabel-asterisk",
+                                        "colorSecondary": "MuiFormLabel-colorSecondary",
+                                        "disabled": "Mui-disabled Mui-disabled",
+                                        "error": "Mui-error Mui-error",
+                                        "filled": "MuiFormLabel-filled",
+                                        "focused": "Mui-focused Mui-focused",
+                                        "required": "Mui-required Mui-required",
+                                        "root": "MuiFormLabel-root",
+                                      }
+                                    }
+                                    data-shrink={true}
+                                  >
+                                    <label
+                                      className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+                                      data-shrink={true}
+                                    >
+                                      Concepts must occur from
+                                    </label>
+                                  </ForwardRef(FormLabel)>
+                                </WithStyles(ForwardRef(FormLabel))>
+                              </ForwardRef(InputLabel)>
+                            </WithStyles(ForwardRef(InputLabel))>
+                            <WithStyles(ForwardRef(Input))
+                              autoFocus={false}
+                              endAdornment={
+                                <ForwardRef(WithStyles)
+                                  position="end"
+                                >
+                                  <ForwardRef(WithStyles)
+                                    aria-label="change date"
+                                    onClick={[Function]}
+                                  >
+                                    <KeyboardIcon />
+                                  </ForwardRef(WithStyles)>
+                                </ForwardRef(WithStyles)>
+                              }
+                              fullWidth={false}
+                              inputRef={
+                                Object {
+                                  "current": <input
+                                    aria-invalid="false"
+                                    class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                    placeholder="MM/DD/YYYY"
+                                    type="text"
+                                    value="12/31/1969"
+                                  />,
+                                }
+                              }
+                              multiline={false}
+                              onChange={[Function]}
+                              placeholder="MM/DD/YYYY"
+                              value="12/31/1969"
+                            >
+                              <ForwardRef(Input)
+                                autoFocus={false}
+                                classes={
+                                  Object {
+                                    "colorSecondary": "MuiInput-colorSecondary",
+                                    "disabled": "Mui-disabled",
+                                    "error": "Mui-error",
+                                    "focused": "Mui-focused",
+                                    "formControl": "MuiInput-formControl",
+                                    "fullWidth": "MuiInput-fullWidth",
+                                    "input": "MuiInput-input",
+                                    "inputMarginDense": "MuiInput-inputMarginDense",
+                                    "inputMultiline": "MuiInput-inputMultiline",
+                                    "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                    "marginDense": "MuiInput-marginDense",
+                                    "multiline": "MuiInput-multiline",
+                                    "root": "MuiInput-root",
+                                    "underline": "MuiInput-underline",
+                                  }
+                                }
+                                endAdornment={
+                                  <ForwardRef(WithStyles)
+                                    position="end"
+                                  >
+                                    <ForwardRef(WithStyles)
+                                      aria-label="change date"
+                                      onClick={[Function]}
+                                    >
+                                      <KeyboardIcon />
+                                    </ForwardRef(WithStyles)>
+                                  </ForwardRef(WithStyles)>
+                                }
+                                fullWidth={false}
+                                inputRef={
+                                  Object {
+                                    "current": <input
+                                      aria-invalid="false"
+                                      class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                      placeholder="MM/DD/YYYY"
+                                      type="text"
+                                      value="12/31/1969"
+                                    />,
+                                  }
+                                }
+                                multiline={false}
+                                onChange={[Function]}
+                                placeholder="MM/DD/YYYY"
+                                value="12/31/1969"
+                              >
+                                <WithStyles(ForwardRef(InputBase))
+                                  autoFocus={false}
+                                  classes={
+                                    Object {
+                                      "colorSecondary": "MuiInput-colorSecondary",
+                                      "disabled": "Mui-disabled",
+                                      "error": "Mui-error",
+                                      "focused": "Mui-focused",
+                                      "formControl": "MuiInput-formControl",
+                                      "fullWidth": "MuiInput-fullWidth",
+                                      "input": "MuiInput-input",
+                                      "inputMarginDense": "MuiInput-inputMarginDense",
+                                      "inputMultiline": "MuiInput-inputMultiline",
+                                      "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                      "marginDense": "MuiInput-marginDense",
+                                      "multiline": "MuiInput-multiline",
+                                      "root": "MuiInput-root MuiInput-underline",
+                                      "underline": null,
+                                    }
+                                  }
+                                  endAdornment={
+                                    <ForwardRef(WithStyles)
+                                      position="end"
+                                    >
+                                      <ForwardRef(WithStyles)
+                                        aria-label="change date"
+                                        onClick={[Function]}
+                                      >
+                                        <KeyboardIcon />
+                                      </ForwardRef(WithStyles)>
+                                    </ForwardRef(WithStyles)>
+                                  }
+                                  fullWidth={false}
+                                  inputComponent="input"
+                                  inputRef={
+                                    Object {
+                                      "current": <input
+                                        aria-invalid="false"
+                                        class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                        placeholder="MM/DD/YYYY"
+                                        type="text"
+                                        value="12/31/1969"
+                                      />,
+                                    }
+                                  }
+                                  multiline={false}
+                                  onChange={[Function]}
+                                  placeholder="MM/DD/YYYY"
+                                  type="text"
+                                  value="12/31/1969"
+                                >
+                                  <ForwardRef(InputBase)
+                                    autoFocus={false}
+                                    classes={
+                                      Object {
+                                        "adornedEnd": "MuiInputBase-adornedEnd",
+                                        "adornedStart": "MuiInputBase-adornedStart",
+                                        "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
+                                        "disabled": "Mui-disabled Mui-disabled",
+                                        "error": "Mui-error Mui-error",
+                                        "focused": "Mui-focused Mui-focused",
+                                        "formControl": "MuiInputBase-formControl MuiInput-formControl",
+                                        "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
+                                        "input": "MuiInputBase-input MuiInput-input",
+                                        "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
+                                        "inputAdornedStart": "MuiInputBase-inputAdornedStart",
+                                        "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
+                                        "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
+                                        "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
+                                        "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
+                                        "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
+                                        "multiline": "MuiInputBase-multiline MuiInput-multiline",
+                                        "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                      }
+                                    }
+                                    endAdornment={
+                                      <ForwardRef(WithStyles)
+                                        position="end"
+                                      >
+                                        <ForwardRef(WithStyles)
+                                          aria-label="change date"
+                                          onClick={[Function]}
+                                        >
+                                          <KeyboardIcon />
+                                        </ForwardRef(WithStyles)>
+                                      </ForwardRef(WithStyles)>
+                                    }
+                                    fullWidth={false}
+                                    inputComponent="input"
+                                    inputRef={
+                                      Object {
+                                        "current": <input
+                                          aria-invalid="false"
+                                          class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                          placeholder="MM/DD/YYYY"
+                                          type="text"
+                                          value="12/31/1969"
+                                        />,
+                                      }
+                                    }
+                                    multiline={false}
+                                    onChange={[Function]}
+                                    placeholder="MM/DD/YYYY"
+                                    type="text"
+                                    value="12/31/1969"
+                                  >
+                                    <div
+                                      className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+                                      onClick={[Function]}
+                                    >
+                                      <input
+                                        aria-invalid={false}
+                                        autoFocus={false}
+                                        className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                        disabled={false}
+                                        onAnimationStart={[Function]}
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onFocus={[Function]}
+                                        placeholder="MM/DD/YYYY"
+                                        required={false}
+                                        type="text"
+                                        value="12/31/1969"
+                                      />
+                                      <WithStyles(ForwardRef(InputAdornment))
+                                        position="end"
+                                      >
+                                        <ForwardRef(InputAdornment)
+                                          classes={
+                                            Object {
+                                              "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
+                                              "filled": "MuiInputAdornment-filled",
+                                              "hiddenLabel": "MuiInputAdornment-hiddenLabel",
+                                              "marginDense": "MuiInputAdornment-marginDense",
+                                              "positionEnd": "MuiInputAdornment-positionEnd",
+                                              "positionStart": "MuiInputAdornment-positionStart",
+                                              "root": "MuiInputAdornment-root",
+                                            }
+                                          }
+                                          position="end"
+                                        >
+                                          <div
+                                            className="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                                          >
+                                            <WithStyles(ForwardRef(IconButton))
+                                              aria-label="change date"
+                                              onClick={[Function]}
+                                            >
+                                              <ForwardRef(IconButton)
+                                                aria-label="change date"
+                                                classes={
+                                                  Object {
+                                                    "colorInherit": "MuiIconButton-colorInherit",
+                                                    "colorPrimary": "MuiIconButton-colorPrimary",
+                                                    "colorSecondary": "MuiIconButton-colorSecondary",
+                                                    "disabled": "Mui-disabled",
+                                                    "edgeEnd": "MuiIconButton-edgeEnd",
+                                                    "edgeStart": "MuiIconButton-edgeStart",
+                                                    "label": "MuiIconButton-label",
+                                                    "root": "MuiIconButton-root",
+                                                    "sizeSmall": "MuiIconButton-sizeSmall",
+                                                  }
+                                                }
+                                                onClick={[Function]}
+                                              >
+                                                <WithStyles(ForwardRef(ButtonBase))
+                                                  aria-label="change date"
+                                                  centerRipple={true}
+                                                  className="MuiIconButton-root"
+                                                  disabled={false}
+                                                  focusRipple={true}
+                                                  onClick={[Function]}
+                                                >
+                                                  <ForwardRef(ButtonBase)
+                                                    aria-label="change date"
+                                                    centerRipple={true}
+                                                    className="MuiIconButton-root"
+                                                    classes={
+                                                      Object {
+                                                        "disabled": "Mui-disabled",
+                                                        "focusVisible": "Mui-focusVisible",
+                                                        "root": "MuiButtonBase-root",
+                                                      }
+                                                    }
+                                                    disabled={false}
+                                                    focusRipple={true}
+                                                    onClick={[Function]}
+                                                  >
+                                                    <button
+                                                      aria-label="change date"
+                                                      className="MuiButtonBase-root MuiIconButton-root"
+                                                      disabled={false}
+                                                      onBlur={[Function]}
+                                                      onClick={[Function]}
+                                                      onDragLeave={[Function]}
+                                                      onFocus={[Function]}
+                                                      onKeyDown={[Function]}
+                                                      onKeyUp={[Function]}
+                                                      onMouseDown={[Function]}
+                                                      onMouseLeave={[Function]}
+                                                      onMouseUp={[Function]}
+                                                      onTouchEnd={[Function]}
+                                                      onTouchMove={[Function]}
+                                                      onTouchStart={[Function]}
+                                                      tabIndex={0}
+                                                      type="button"
+                                                    >
+                                                      <span
+                                                        className="MuiIconButton-label"
+                                                      >
+                                                        <KeyboardIcon>
+                                                          <WithStyles(ForwardRef(SvgIcon))>
+                                                            <ForwardRef(SvgIcon)
+                                                              classes={
+                                                                Object {
+                                                                  "colorAction": "MuiSvgIcon-colorAction",
+                                                                  "colorDisabled": "MuiSvgIcon-colorDisabled",
+                                                                  "colorError": "MuiSvgIcon-colorError",
+                                                                  "colorPrimary": "MuiSvgIcon-colorPrimary",
+                                                                  "colorSecondary": "MuiSvgIcon-colorSecondary",
+                                                                  "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                                                                  "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                                                                  "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                                                                  "root": "MuiSvgIcon-root",
+                                                                }
+                                                              }
+                                                            >
+                                                              <svg
+                                                                aria-hidden="true"
+                                                                className="MuiSvgIcon-root"
+                                                                focusable="false"
+                                                                role="presentation"
+                                                                viewBox="0 0 24 24"
+                                                              >
+                                                                <path
+                                                                  d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                                                                />
+                                                                <path
+                                                                  d="M0 0h24v24H0z"
+                                                                  fill="none"
+                                                                />
+                                                              </svg>
+                                                            </ForwardRef(SvgIcon)>
+                                                          </WithStyles(ForwardRef(SvgIcon))>
+                                                        </KeyboardIcon>
+                                                      </span>
+                                                      <NoSsr>
+                                                        <WithStyles(memo)
+                                                          center={true}
+                                                        >
+                                                          <ForwardRef(TouchRipple)
+                                                            center={true}
+                                                            classes={
+                                                              Object {
+                                                                "child": "MuiTouchRipple-child",
+                                                                "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                "ripple": "MuiTouchRipple-ripple",
+                                                                "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                "root": "MuiTouchRipple-root",
+                                                              }
+                                                            }
+                                                          >
+                                                            <span
+                                                              className="MuiTouchRipple-root"
+                                                            >
+                                                              <TransitionGroup
+                                                                childFactory={[Function]}
+                                                                component={null}
+                                                                exit={true}
+                                                              />
+                                                            </span>
+                                                          </ForwardRef(TouchRipple)>
+                                                        </WithStyles(memo)>
+                                                      </NoSsr>
+                                                    </button>
+                                                  </ForwardRef(ButtonBase)>
+                                                </WithStyles(ForwardRef(ButtonBase))>
+                                              </ForwardRef(IconButton)>
+                                            </WithStyles(ForwardRef(IconButton))>
+                                          </div>
+                                        </ForwardRef(InputAdornment)>
+                                      </WithStyles(ForwardRef(InputAdornment))>
+                                    </div>
+                                  </ForwardRef(InputBase)>
+                                </WithStyles(ForwardRef(InputBase))>
+                              </ForwardRef(Input)>
+                            </WithStyles(ForwardRef(Input))>
+                          </div>
+                        </ForwardRef(FormControl)>
+                      </WithStyles(ForwardRef(FormControl))>
+                    </ForwardRef(TextField)>
+                  </WithStyles(ForwardRef(TextField))>
+                </Rifm>
+              </KeyboardDateInput>
+              <WithStyles(ForwardRef(Popover))
+                anchorOrigin={
+                  Object {
+                    "horizontal": "center",
+                    "vertical": "bottom",
+                  }
+                }
+                onClose={[Function]}
+                open={false}
+                transformOrigin={
+                  Object {
+                    "horizontal": "center",
+                    "vertical": "top",
+                  }
+                }
+              >
+                <ForwardRef(Popover)
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "center",
+                      "vertical": "bottom",
+                    }
+                  }
+                  classes={
+                    Object {
+                      "paper": "MuiPopover-paper",
+                      "root": "MuiPopover-root",
+                    }
+                  }
+                  onClose={[Function]}
+                  open={false}
+                  transformOrigin={
+                    Object {
+                      "horizontal": "center",
+                      "vertical": "top",
+                    }
+                  }
+                >
+                  <ForwardRef(Modal)
+                    BackdropProps={
+                      Object {
+                        "invisible": true,
+                      }
+                    }
+                    className="MuiPopover-root"
+                    onClose={[Function]}
+                    open={false}
+                  />
+                </ForwardRef(Popover)>
+              </WithStyles(ForwardRef(Popover))>
+            </InlineWrapper>
+          </Wrapper>
+        </PickerWithState>
+      </MuiPickersUtilsProvider>
+    </div>
+    <div
+      className="end-date"
+    >
+      <MuiPickersUtilsProvider
+        utils={[Function]}
+      >
+        <PickerWithState
+          InputLabelProps={
+            Object {
+              "shrink": true,
+            }
+          }
+          KeyboardButtonProps={
+            Object {
+              "aria-label": "change date",
+            }
+          }
+          allowKeyboardControl={true}
+          autoOk={true}
+          className="end-date"
+          disableToolbar={true}
+          error={false}
+          format="MM/DD/YYYY"
+          helperText=""
+          invalidDateMessage="Invalid Date Format"
+          label="to"
+          maxDate={2100-01-01T00:00:00.000Z}
+          maxDateMessage="Date should not be after maximal date"
+          minDate={"1970-01-02T00:00:00.000Z"}
+          minDateMessage="Date should not be before minimal date"
+          onChange={[MockFunction]}
+          openTo="date"
+          placeholder="MM/DD/YYYY"
+          value={0}
+          variant="inline"
+          views={
+            Array [
+              "year",
+              "date",
+            ]
+          }
+        >
+          <Wrapper
+            DateInputProps={
+              Object {
+                "format": "MM/DD/YYYY",
+                "inputValue": "12/31/1969",
+                "onChange": [Function],
+                "openPicker": [Function],
+                "validationError": "Date should not be before minimal date",
+              }
+            }
+            InputComponent={[Function]}
+            InputLabelProps={
+              Object {
+                "shrink": true,
+              }
+            }
+            KeyboardButtonProps={
+              Object {
+                "aria-label": "change date",
+              }
+            }
+            className="end-date"
+            error={false}
+            format="MM/DD/YYYY"
+            helperText=""
+            label="to"
+            onAccept={[Function]}
+            onClear={[Function]}
+            onDismiss={[Function]}
+            onSetToday={[Function]}
+            open={false}
+            placeholder="MM/DD/YYYY"
+            variant="inline"
+          >
+            <InlineWrapper
+              DateInputProps={
+                Object {
+                  "format": "MM/DD/YYYY",
+                  "inputValue": "12/31/1969",
+                  "onChange": [Function],
+                  "openPicker": [Function],
+                  "validationError": "Date should not be before minimal date",
+                }
+              }
+              InputComponent={[Function]}
+              InputLabelProps={
+                Object {
+                  "shrink": true,
+                }
+              }
+              KeyboardButtonProps={
+                Object {
+                  "aria-label": "change date",
+                }
+              }
+              className="end-date"
+              error={false}
+              format="MM/DD/YYYY"
+              helperText=""
+              label="to"
+              onAccept={[Function]}
+              onClear={[Function]}
+              onDismiss={[Function]}
+              onSetToday={[Function]}
+              open={false}
+              placeholder="MM/DD/YYYY"
+            >
+              <KeyboardDateInput
+                InputLabelProps={
+                  Object {
+                    "shrink": true,
+                  }
+                }
+                KeyboardButtonProps={
+                  Object {
+                    "aria-label": "change date",
+                  }
+                }
+                className="end-date"
+                error={false}
+                format="MM/DD/YYYY"
+                helperText=""
+                inputRef={
+                  Object {
+                    "current": <input
+                      aria-invalid="false"
+                      class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                      placeholder="MM/DD/YYYY"
+                      type="text"
+                      value="12/31/1969"
+                    />,
+                  }
+                }
+                inputValue="12/31/1969"
+                keyboardIcon={<KeyboardIcon />}
+                label="to"
+                onChange={[Function]}
+                openPicker={[Function]}
+                placeholder="MM/DD/YYYY"
+                validationError="Date should not be before minimal date"
+              >
+                <Rifm
+                  format={[Function]}
+                  key="__/__/____"
+                  onChange={[Function]}
+                  refuse={/\\[\\^\\\\d\\]\\+/gi}
+                  value="12/31/1969"
+                >
+                  <WithStyles(ForwardRef(TextField))
+                    InputLabelProps={
+                      Object {
+                        "shrink": true,
+                      }
+                    }
+                    InputProps={
+                      Object {
+                        "endAdornment": <ForwardRef(WithStyles)
+                          position="end"
+                        >
+                          <ForwardRef(WithStyles)
+                            aria-label="change date"
+                            onClick={[Function]}
+                          >
+                            <KeyboardIcon />
+                          </ForwardRef(WithStyles)>
+                        </ForwardRef(WithStyles)>,
+                      }
+                    }
+                    className="end-date"
+                    error={false}
+                    helperText=""
+                    inputRef={
+                      Object {
+                        "current": <input
+                          aria-invalid="false"
+                          class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                          placeholder="MM/DD/YYYY"
+                          type="text"
+                          value="12/31/1969"
+                        />,
+                      }
+                    }
+                    label="to"
+                    onChange={[Function]}
+                    placeholder="MM/DD/YYYY"
+                    value="12/31/1969"
+                  >
+                    <ForwardRef(TextField)
+                      InputLabelProps={
+                        Object {
+                          "shrink": true,
+                        }
+                      }
+                      InputProps={
+                        Object {
+                          "endAdornment": <ForwardRef(WithStyles)
+                            position="end"
+                          >
+                            <ForwardRef(WithStyles)
+                              aria-label="change date"
+                              onClick={[Function]}
+                            >
+                              <KeyboardIcon />
+                            </ForwardRef(WithStyles)>
+                          </ForwardRef(WithStyles)>,
+                        }
+                      }
+                      className="end-date"
+                      classes={
+                        Object {
+                          "root": "MuiTextField-root",
+                        }
+                      }
+                      error={false}
+                      helperText=""
+                      inputRef={
+                        Object {
+                          "current": <input
+                            aria-invalid="false"
+                            class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                            placeholder="MM/DD/YYYY"
+                            type="text"
+                            value="12/31/1969"
+                          />,
+                        }
+                      }
+                      label="to"
+                      onChange={[Function]}
+                      placeholder="MM/DD/YYYY"
+                      value="12/31/1969"
+                    >
+                      <WithStyles(ForwardRef(FormControl))
+                        className="MuiTextField-root end-date"
+                        color="primary"
+                        disabled={false}
+                        error={false}
+                        fullWidth={false}
+                        required={false}
+                        variant="standard"
+                      >
+                        <ForwardRef(FormControl)
+                          className="MuiTextField-root end-date"
+                          classes={
+                            Object {
+                              "fullWidth": "MuiFormControl-fullWidth",
+                              "marginDense": "MuiFormControl-marginDense",
+                              "marginNormal": "MuiFormControl-marginNormal",
+                              "root": "MuiFormControl-root",
+                            }
+                          }
+                          color="primary"
+                          disabled={false}
+                          error={false}
+                          fullWidth={false}
+                          required={false}
+                          variant="standard"
+                        >
+                          <div
+                            className="MuiFormControl-root MuiTextField-root end-date"
+                          >
+                            <WithStyles(ForwardRef(InputLabel))
+                              shrink={true}
+                            >
+                              <ForwardRef(InputLabel)
+                                classes={
+                                  Object {
+                                    "animated": "MuiInputLabel-animated",
+                                    "asterisk": "MuiInputLabel-asterisk",
+                                    "disabled": "Mui-disabled",
+                                    "error": "Mui-error",
+                                    "filled": "MuiInputLabel-filled",
+                                    "focused": "Mui-focused",
+                                    "formControl": "MuiInputLabel-formControl",
+                                    "marginDense": "MuiInputLabel-marginDense",
+                                    "outlined": "MuiInputLabel-outlined",
+                                    "required": "Mui-required",
+                                    "root": "MuiInputLabel-root",
+                                    "shrink": "MuiInputLabel-shrink",
+                                  }
+                                }
+                                shrink={true}
+                              >
+                                <WithStyles(ForwardRef(FormLabel))
+                                  className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink"
+                                  classes={
+                                    Object {
+                                      "asterisk": "MuiInputLabel-asterisk",
+                                      "disabled": "Mui-disabled",
+                                      "error": "Mui-error",
+                                      "focused": "Mui-focused",
+                                      "required": "Mui-required",
+                                    }
+                                  }
+                                  data-shrink={true}
+                                >
+                                  <ForwardRef(FormLabel)
+                                    className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink"
+                                    classes={
+                                      Object {
+                                        "asterisk": "MuiFormLabel-asterisk MuiInputLabel-asterisk",
+                                        "colorSecondary": "MuiFormLabel-colorSecondary",
+                                        "disabled": "Mui-disabled Mui-disabled",
+                                        "error": "Mui-error Mui-error",
+                                        "filled": "MuiFormLabel-filled",
+                                        "focused": "Mui-focused Mui-focused",
+                                        "required": "Mui-required Mui-required",
+                                        "root": "MuiFormLabel-root",
+                                      }
+                                    }
+                                    data-shrink={true}
+                                  >
+                                    <label
+                                      className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+                                      data-shrink={true}
+                                    >
+                                      to
+                                    </label>
+                                  </ForwardRef(FormLabel)>
+                                </WithStyles(ForwardRef(FormLabel))>
+                              </ForwardRef(InputLabel)>
+                            </WithStyles(ForwardRef(InputLabel))>
+                            <WithStyles(ForwardRef(Input))
+                              autoFocus={false}
+                              endAdornment={
+                                <ForwardRef(WithStyles)
+                                  position="end"
+                                >
+                                  <ForwardRef(WithStyles)
+                                    aria-label="change date"
+                                    onClick={[Function]}
+                                  >
+                                    <KeyboardIcon />
+                                  </ForwardRef(WithStyles)>
+                                </ForwardRef(WithStyles)>
+                              }
+                              fullWidth={false}
+                              inputRef={
+                                Object {
+                                  "current": <input
+                                    aria-invalid="false"
+                                    class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                    placeholder="MM/DD/YYYY"
+                                    type="text"
+                                    value="12/31/1969"
+                                  />,
+                                }
+                              }
+                              multiline={false}
+                              onChange={[Function]}
+                              placeholder="MM/DD/YYYY"
+                              value="12/31/1969"
+                            >
+                              <ForwardRef(Input)
+                                autoFocus={false}
+                                classes={
+                                  Object {
+                                    "colorSecondary": "MuiInput-colorSecondary",
+                                    "disabled": "Mui-disabled",
+                                    "error": "Mui-error",
+                                    "focused": "Mui-focused",
+                                    "formControl": "MuiInput-formControl",
+                                    "fullWidth": "MuiInput-fullWidth",
+                                    "input": "MuiInput-input",
+                                    "inputMarginDense": "MuiInput-inputMarginDense",
+                                    "inputMultiline": "MuiInput-inputMultiline",
+                                    "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                    "marginDense": "MuiInput-marginDense",
+                                    "multiline": "MuiInput-multiline",
+                                    "root": "MuiInput-root",
+                                    "underline": "MuiInput-underline",
+                                  }
+                                }
+                                endAdornment={
+                                  <ForwardRef(WithStyles)
+                                    position="end"
+                                  >
+                                    <ForwardRef(WithStyles)
+                                      aria-label="change date"
+                                      onClick={[Function]}
+                                    >
+                                      <KeyboardIcon />
+                                    </ForwardRef(WithStyles)>
+                                  </ForwardRef(WithStyles)>
+                                }
+                                fullWidth={false}
+                                inputRef={
+                                  Object {
+                                    "current": <input
+                                      aria-invalid="false"
+                                      class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                      placeholder="MM/DD/YYYY"
+                                      type="text"
+                                      value="12/31/1969"
+                                    />,
+                                  }
+                                }
+                                multiline={false}
+                                onChange={[Function]}
+                                placeholder="MM/DD/YYYY"
+                                value="12/31/1969"
+                              >
+                                <WithStyles(ForwardRef(InputBase))
+                                  autoFocus={false}
+                                  classes={
+                                    Object {
+                                      "colorSecondary": "MuiInput-colorSecondary",
+                                      "disabled": "Mui-disabled",
+                                      "error": "Mui-error",
+                                      "focused": "Mui-focused",
+                                      "formControl": "MuiInput-formControl",
+                                      "fullWidth": "MuiInput-fullWidth",
+                                      "input": "MuiInput-input",
+                                      "inputMarginDense": "MuiInput-inputMarginDense",
+                                      "inputMultiline": "MuiInput-inputMultiline",
+                                      "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                      "marginDense": "MuiInput-marginDense",
+                                      "multiline": "MuiInput-multiline",
+                                      "root": "MuiInput-root MuiInput-underline",
+                                      "underline": null,
+                                    }
+                                  }
+                                  endAdornment={
+                                    <ForwardRef(WithStyles)
+                                      position="end"
+                                    >
+                                      <ForwardRef(WithStyles)
+                                        aria-label="change date"
+                                        onClick={[Function]}
+                                      >
+                                        <KeyboardIcon />
+                                      </ForwardRef(WithStyles)>
+                                    </ForwardRef(WithStyles)>
+                                  }
+                                  fullWidth={false}
+                                  inputComponent="input"
+                                  inputRef={
+                                    Object {
+                                      "current": <input
+                                        aria-invalid="false"
+                                        class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                        placeholder="MM/DD/YYYY"
+                                        type="text"
+                                        value="12/31/1969"
+                                      />,
+                                    }
+                                  }
+                                  multiline={false}
+                                  onChange={[Function]}
+                                  placeholder="MM/DD/YYYY"
+                                  type="text"
+                                  value="12/31/1969"
+                                >
+                                  <ForwardRef(InputBase)
+                                    autoFocus={false}
+                                    classes={
+                                      Object {
+                                        "adornedEnd": "MuiInputBase-adornedEnd",
+                                        "adornedStart": "MuiInputBase-adornedStart",
+                                        "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
+                                        "disabled": "Mui-disabled Mui-disabled",
+                                        "error": "Mui-error Mui-error",
+                                        "focused": "Mui-focused Mui-focused",
+                                        "formControl": "MuiInputBase-formControl MuiInput-formControl",
+                                        "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
+                                        "input": "MuiInputBase-input MuiInput-input",
+                                        "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
+                                        "inputAdornedStart": "MuiInputBase-inputAdornedStart",
+                                        "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
+                                        "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
+                                        "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
+                                        "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
+                                        "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
+                                        "multiline": "MuiInputBase-multiline MuiInput-multiline",
+                                        "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                      }
+                                    }
+                                    endAdornment={
+                                      <ForwardRef(WithStyles)
+                                        position="end"
+                                      >
+                                        <ForwardRef(WithStyles)
+                                          aria-label="change date"
+                                          onClick={[Function]}
+                                        >
+                                          <KeyboardIcon />
+                                        </ForwardRef(WithStyles)>
+                                      </ForwardRef(WithStyles)>
+                                    }
+                                    fullWidth={false}
+                                    inputComponent="input"
+                                    inputRef={
+                                      Object {
+                                        "current": <input
+                                          aria-invalid="false"
+                                          class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                          placeholder="MM/DD/YYYY"
+                                          type="text"
+                                          value="12/31/1969"
+                                        />,
+                                      }
+                                    }
+                                    multiline={false}
+                                    onChange={[Function]}
+                                    placeholder="MM/DD/YYYY"
+                                    type="text"
+                                    value="12/31/1969"
+                                  >
+                                    <div
+                                      className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+                                      onClick={[Function]}
+                                    >
+                                      <input
+                                        aria-invalid={false}
+                                        autoFocus={false}
+                                        className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+                                        disabled={false}
+                                        onAnimationStart={[Function]}
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onFocus={[Function]}
+                                        placeholder="MM/DD/YYYY"
+                                        required={false}
+                                        type="text"
+                                        value="12/31/1969"
+                                      />
+                                      <WithStyles(ForwardRef(InputAdornment))
+                                        position="end"
+                                      >
+                                        <ForwardRef(InputAdornment)
+                                          classes={
+                                            Object {
+                                              "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
+                                              "filled": "MuiInputAdornment-filled",
+                                              "hiddenLabel": "MuiInputAdornment-hiddenLabel",
+                                              "marginDense": "MuiInputAdornment-marginDense",
+                                              "positionEnd": "MuiInputAdornment-positionEnd",
+                                              "positionStart": "MuiInputAdornment-positionStart",
+                                              "root": "MuiInputAdornment-root",
+                                            }
+                                          }
+                                          position="end"
+                                        >
+                                          <div
+                                            className="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+                                          >
+                                            <WithStyles(ForwardRef(IconButton))
+                                              aria-label="change date"
+                                              onClick={[Function]}
+                                            >
+                                              <ForwardRef(IconButton)
+                                                aria-label="change date"
+                                                classes={
+                                                  Object {
+                                                    "colorInherit": "MuiIconButton-colorInherit",
+                                                    "colorPrimary": "MuiIconButton-colorPrimary",
+                                                    "colorSecondary": "MuiIconButton-colorSecondary",
+                                                    "disabled": "Mui-disabled",
+                                                    "edgeEnd": "MuiIconButton-edgeEnd",
+                                                    "edgeStart": "MuiIconButton-edgeStart",
+                                                    "label": "MuiIconButton-label",
+                                                    "root": "MuiIconButton-root",
+                                                    "sizeSmall": "MuiIconButton-sizeSmall",
+                                                  }
+                                                }
+                                                onClick={[Function]}
+                                              >
+                                                <WithStyles(ForwardRef(ButtonBase))
+                                                  aria-label="change date"
+                                                  centerRipple={true}
+                                                  className="MuiIconButton-root"
+                                                  disabled={false}
+                                                  focusRipple={true}
+                                                  onClick={[Function]}
+                                                >
+                                                  <ForwardRef(ButtonBase)
+                                                    aria-label="change date"
+                                                    centerRipple={true}
+                                                    className="MuiIconButton-root"
+                                                    classes={
+                                                      Object {
+                                                        "disabled": "Mui-disabled",
+                                                        "focusVisible": "Mui-focusVisible",
+                                                        "root": "MuiButtonBase-root",
+                                                      }
+                                                    }
+                                                    disabled={false}
+                                                    focusRipple={true}
+                                                    onClick={[Function]}
+                                                  >
+                                                    <button
+                                                      aria-label="change date"
+                                                      className="MuiButtonBase-root MuiIconButton-root"
+                                                      disabled={false}
+                                                      onBlur={[Function]}
+                                                      onClick={[Function]}
+                                                      onDragLeave={[Function]}
+                                                      onFocus={[Function]}
+                                                      onKeyDown={[Function]}
+                                                      onKeyUp={[Function]}
+                                                      onMouseDown={[Function]}
+                                                      onMouseLeave={[Function]}
+                                                      onMouseUp={[Function]}
+                                                      onTouchEnd={[Function]}
+                                                      onTouchMove={[Function]}
+                                                      onTouchStart={[Function]}
+                                                      tabIndex={0}
+                                                      type="button"
+                                                    >
+                                                      <span
+                                                        className="MuiIconButton-label"
+                                                      >
+                                                        <KeyboardIcon>
+                                                          <WithStyles(ForwardRef(SvgIcon))>
+                                                            <ForwardRef(SvgIcon)
+                                                              classes={
+                                                                Object {
+                                                                  "colorAction": "MuiSvgIcon-colorAction",
+                                                                  "colorDisabled": "MuiSvgIcon-colorDisabled",
+                                                                  "colorError": "MuiSvgIcon-colorError",
+                                                                  "colorPrimary": "MuiSvgIcon-colorPrimary",
+                                                                  "colorSecondary": "MuiSvgIcon-colorSecondary",
+                                                                  "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                                                                  "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                                                                  "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                                                                  "root": "MuiSvgIcon-root",
+                                                                }
+                                                              }
+                                                            >
+                                                              <svg
+                                                                aria-hidden="true"
+                                                                className="MuiSvgIcon-root"
+                                                                focusable="false"
+                                                                role="presentation"
+                                                                viewBox="0 0 24 24"
+                                                              >
+                                                                <path
+                                                                  d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                                                                />
+                                                                <path
+                                                                  d="M0 0h24v24H0z"
+                                                                  fill="none"
+                                                                />
+                                                              </svg>
+                                                            </ForwardRef(SvgIcon)>
+                                                          </WithStyles(ForwardRef(SvgIcon))>
+                                                        </KeyboardIcon>
+                                                      </span>
+                                                      <NoSsr>
+                                                        <WithStyles(memo)
+                                                          center={true}
+                                                        >
+                                                          <ForwardRef(TouchRipple)
+                                                            center={true}
+                                                            classes={
+                                                              Object {
+                                                                "child": "MuiTouchRipple-child",
+                                                                "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                "ripple": "MuiTouchRipple-ripple",
+                                                                "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                "root": "MuiTouchRipple-root",
+                                                              }
+                                                            }
+                                                          >
+                                                            <span
+                                                              className="MuiTouchRipple-root"
+                                                            >
+                                                              <TransitionGroup
+                                                                childFactory={[Function]}
+                                                                component={null}
+                                                                exit={true}
+                                                              />
+                                                            </span>
+                                                          </ForwardRef(TouchRipple)>
+                                                        </WithStyles(memo)>
+                                                      </NoSsr>
+                                                    </button>
+                                                  </ForwardRef(ButtonBase)>
+                                                </WithStyles(ForwardRef(ButtonBase))>
+                                              </ForwardRef(IconButton)>
+                                            </WithStyles(ForwardRef(IconButton))>
+                                          </div>
+                                        </ForwardRef(InputAdornment)>
+                                      </WithStyles(ForwardRef(InputAdornment))>
+                                    </div>
+                                  </ForwardRef(InputBase)>
+                                </WithStyles(ForwardRef(InputBase))>
+                              </ForwardRef(Input)>
+                            </WithStyles(ForwardRef(Input))>
+                          </div>
+                        </ForwardRef(FormControl)>
+                      </WithStyles(ForwardRef(FormControl))>
+                    </ForwardRef(TextField)>
+                  </WithStyles(ForwardRef(TextField))>
+                </Rifm>
+              </KeyboardDateInput>
+              <WithStyles(ForwardRef(Popover))
+                anchorOrigin={
+                  Object {
+                    "horizontal": "center",
+                    "vertical": "bottom",
+                  }
+                }
+                onClose={[Function]}
+                open={false}
+                transformOrigin={
+                  Object {
+                    "horizontal": "center",
+                    "vertical": "top",
+                  }
+                }
+              >
+                <ForwardRef(Popover)
+                  anchorOrigin={
+                    Object {
+                      "horizontal": "center",
+                      "vertical": "bottom",
+                    }
+                  }
+                  classes={
+                    Object {
+                      "paper": "MuiPopover-paper",
+                      "root": "MuiPopover-root",
+                    }
+                  }
+                  onClose={[Function]}
+                  open={false}
+                  transformOrigin={
+                    Object {
+                      "horizontal": "center",
+                      "vertical": "top",
+                    }
+                  }
+                >
+                  <ForwardRef(Modal)
+                    BackdropProps={
+                      Object {
+                        "invisible": true,
+                      }
+                    }
+                    className="MuiPopover-root"
+                    onClose={[Function]}
+                    open={false}
+                  />
+                </ForwardRef(Popover)>
+              </WithStyles(ForwardRef(Popover))>
+            </InlineWrapper>
+          </Wrapper>
+        </PickerWithState>
+      </MuiPickersUtilsProvider>
+    </div>
+    <div
+      className="clear-date-range"
+    >
+      <WithStyles(ForwardRef(Icon))
+        className="fa fa-undo"
+        onClick={[MockFunction]}
+      >
+        <ForwardRef(Icon)
+          className="fa fa-undo"
+          classes={
+            Object {
+              "colorAction": "MuiIcon-colorAction",
+              "colorDisabled": "MuiIcon-colorDisabled",
+              "colorError": "MuiIcon-colorError",
+              "colorPrimary": "MuiIcon-colorPrimary",
+              "colorSecondary": "MuiIcon-colorSecondary",
+              "fontSizeInherit": "MuiIcon-fontSizeInherit",
+              "fontSizeLarge": "MuiIcon-fontSizeLarge",
+              "fontSizeSmall": "MuiIcon-fontSizeSmall",
+              "root": "MuiIcon-root",
+            }
+          }
+          onClick={[MockFunction]}
+        >
+          <span
+            aria-hidden={true}
+            className="material-icons MuiIcon-root fa fa-undo"
+            onClick={[MockFunction]}
+          />
+        </ForwardRef(Icon)>
+      </WithStyles(ForwardRef(Icon))>
+    </div>
+  </div>
+</DateRange>
+`;

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupBody should render correctly 1`] = `
+<WithStyles(ForwardRef(Card))
+  className="GroupBody mock-active-class has-children inclusion-group"
+>
+  <div />
+  <InclusionExclusionPanel
+    activeClass="mock-active-class"
+    group={
+      Object {
+        "children": Array [
+          Object {
+            "name": "mock term 1",
+            "path": "mock/term/path/1",
+          },
+          Object {
+            "name": "mock term 2",
+            "path": "mock/term/path/2",
+          },
+          Object {
+            "name": "mock term 3",
+            "path": "mock/term/path/3",
+          },
+        ],
+        "id": "mock-id",
+      }
+    }
+    hasChildren={true}
+    isActive={true}
+    removeAllGroupTerms={[MockFunction]}
+  />
+</WithStyles(ForwardRef(Card))>
+`;

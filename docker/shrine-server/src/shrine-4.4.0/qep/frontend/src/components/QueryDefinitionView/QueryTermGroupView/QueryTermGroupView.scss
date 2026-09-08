@@ -1,0 +1,20 @@
+@import "assets/style/theme.scss";
+
+.QueryTermGroupView {
+  width: 85%;
+  margin-left: 5%;
+  padding: 10px;
+  &:focus-within {
+    z-index: 1000;
+    position: relative;
+  }
+  .create-event,
+  .create-first-event,
+  .create-first-group,
+  .create-group {
+    padding-left: 4px;
+  }
+  .create-first-group {
+    display: none;
+  }
+}

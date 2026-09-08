@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ValueRange should render correctly 1`] = `
+<Fragment>
+  <WithStyles(ForwardRef(TextField))
+    InputLabelProps={
+      Object {
+        "shrink": true,
+      }
+    }
+    className="inline-input LowValue mock-visibility-class"
+    error={false}
+    label=""
+    onChange={[MockFunction]}
+    placeholder="value"
+    type="number"
+    value={1}
+  />
+  <span
+    className="between mock-visibility-class"
+  >
+    -
+  </span>
+  <WithStyles(ForwardRef(TextField))
+    InputLabelProps={
+      Object {
+        "shrink": true,
+      }
+    }
+    className="inline-input HighValue mock-visibility-class"
+    error={false}
+    label=""
+    onChange={[MockFunction]}
+    placeholder="high value"
+    type="number"
+    value={2}
+  />
+</Fragment>
+`;

@@ -1,0 +1,49 @@
+@import "assets/style/theme.scss";
+.EventView {
+  background-color: $grey1;
+  min-height: 100px;
+  .event-icon {
+    position: relative;
+    left: 52%;
+    top: 8px;
+  }
+  .event-content {
+    position: relative;
+    bottom: 24px;
+    right: 32px;
+  }
+  &.has-children {
+    .event-content {
+      margin-bottom: -24px;
+    }
+  }
+  .name {
+    color: #878787;
+    font-style: normal;
+  }
+  .header-container {
+    width: 100%;
+    text-align: left;
+    .header {
+      color: #878787;
+      font-style: normal;
+      margin-left: 8px;
+      margin-top: 30px;
+      &.error {
+        color: $mui-error-color;
+        font-size: small;
+        position: relative;
+        bottom: 16px;
+      }
+    }
+  }
+  .ConceptListOptions {
+    position: relative;
+    left: -24px;
+    width: calc(100% + 64px);
+    button.MuiButtonBase-root {
+      position: relative;
+      left: -6px;
+    }
+  }
+}

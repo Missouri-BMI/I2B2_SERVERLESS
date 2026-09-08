@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><ns6:request xmlns:ns4="http://www.i2b2.org/xsd/cell/crc/psm/1.1/" xmlns:ns7="http://www.i2b2.org/xsd/cell/crc/psm/querydefinition/1.1/" xmlns:ns3="http://www.i2b2.org/xsd/cell/crc/pdo/1.1/" xmlns:ns5="http://www.i2b2.org/xsd/hive/plugin/" xmlns:ns2="http://www.i2b2.org/xsd/hive/pdo/1.1/" xmlns:ns6="http://www.i2b2.org/xsd/hive/msg/1.1/">
+    <message_header>
+        <proxy>
+<!--            <redirect_url>http://localhost:6060/shrine/rest/i2b2/admin/request</redirect_url> -->
+            <redirect_url>http://localhost:6060/shrine/rest/i2b2/admin/request</redirect_url>
+        </proxy>
+        <sending_application>
+            <application_name>i2b2_QueryTool</application_name>
+            <application_version>1.6</application_version>
+        </sending_application>
+        <sending_facility>
+            <facility_name>PHS</facility_name>
+        </sending_facility>
+        <receiving_application>
+            <application_name>i2b2_DataRepositoryCell</application_name>
+            <application_version>1.6</application_version>
+        </receiving_application>
+        <receiving_facility>
+            <facility_name>PHS</facility_name>
+        </receiving_facility>
+        <security>
+            <domain>i2b2demo</domain>
+            <username>shrine</username>
+            <password token_ms_timeout="1800000" is_token="false">examplePassword</password>
+        </security>
+        <message_type>
+            <message_code>Q04</message_code>
+            <event_type>EQQ</event_type>
+        </message_type>
+        <message_control_id>
+            <message_num>80A68V8kQ2t95F4jl1PMR</message_num>
+            <instance_num>0</instance_num>
+        </message_control_id>
+        <processing_id>
+            <processing_id>P</processing_id>
+            <processing_mode>I</processing_mode>
+        </processing_id>
+        <accept_acknowledgement_type>AL</accept_acknowledgement_type>
+        <project_id>SHRINE</project_id>
+        <country_code>US</country_code>
+    </message_header>
+    <request_header>
+        <result_waittime_ms>180000</result_waittime_ms>
+    </request_header>
+    <message_body>
+        <ns4:psmheader>
+            <user login="userid">userid</user>
+            <patient_set_limit>0</patient_set_limit>
+            <estimated_time>0</estimated_time>
+        </ns4:psmheader>
+        <ns4:get_name_info category="top" max="25">
+            <match_str strategy="contains">Male</match_str>
+            <user_id>@</user_id>
+            <ascending>false</ascending>
+        </ns4:get_name_info>
+    </message_body>
+</ns6:request>

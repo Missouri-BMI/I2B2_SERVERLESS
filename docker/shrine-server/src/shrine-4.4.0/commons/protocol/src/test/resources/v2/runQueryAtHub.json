@@ -1,0 +1,236 @@
+{
+  "query": {
+    "id": 0,
+    "versionInfo": {
+      "protocolVersion": 2,
+      "shrineVersion": "4.2.0-SNAPSHOT",
+      "itemVersion": 1,
+      "createDate": 0,
+      "changeDate": 0
+    },
+    "status": "IdAssigned",
+    "queryDefinition": {
+      "expression": {
+        "nMustBeTrue": 3,
+        "compare": "AtLeast",
+        "possibilities": [
+          {
+            "concepts": {
+              "nMustBeTrue": 1,
+              "compare": "AtLeast",
+              "possibilities": [
+                {
+                  "displayName": "45-55",
+                  "termPath": "/path/to/middle/aged",
+                  "constraint": null,
+                  "encodedClass": "Concept"
+                }
+              ]
+            },
+            "startDate": null,
+            "endDate": null,
+            "occursAtLeast": 1,
+            "encodedClass": "ConceptGroup"
+          },
+          {
+            "concepts": {
+              "nMustBeTrue": 1,
+              "compare": "AtLeast",
+              "possibilities": [
+                {
+                  "displayName": "male",
+                  "termPath": "/path/to/male",
+                  "constraint": null,
+                  "encodedClass": "Concept"
+                }
+              ]
+            },
+            "startDate": null,
+            "endDate": null,
+            "occursAtLeast": 1,
+            "encodedClass": "ConceptGroup"
+          },
+          {
+            "first": {
+              "concepts": {
+                "nMustBeTrue": 1,
+                "compare": "AtLeast",
+                "possibilities": [
+                  {
+                    "displayName": "hypertension Diagnosis",
+                    "termPath": "/path/to/hypertension/diagnosis",
+                    "constraint": null,
+                    "encodedClass": "Concept"
+                  },
+                  {
+                    "displayName": "hypertension Test",
+                    "termPath": "/path/to/hypertension/test",
+                    "constraint": {
+                      "encodedClass": "High"
+                    },
+                    "encodedClass": "Concept"
+                  },
+                  {
+                    "displayName": "hypertension meds",
+                    "termPath": "/path/to/hypertension/meds",
+                    "constraint": {
+                      "value1": 3.0,
+                      "value2": 3000.0,
+                      "unit": null,
+                      "encodedClass": "DoubleNumberConstraint"
+                    },
+                    "encodedClass": "Concept"
+                  }
+                ]
+              },
+              "startDate": null,
+              "endDate": null,
+              "occursAtLeast": 1
+            },
+            "subsequent": [
+              {
+                "conceptGroup": {
+                  "concepts": {
+                    "nMustBeTrue": 1,
+                    "compare": "AtLeast",
+                    "possibilities": [
+                      {
+                        "displayName": "snake oil",
+                        "termPath": "/path/to/snake/oil",
+                        "constraint": null,
+                        "encodedClass": "Concept"
+                      }
+                    ]
+                  },
+                  "startDate": null,
+                  "endDate": null,
+                  "occursAtLeast": 1
+                },
+                "previousEventConstraint": {
+                  "boundary": "START",
+                  "anchor": "ANY"
+                },
+                "thisEventConstraint": {
+                  "boundary": "START",
+                  "anchor": "ANY"
+                },
+                "relationship": "Before",
+                "timeConstraint": null
+              },
+              {
+                "conceptGroup": {
+                  "concepts": {
+                    "nMustBeTrue": 0,
+                    "compare": "AtMost",
+                    "possibilities": [
+                      {
+                        "displayName": "hypertension Diagnosis",
+                        "termPath": "/path/to/hypertension/diagnosis",
+                        "constraint": null,
+                        "encodedClass": "Concept"
+                      },
+                      {
+                        "displayName": "hypertension Test",
+                        "termPath": "/path/to/hypertension/test",
+                        "constraint": {
+                          "operator": {
+                            "encodedClass": "LessThanOrEqual"
+                          },
+                          "value": 42.0,
+                          "unit": "hyperOs",
+                          "encodedClass": "SingleNumberConstraint"
+                        },
+                        "encodedClass": "Concept"
+                      },
+                      {
+                        "displayName": "hypertension meds",
+                        "termPath": "/path/to/hypertension/meds",
+                        "constraint": {
+                          "value1": 3.0,
+                          "value2": 3000.0,
+                          "unit": null,
+                          "encodedClass": "DoubleNumberConstraint"
+                        },
+                        "encodedClass": "Concept"
+                      }
+                    ]
+                  },
+                  "startDate": null,
+                  "endDate": null,
+                  "occursAtLeast": 1
+                },
+                "previousEventConstraint": {
+                  "boundary": "START",
+                  "anchor": "ANY"
+                },
+                "thisEventConstraint": {
+                  "boundary": "START",
+                  "anchor": "ANY"
+                },
+                "relationship": "Before",
+                "timeConstraint": null
+              }
+            ],
+            "encodedClass": "Timeline"
+          }
+        ],
+        "encodedClass": "Conjunction"
+      }
+    },
+    "breakdownNames": [],
+    "queryName": "queryName",
+    "queryNotes": null,
+    "queryFaved": false,
+    "nodeOfOriginId": 0,
+    "researcherId": 0,
+    "encodedClass": "QueryProgress"
+  },
+  "researcher": {
+    "id": 0,
+    "versionInfo": {
+      "protocolVersion": 2,
+      "shrineVersion": "4.2.0-SNAPSHOT",
+      "itemVersion": 1,
+      "createDate": 0,
+      "changeDate": 0
+    },
+    "userName": "testResearcherName",
+    "userDomainName": "testUserDomainName",
+    "nodeId": 0
+  },
+  "node": {
+    "id": 0,
+    "versionInfo": {
+      "protocolVersion": 2,
+      "shrineVersion": "4.2.0-SNAPSHOT",
+      "itemVersion": 1,
+      "createDate": 0,
+      "changeDate": 0
+    },
+    "name": "testNode",
+    "key": "testNode",
+    "userDomainName": "testnode.domain",
+    "momQueueName": "testMomQueueName",
+    "adminEmail": "email@foo",
+    "sendQueries": true,
+    "understandsProtocol": 2,
+    "momId": "testNode"
+  },
+  "resultProgress": {
+    "id": 0,
+    "versionInfo": {
+      "protocolVersion": 2,
+      "shrineVersion": "4.2.0-SNAPSHOT",
+      "itemVersion": 1,
+      "createDate": 0,
+      "changeDate": 0
+    },
+    "queryId": 3,
+    "adapterNodeId": 0,
+    "adapterNodeName": "testNode",
+    "status": "IdAssigned",
+    "statusMessage": "test status message",
+    "crcQueryInstanceId": 0
+  },
+  "protocolVersion": 2
+}

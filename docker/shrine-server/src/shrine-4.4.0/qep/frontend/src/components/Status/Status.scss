@@ -1,0 +1,29 @@
+
+.PatientCount {
+  color: black;
+}
+
+.DelayedAtSite {
+  color: rgb(211, 110, 37);
+}
+
+.QueryNonError,
+.QueryError {
+  display: inline-block;
+}
+
+.QueryNonError,
+.ProcessingAtSite,
+.QuerySubmitted {
+  color: green;
+}
+
+.QueryError,
+.SiteError {
+  color: red;
+  > span {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+  }
+}

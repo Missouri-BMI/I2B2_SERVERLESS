@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tree should render correctly 1`] = `
+<Tree
+  conceptList={Array []}
+  fetchChildren={[MockFunction]}
+>
+  <WithStyles(ForwardRef(TreeView))
+    className="Tree"
+    expanded={Array []}
+  >
+    <ForwardRef(TreeView)
+      className="Tree"
+      classes={
+        Object {
+          "root": "MuiTreeView-root",
+        }
+      }
+      expanded={Array []}
+    >
+      <ul
+        className="MuiTreeView-root Tree"
+        role="tree"
+      />
+    </ForwardRef(TreeView)>
+  </WithStyles(ForwardRef(TreeView))>
+</Tree>
+`;

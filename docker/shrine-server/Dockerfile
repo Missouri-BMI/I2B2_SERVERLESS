@@ -15,7 +15,7 @@ RUN yum -y update && \
     yum clean all
 
 # COPY WAR FILE
-COPY src/shrine/apps/shrine-api-war/target/shrine-api.war /usr/local/tomcat/webapps/
+COPY src/shrine-4.4.0/apps/shrine-api-war/target/shrine-api.war /usr/local/tomcat/webapps/
 
 ## copy executables
 COPY src/executables/${ENVIRONMENT}/commands.sh /etc/init.d/

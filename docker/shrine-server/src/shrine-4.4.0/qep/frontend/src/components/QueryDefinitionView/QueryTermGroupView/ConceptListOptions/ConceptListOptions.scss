@@ -1,0 +1,41 @@
+@import "assets/style/theme.scss";
+
+.EventView.has-children .ConceptListOptions,
+.QueryTermGroupView .has-children .ConceptListOptions {
+  display: inherit;
+}
+
+.ConceptListOptions {
+  @include font-base;
+  color: $grey7;
+  display: none;
+  margin-left: -8px;
+  width: 97%;
+  text-align: left;
+  &.not-expandable {
+    height: 44px;
+  }
+  &.clear-settings-error {
+    height: inherit;
+    .info-wrapper {
+      bottom: 220px;
+    }
+  }
+
+  .info-wrapper {
+    position: relative;
+    left: calc(100% - 30px);
+    bottom: 44px;
+    width: 30px;
+    color: #6a666e;
+    cursor: default;
+  }
+}
+
+@media (max-width: 1440px) {
+  .ConceptListOptions {
+    &.multiline {
+      margin-bottom: 20px;
+    }
+  }
+}

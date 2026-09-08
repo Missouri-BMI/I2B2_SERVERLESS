@@ -1,0 +1,26 @@
+{
+  "id": 0,
+  "versionInfo": {
+    "protocolVersion": 2,
+    "shrineVersion": "3.3.0",
+    "itemVersion": 1,
+    "createDate": 0,
+    "changeDate": 0
+  },
+  "queryId": 0,
+  "adapterNodeId": 0,
+  "adapterNodeName": "testNode",
+  "status": "IdAssigned",
+  "statusMessage": "test status message",
+  "resultMetadata": {
+    "obfuscatingParameters": {
+      "binSize": 5,
+      "stdDev": 6.5,
+      "noiseClamp": 10,
+      "lowLimit": 10
+    },
+    "custom": null
+  },
+  "crcQueryInstanceId": 0,
+  "encodedClass": "ResultProgress"
+}

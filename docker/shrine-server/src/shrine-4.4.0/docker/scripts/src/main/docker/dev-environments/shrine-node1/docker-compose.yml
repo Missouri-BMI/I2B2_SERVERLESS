@@ -1,0 +1,108 @@
+version: '3.5'
+
+services:
+
+  i2b2-web1:
+    image: i2b2/i2b2-web:${I2B2_WEB_TAG}
+    container_name: i2b2-web1
+    ports:
+      - "127.0.0.1:81:80"
+      - "127.0.0.1:444:443"
+    command: /run-httpd.sh localhost
+    networks:
+      shrine-node1-net:
+        aliases:
+          - i2b2-web
+    depends_on:
+      - i2b2-wildfly1
+
+  i2b2-wildfly1:
+    image: ${DOCKER_REGISTRY_URL}shrine-i2b2-wildfly:${SHRINE_VERSION}
+    container_name: i2b2-wildfly1
+    ports:
+      - "127.0.0.1:8091:8080"
+      - "127.0.0.1:9991:9990"
+    networks:
+      shrine-node1-net:
+        aliases:
+          - i2b2-wildfly
+    depends_on:
+      - i2b2-mssql
+
+  i2b2-mssql-vol-loader1:
+    image: i2b2/i2b2-mssql-vol:${I2B2_MSSQL_TAG}
+    container_name: i2b2-mssql-vol-loader1
+    volumes:
+      - i2b2-mssql-vol1:/var/opt/mssql
+    entrypoint: /bin/sh
+    networks:
+      - shrine-node1-net
+
+  i2b2-mssql1:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: i2b2-mssql1
+    ports:
+      - "127.0.0.1:1434:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${I2B2_MSSQL_SA_PASSWORD}
+    networks:
+      shrine-node1-net:
+        aliases:
+          - i2b2-mssql
+    volumes:
+      - i2b2-mssql-vol1:/var/opt/mssql
+    depends_on:
+      - i2b2-mssql-vol-loader1
+
+  shrine-node1:
+    depends_on:
+      - shrinedb-node1
+      - shrine-certs
+#      - kafka-1
+#      - kafka-2
+    image: ${DOCKER_REGISTRY_URL}shrine-node:${SHRINE_VERSION}
+    ports:
+      - "127.0.0.1:6444:6443"
+      - "127.0.0.1:8001:8000"
+    environment:
+      JPDA_ADDRESS: "*:8000"
+      JPDA_TRANSPORT: dt_socket
+      NODE_NAME: shrine-node1
+    command: ["wait-for-it", "shrinedb:3306", "--", "catalina.sh", "jpda","run"]
+    volumes:
+      - ${LUCENE_INDEX:?err}:/usr/local/shrine/conf/lucene_index
+      - ${SUGGEST_INDEX:?err}:/usr/local/shrine/conf/suggest_index
+      - ${ADAPTER_MAPPINGS:?err}:/usr/local/tomcat/lib/AdapterMappings.csv
+      - $PWD/src/main/docker/dev-environments/shrine-node1/override.conf:/usr/local/tomcat/lib/override.conf
+      - shrine-keystore-vol:/usr/local/shrine/conf/shrine-keystores:ro
+#      - shrine-kafka-truststore-vol:/usr/local/kafka/truststore:ro
+
+    networks:
+     - i2b2-net
+     - shrine-node1-net
+
+  shrinedb-node1:
+    image: ${DOCKER_REGISTRY_URL}shrine-mysql:${SHRINE_VERSION}
+    ports:
+      - "127.0.0.1:3307:3306"
+    restart: always
+    volumes:
+      - shrinedb-node1-mysql-vol:/var/lib/mysql
+    networks:
+      shrine-node1-net:
+        aliases:
+          - shrinedb
+
+volumes:
+  i2b2-mssql-vol1:
+  shrinedb-node1-mysql-vol:
+
+
+
+
+
+
+
+
+

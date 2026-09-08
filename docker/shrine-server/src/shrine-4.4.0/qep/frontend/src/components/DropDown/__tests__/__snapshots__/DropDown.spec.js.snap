@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropDown should render correctly 1`] = `
+<DropDown
+  options={
+    Map {
+      "All Concepts" => "All Concepts",
+      "ACT Demographics" => "ACT Demographics",
+      "ACT Diagnosis ICD-10" => "ACT Diagnosis ICD-10",
+      "ACT Diagnosis ICD10-ICD9" => "ACT Diagnosis ICD10-ICD9",
+      "ACT Laboratory Tests" => "ACT Laboratory Tests",
+      "ACT Procedures ICD-9-Proc" => "ACT Procedures ICD-9-Proc",
+    }
+  }
+>
+  <div
+    className="dropdown DropDown"
+  >
+    <div
+      aria-expanded="false"
+      aria-haspopup="true"
+      className="dropdown-toggle"
+      data-toggle="dropdown"
+      role="button"
+    >
+      <div
+        className="display-name"
+      >
+        All Concepts
+      </div>
+      <i
+        aria-hidden="true"
+        className="fa fa-chevron-down"
+      />
+    </div>
+    <div
+      aria-labelledby="dropdownMenuLink"
+      className="dropdown-menu dropdown-content"
+    >
+      <div
+        className=" dropdown-item selected"
+        key="All Concepts"
+        onClick={[Function]}
+        role="button"
+      >
+        All Concepts
+      </div>
+      <div
+        className="dropdown-item"
+        key="ACT Demographics"
+        onClick={[Function]}
+        role="button"
+      >
+        ACT Demographics
+      </div>
+      <div
+        className="dropdown-item"
+        key="ACT Diagnosis ICD-10"
+        onClick={[Function]}
+        role="button"
+      >
+        ACT Diagnosis ICD-10
+      </div>
+      <div
+        className="dropdown-item"
+        key="ACT Diagnosis ICD10-ICD9"
+        onClick={[Function]}
+        role="button"
+      >
+        ACT Diagnosis ICD10-ICD9
+      </div>
+      <div
+        className="dropdown-item"
+        key="ACT Laboratory Tests"
+        onClick={[Function]}
+        role="button"
+      >
+        ACT Laboratory Tests
+      </div>
+      <div
+        className="dropdown-item"
+        key="ACT Procedures ICD-9-Proc"
+        onClick={[Function]}
+        role="button"
+      >
+        ACT Procedures ICD-9-Proc
+      </div>
+    </div>
+  </div>
+</DropDown>
+`;

@@ -1,0 +1,333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilteredBranch should render correctly 1`] = `
+<Component
+  backend={[Function]}
+>
+  <FilteredBranch
+    cache={
+      CellMeasurerCache {
+        "_cellHeightCache": Object {
+          "1-0": 0,
+        },
+        "_cellWidthCache": Object {
+          "1-0": 0,
+        },
+        "_columnCount": 1,
+        "_columnWidthCache": Object {},
+        "_defaultHeight": 100,
+        "_defaultWidth": 100,
+        "_hasFixedHeight": false,
+        "_hasFixedWidth": true,
+        "_keyMapper": [Function],
+        "_minHeight": 0,
+        "_minWidth": 0,
+        "_rowCount": 2,
+        "_rowHeightCache": Object {
+          "1-0": 0,
+        },
+        "columnWidth": [Function],
+        "rowHeight": [Function],
+      }
+    }
+    concept={
+      Object {
+        "children": Array [],
+        "conceptType": "Folder",
+        "displayName": "mock concept",
+        "path": "mock path",
+      }
+    }
+    index={1}
+    key="mockKey"
+    parent={Object {}}
+    style={
+      Object {
+        "height": 10,
+        "top": 10,
+        "width": 10,
+      }
+    }
+    toggleExpanded={[MockFunction]}
+  >
+    <CellMeasurer
+      cache={
+        CellMeasurerCache {
+          "_cellHeightCache": Object {
+            "1-0": 0,
+          },
+          "_cellWidthCache": Object {
+            "1-0": 0,
+          },
+          "_columnCount": 1,
+          "_columnWidthCache": Object {},
+          "_defaultHeight": 100,
+          "_defaultWidth": 100,
+          "_hasFixedHeight": false,
+          "_hasFixedWidth": true,
+          "_keyMapper": [Function],
+          "_minHeight": 0,
+          "_minWidth": 0,
+          "_rowCount": 2,
+          "_rowHeightCache": Object {
+            "1-0": 0,
+          },
+          "columnWidth": [Function],
+          "rowHeight": [Function],
+        }
+      }
+      columnIndex={0}
+      parent={Object {}}
+      rowIndex={1}
+    >
+      <div
+        className="Branch row"
+        style={
+          Object {
+            "height": 10,
+            "top": 10,
+            "width": 10,
+          }
+        }
+      >
+        <div
+          className="content"
+          style={
+            Object {
+              "left": "NaNpx",
+              "marginLeft": "8px",
+              "marginRight": "20px",
+              "marginTop": "4px",
+              "overflow": "hidden",
+              "overflowWrap": "break-word",
+              "position": "relative",
+              "width": "calc(100% - NaNpx)",
+            }
+          }
+        >
+          <Component
+            connect={[Function]}
+            src="test-file-stub"
+          />
+          <WithStyles(ForwardRef(TreeItem))
+            className="Branch non-draggable-concept inactive-concept "
+            label={
+              <div
+                onClick={[Function]}
+                role="button"
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  className="tree-item-label-container"
+                >
+                  <div
+                    className="tree-item-icon"
+                  >
+                    <ForwardRef(WithStyles)
+                      className="fa fa-folder-open-o"
+                      style={
+                        Object {
+                          "fontSize": "inherit",
+                          "overflow": "inherit",
+                        }
+                      }
+                    />
+                  </div>
+                  <div
+                    className="display-name"
+                  >
+                    mock concept
+                  </div>
+                </div>
+              </div>
+            }
+            nodeId="mock path"
+          >
+            <ForwardRef(TreeItem)
+              className="Branch non-draggable-concept inactive-concept "
+              classes={
+                Object {
+                  "content": "MuiTreeItem-content",
+                  "expanded": "Mui-expanded",
+                  "group": "MuiTreeItem-group",
+                  "iconContainer": "MuiTreeItem-iconContainer",
+                  "label": "MuiTreeItem-label",
+                  "root": "MuiTreeItem-root",
+                }
+              }
+              label={
+                <div
+                  onClick={[Function]}
+                  role="button"
+                  style={
+                    Object {
+                      "display": "flex",
+                    }
+                  }
+                >
+                  <div
+                    className="tree-item-label-container"
+                  >
+                    <div
+                      className="tree-item-icon"
+                    >
+                      <ForwardRef(WithStyles)
+                        className="fa fa-folder-open-o"
+                        style={
+                          Object {
+                            "fontSize": "inherit",
+                            "overflow": "inherit",
+                          }
+                        }
+                      />
+                    </div>
+                    <div
+                      className="display-name"
+                    >
+                      mock concept
+                    </div>
+                  </div>
+                </div>
+              }
+              nodeId="mock path"
+            >
+              <li
+                aria-expanded={null}
+                className="MuiTreeItem-root Branch non-draggable-concept inactive-concept "
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                role="treeitem"
+                tabIndex={-1}
+              >
+                <div
+                  className="MuiTreeItem-content"
+                  onClick={[Function]}
+                >
+                  <WithStyles(ForwardRef(Typography))
+                    className="MuiTreeItem-label"
+                    component="div"
+                  >
+                    <ForwardRef(Typography)
+                      className="MuiTreeItem-label"
+                      classes={
+                        Object {
+                          "alignCenter": "MuiTypography-alignCenter",
+                          "alignJustify": "MuiTypography-alignJustify",
+                          "alignLeft": "MuiTypography-alignLeft",
+                          "alignRight": "MuiTypography-alignRight",
+                          "body1": "MuiTypography-body1",
+                          "body2": "MuiTypography-body2",
+                          "button": "MuiTypography-button",
+                          "caption": "MuiTypography-caption",
+                          "colorError": "MuiTypography-colorError",
+                          "colorInherit": "MuiTypography-colorInherit",
+                          "colorPrimary": "MuiTypography-colorPrimary",
+                          "colorSecondary": "MuiTypography-colorSecondary",
+                          "colorTextPrimary": "MuiTypography-colorTextPrimary",
+                          "colorTextSecondary": "MuiTypography-colorTextSecondary",
+                          "displayBlock": "MuiTypography-displayBlock",
+                          "displayInline": "MuiTypography-displayInline",
+                          "gutterBottom": "MuiTypography-gutterBottom",
+                          "h1": "MuiTypography-h1",
+                          "h2": "MuiTypography-h2",
+                          "h3": "MuiTypography-h3",
+                          "h4": "MuiTypography-h4",
+                          "h5": "MuiTypography-h5",
+                          "h6": "MuiTypography-h6",
+                          "noWrap": "MuiTypography-noWrap",
+                          "overline": "MuiTypography-overline",
+                          "paragraph": "MuiTypography-paragraph",
+                          "root": "MuiTypography-root",
+                          "srOnly": "MuiTypography-srOnly",
+                          "subtitle1": "MuiTypography-subtitle1",
+                          "subtitle2": "MuiTypography-subtitle2",
+                        }
+                      }
+                      component="div"
+                    >
+                      <div
+                        className="MuiTypography-root MuiTreeItem-label MuiTypography-body1"
+                      >
+                        <div
+                          onClick={[Function]}
+                          role="button"
+                          style={
+                            Object {
+                              "display": "flex",
+                            }
+                          }
+                        >
+                          <div
+                            className="tree-item-label-container"
+                          >
+                            <div
+                              className="tree-item-icon"
+                            >
+                              <WithStyles(ForwardRef(Icon))
+                                className="fa fa-folder-open-o"
+                                style={
+                                  Object {
+                                    "fontSize": "inherit",
+                                    "overflow": "inherit",
+                                  }
+                                }
+                              >
+                                <ForwardRef(Icon)
+                                  className="fa fa-folder-open-o"
+                                  classes={
+                                    Object {
+                                      "colorAction": "MuiIcon-colorAction",
+                                      "colorDisabled": "MuiIcon-colorDisabled",
+                                      "colorError": "MuiIcon-colorError",
+                                      "colorPrimary": "MuiIcon-colorPrimary",
+                                      "colorSecondary": "MuiIcon-colorSecondary",
+                                      "fontSizeInherit": "MuiIcon-fontSizeInherit",
+                                      "fontSizeLarge": "MuiIcon-fontSizeLarge",
+                                      "fontSizeSmall": "MuiIcon-fontSizeSmall",
+                                      "root": "MuiIcon-root",
+                                    }
+                                  }
+                                  style={
+                                    Object {
+                                      "fontSize": "inherit",
+                                      "overflow": "inherit",
+                                    }
+                                  }
+                                >
+                                  <span
+                                    aria-hidden={true}
+                                    className="material-icons MuiIcon-root fa fa-folder-open-o"
+                                    style={
+                                      Object {
+                                        "fontSize": "inherit",
+                                        "overflow": "inherit",
+                                      }
+                                    }
+                                  />
+                                </ForwardRef(Icon)>
+                              </WithStyles(ForwardRef(Icon))>
+                            </div>
+                            <div
+                              className="display-name"
+                            >
+                              mock concept
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ForwardRef(Typography)>
+                  </WithStyles(ForwardRef(Typography))>
+                </div>
+              </li>
+            </ForwardRef(TreeItem)>
+          </WithStyles(ForwardRef(TreeItem))>
+        </div>
+      </div>
+    </CellMeasurer>
+  </FilteredBranch>
+</Component>
+`;
