@@ -1,6 +1,6 @@
 # Variables
 AWS_PROFILE_DEV := app-web-dev
-AWS_PROFILE_PROD := app-web-dev
+AWS_PROFILE_PROD := app-web-prod
 AWS_REGION := us-east-2
 ECR_REPO_DEV :=  500206249851.dkr.ecr.us-east-2.amazonaws.com
 ECR_REPO_PROD := 063312575449.dkr.ecr.us-east-2.amazonaws.com
@@ -29,10 +29,9 @@ docker-login-prod:
 # TARGET / PROJECT build args; the tag encodes the variant. Edit config in the folders.
 # ---------------------------------------------------------------------------
 images-dev: docker-login-dev
-# 	$(MAKE) -C docker/i2b2-server  mu-dev shrine-dev washu-dev            VERSION=$(VERSION)
-# 	$(MAKE) -C docker/i2b2-web     mu-dev mu-shrine-dev washu-shrine-dev  VERSION=$(VERSION)
-# 	$(MAKE) -C docker/shrine-server mu-dev washu-dev                      VERSION=$(VERSION)
-	$(MAKE) -C docker/shrine-server mu-dev                       VERSION=$(VERSION)
+	$(MAKE) -C docker/i2b2-server  mu-dev shrine-dev washu-dev            VERSION=$(VERSION)
+	$(MAKE) -C docker/i2b2-web     mu-dev mu-shrine-dev washu-shrine-dev  VERSION=$(VERSION)
+	$(MAKE) -C docker/shrine-server mu-dev washu-dev                      VERSION=$(VERSION)
 
 images-prod: docker-login-prod
 	$(MAKE) -C docker/i2b2-server  mu-prod shrine-prod washu-prod             VERSION=$(VERSION)

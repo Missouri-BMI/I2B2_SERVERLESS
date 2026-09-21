@@ -14,7 +14,7 @@
 **/commands.cli
 **/sp-cert.pem
 **/sp-key.pem
-**/rsa_key.p8
+**/rsa_key*.p8
 **/rsa_key.pub
 
 **/context.xml

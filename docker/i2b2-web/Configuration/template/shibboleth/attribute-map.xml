@@ -9,7 +9,12 @@
     usually want to uncomment or map the names for both SAML versions as a unit.
     -->
 
-    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.6" id="eduPersonPrincipalName">
+    <!-- SHRINE SSO (4.5.0 Appendix A.3): exactly one attribute must have id="userId";
+         it becomes the SHRINE username, passed to Tomcat as the AJP_userId request attribute.
+         NOTE: Shibboleth SP skips duplicate mappings of the same SAML name (first one wins),
+         so this MUST be the first mapping for this OID; the later eppn mapping of the same
+         OID is skipped, and REMOTE_USER resolves via userId. -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.6" id="userId">
         <AttributeDecoder xsi:type="StringAttributeDecoder" caseSensitive="false"/>
     </Attribute>
 

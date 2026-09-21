@@ -1,8 +1,4 @@
-wget https://repo.open.catalyst.harvard.edu/nexus/content/groups/public/net/shrine/shrine-api-war/4.4.1/shrine-api-war-4.4.1.war -O shrine-api.war
-
-https://harvardcatalyst.atlassian.net/wiki/spaces/SHRINE/pages/556630191/SHRINE+4.4.1+Installation+Guide
-
-https://harvardcatalyst.atlassian.net/wiki/spaces/SHRINE/pages/556630829/SHRINE+4.4.1+Chapter+10.1+-+Install+the+Lucene+Index+Files
+https://harvardcatalyst.atlassian.net/wiki/spaces/SHRINE/pages/948109313/SHRINE+4.5.0+Installation+Guide
 
 ### Docker implementation of i2b2 shrine
 ```sh

@@ -18,13 +18,13 @@ RUN mkdir -p "$CATALINA_HOME" && \
            "$CATALINA_HOME"/webapps/ROOT
 
 # WAR (application artifact) + common (non-secret) executables.
-COPY src/shrine-4.4.1/shrine-api.war /usr/local/tomcat/webapps/
+COPY src/shrine-app/shrine-api-4.5.0.war /usr/local/tomcat/webapps/shrine-api.war
 
 COPY src/executables/setenv.sh /usr/local/tomcat/bin/setenv.sh
 COPY src/executables/docker-entrypoint.sh /usr/local/tomcat/bin/docker-entrypoint.sh
 COPY src/executables/mariadb-java-client-3.3.2.jar /usr/local/tomcat/lib/
 
-# SHRINE 4.4.1 schema DDLs (ADAPTER/QEP) loaded by the entrypoint before Tomcat starts.
+# SHRINE 4.5.0 schema DDLs (ADAPTER/QEP) loaded by the entrypoint before Tomcat starts.
 COPY shrine-setup/ /usr/local/tomcat/lib/shrine-setup/
 
 ARG ENVIRONMENT=dev

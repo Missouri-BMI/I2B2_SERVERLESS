@@ -1,7 +1,10 @@
 <!-- TEMPLATE for Configuration/<env>/<project>/shibboleth/shibboleth2.xml (git-ignored per env).
-     Copy to that path and replace {{PUBLIC_HOSTNAME}} (entityID + SAN URI).
+     Copy to that path and replace {{PUBLIC_HOSTNAME}} and {{SUPPORT_EMAIL}}.
        {{PUBLIC_HOSTNAME}}  public FQDN of this i2b2 web host (e.g. i2b2.example.org)
-     Adjust the <SSO>/<MetadataProvider> blocks for your IdP/federation as needed. -->
+       {{SUPPORT_EMAIL}}    admin contact shown on Shibboleth error pages
+     Adjust the <SSO>/<MetadataProvider> blocks for your IdP/federation as needed:
+     for a single-IdP site (doc-compliant SHRINE SSO) pin the IdP entityID and use
+     SAML2 only; keep the Wayfinder discovery variant only for multi-IdP sites. -->
 <SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
     xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
     clockSkew="180">
@@ -17,7 +20,7 @@
 
     <!-- Modified for i2b2 https://community.i2b2.org/wiki/pages/viewpage.action?pageId=55706050 -->
     <ApplicationDefaults entityID="https://{{PUBLIC_HOSTNAME}}/shibboleth"
-        REMOTE_USER="eduPersonPrincipalName eppn persistent-id targeted-id"
+        REMOTE_USER="userId eduPersonPrincipalName eppn persistent-id targeted-id"
         cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1"
         signing="true"
         attributePrefix="AJP_">
@@ -41,19 +44,17 @@
             You can also override entityID on /Login query string, or in RequestMap/htaccess.
             -->
             <!-- Modified for i2b2  https://doit.missouri.edu/wp-content/uploads/2014/09/LinuxGuide.pdf -->
-<!--
-            <SSO entityID="https://shib-idp.example.edu/idp/shibboleth"
-                discoveryProtocol="SAMLDS"
-                discoveryURL="https://shib-idp.example.edu/DS/WAYF">
-                SAML2 SAML1
+<!-- Single-IdP (SHRINE SSO, doc-compliant): pin your IdP's entityID, SAML2 only.
+            <SSO entityID="https://shib-idp.example.edu/idp/shibboleth">
+            SAML2
             </SSO>
 -->
 	    <SSO discoveryProtocol="SAMLDS" discoveryURL="https://wayfinder.incommon.org/">
             SAML2 SAML1
             </SSO>
 
-            <!-- SAML and local-only logout. -->
-            <Logout>SAML2 Local</Logout>
+            <!-- Local-only logout (SHRINE 4.5.0 Appendix A.3). -->
+            <Logout>Local</Logout>
 
             <!-- Administrative logout. -->
             <LogoutInitiator type="Admin" Location="/Logout/Admin" acl="127.0.0.1 ::1" />
@@ -67,7 +68,8 @@
 
             <!-- Session diagnostic service. -->
             <!-- Modified for i2b2 https://community.i2b2.org/wiki/pages/viewpage.action?pageId=55706050 -->
-            <Handler type="Session" Location="/Session" showAttributeValues="true"/>
+            <Handler type="Session" Location="/Session" showAttributeValues="true"
+                contentType="application/json"/>
 
             <!-- JSON feed of discovery information. -->
             <Handler type="DiscoveryFeed" Location="/DiscoFeed"/>
@@ -78,7 +80,7 @@
         also add your own attributes with values that can be plugged into the
         templates, e.g., helpLocation below.
         -->
-        <Errors supportContact="root@localhost"
+        <Errors supportContact="{{SUPPORT_EMAIL}}"
             helpLocation="/about.html"
             styleSheet="/shibboleth-sp/main.css"/>
 
