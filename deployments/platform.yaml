@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  i2b2 / SHRINE per-environment PLATFORM resources.
+    - ECR repositories for the images.
+    - ECS task execution role (image pull + logs).
+    - Shared CloudWatch log group.
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+
+Resources:
+
+  # ---------------- ECR (account-global; created once, here) ----------------
+  I2b2WildflyRepo:
+    Type: AWS::ECR::Repository
+    Properties: { RepositoryName: i2b2-wildfly, ImageScanningConfiguration: { ScanOnPush: true } }
+  I2b2WebRepo:
+    Type: AWS::ECR::Repository
+    Properties: { RepositoryName: i2b2-web, ImageScanningConfiguration: { ScanOnPush: true } }
+  ShrineServerRepo:
+    Type: AWS::ECR::Repository
+    Properties: { RepositoryName: shrine-server, ImageScanningConfiguration: { ScanOnPush: true } }
+
+  # ---------------- ECS task execution role ----------------
+  # Pulls images from ECR and writes container logs. (No secret injection — config is baked.)
+  ECSTaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'i2b2-${Environment}-ecs-execution'
+      AssumeRolePolicyDocument:
+        Statement: [{ Effect: Allow, Principal: { Service: [ecs-tasks.amazonaws.com] }, Action: ['sts:AssumeRole'] }]
+      ManagedPolicyArns: ['arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy']
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties: { LogGroupName: !Sub '/ecs/i2b2-${Environment}', RetentionInDays: 30 }
+
+Outputs:
+  ExecutionRoleArn: { Value: !GetAtt ECSTaskExecutionRole.Arn, Export: { Name: !Sub '${AWS::StackName}-ExecutionRoleArn' } }
+  LogGroupName:     { Value: !Ref LogGroup,                    Export: { Name: !Sub '${AWS::StackName}-LogGroupName' } }

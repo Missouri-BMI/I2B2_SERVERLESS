@@ -1,0 +1,22 @@
+# TEMPLATE for Configuration/<env>/<project>/shibboleth/certificate.cnf (git-ignored per env).
+# Copy to that path and replace {{PUBLIC_HOSTNAME}} (both occurrences).
+#   {{PUBLIC_HOSTNAME}}  public FQDN of this i2b2 web host (e.g. i2b2.example.org)
+[req]
+prompt=no
+default_bits=2048
+encrypt_key=no
+default_md=sha1
+distinguished_name=dn
+# PrintableStrings only
+string_mask=MASK:0002
+x509_extensions=ext
+
+default_keyfile=shibboleth/sp-key.pem
+
+[dn]
+CN={{PUBLIC_HOSTNAME}}
+
+[ext]
+subjectAltName= DNS.1:{{PUBLIC_HOSTNAME}}, \
+                URI.1:https://{{PUBLIC_HOSTNAME}}/shibboleth
+subjectKeyIdentifier=hash

@@ -1,4 +1,4 @@
-
+https://harvardcatalyst.atlassian.net/wiki/spaces/SHRINE/pages/948109313/SHRINE+4.5.0+Installation+Guide
 
 ### Docker implementation of i2b2 shrine
 ```sh

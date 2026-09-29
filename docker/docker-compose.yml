@@ -1,14 +1,43 @@
+# Single local stack for the i2b2 + SHRINE serverless deployment.
+#
+# Brings up all three application containers plus a local MariaDB for SHRINE:
+#   - i2b2-wildfly  : i2b2 core server (WildFly)         -> http://localhost:8080/i2b2/
+#   - i2b2-web      : Apache + webclient + Shibboleth SP -> http://localhost/
+#   - shrine-server : SHRINE API (Tomcat)               -> http://localhost:6060/shrine-api/
+#   - shrine-db     : MariaDB for SHRINE audit/history schemas
+#
+# Usage:
+#   docker compose build
+#   docker compose up
+
 services:
 
+  i2b2-wildfly:
+    image: i2b2-wildfly:local
+    platform: linux/amd64
+    build:
+      context: ./i2b2-server
+      args:
+        ENVIRONMENT: local
+    container_name: i2b2-wildfly
+    # The "local" datasource config is baked at build (ENVIRONMENT=local); WildFly starts
+    # with the already-configured standalone.xml.
+    ports:
+      - "8080:8080"
+      - "8009:8009"
+    networks:
+      - i2b2-net
+
   i2b2-web:
-    image: i2b2-web:latest
+    image: i2b2-web:local
     platform: linux/amd64
     build:
       context: ./i2b2-web
       args:
-        - ENVIRONMENT=local
+        ENVIRONMENT: local
+        TARGET: mu
     container_name: i2b2-web
-    read_only: true
+    # The "local" Apache/Shibboleth config + webclient (mu) are baked at build.
     ports:
       - "80:80"
     networks:
@@ -16,21 +45,42 @@ services:
     depends_on:
       - i2b2-wildfly
 
-  i2b2-wildfly:
-    image: i2b2-wildfly:latest
+  shrine-server:
+    image: shrine-server:local
     platform: linux/amd64
-    build: 
-      context: ./i2b2-server
+    build:
+      context: ./shrine-server
       args:
-        - ENVIRONMENT=local
-    container_name: i2b2-wildfly
-    read_only: true
+        ENVIRONMENT: local
+        PROJECT: mu
+    container_name: shrine-server
+    # The "local" config + ENACT ontology are baked at build (ENVIRONMENT=local, PROJECT=mu).
     ports:
-      - "8009:8009"
-      - "8080:8080"
-      - "9990:9990"
+      - "6060:6060"
     networks:
       - i2b2-net
+    depends_on:
+      - i2b2-wildfly
+      - shrine-db
+    restart: always
+
+  shrine-db:
+    image: mariadb:11
+    platform: linux/amd64
+    container_name: shrine-db
+    environment:
+      - MARIADB_ROOT_PASSWORD=Password123
+    ports:
+      - "3306:3306"
+    networks:
+      - i2b2-net
+    volumes:
+      - shrine-db-volume:/var/lib/mysql
+    restart: always
+
+volumes:
+  shrine-db-volume:
+    name: shrine-db-volume
 
 networks:
   i2b2-net:

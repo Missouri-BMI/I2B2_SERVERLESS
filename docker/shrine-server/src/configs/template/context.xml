@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <Resource name="jdbc/adapter" auth="Container" type="javax.sql.DataSource"
+              maxTotal="128" maxIdle="32" maxWaitMillis="10000"
+              username="{{DB_USER}}" password="{{DB_PASSWORD}}" driverClassName="org.mariadb.jdbc.Driver"
+              url="jdbc:mariadb://{{DB_HOST}}:3306/ADAPTER?serverTimezone=UTC"
+              testOnBorrow="true" validationQuery="SELECT 1" />
+
+    <Resource name="jdbc/qep" auth="Container" type="javax.sql.DataSource"
+              maxTotal="512" maxIdle="32" maxWaitMillis="10000"
+              username="{{DB_USER}}" password="{{DB_PASSWORD}}" driverClassName="org.mariadb.jdbc.Driver"
+              url="jdbc:mariadb://{{DB_HOST}}:3306/QEP?serverTimezone=UTC"
+              testOnBorrow="true" validationQuery="SELECT 1" />
+</Context>

@@ -1,0 +1,91 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  i2b2 (mu) app COMPUTE — ECS service + task definition (i2b2-web + i2b2-wildfly). Config is
+  baked into the per-variant images. The network edge (target group + service security group)
+  is passed as parameters. Reuses the EXISTING cluster + private subnets; imports the
+  platform stack for the execution role + log group.
+
+Parameters:
+  PlatformStackName:      { Type: String, Default: i2b2-platform, Description: platform stack (role + logs) }
+  Environment:            { Type: String, Default: dev }
+  DesiredCount:           { Type: Number, Default: 1 }
+  ClusterName:            { Type: String, Description: EXISTING ECS cluster name }
+  PrivateSubnetIds:       { Type: List<AWS::EC2::Subnet::Id>, Description: EXISTING private subnets for the tasks }
+  ServiceSecurityGroupId: { Type: AWS::EC2::SecurityGroup::Id, Description: container security group }
+  TargetGroupArn:         { Type: String, Description: ALB target group the i2b2-web container registers with }
+  AlbDnsName:             { Type: String, Default: '', Description: ALB DNS name (for the Url output) }
+  Registry:               { Type: String, Default: '500206249851.dkr.ecr.us-east-2.amazonaws.com', Description: ECR registry }
+  Version:                { Type: String, Default: v1.8.3 }
+
+Resources:
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub 'i2b2-${Environment}'
+      Cpu: "2048"
+      Memory: "4096"
+      NetworkMode: awsvpc
+      RequiresCompatibilities: [FARGATE]
+      RuntimePlatform: { CpuArchitecture: X86_64, OperatingSystemFamily: LINUX }
+      EphemeralStorage: { SizeInGiB: 30 }   # backs the images + the writable VOLUME mounts
+      ExecutionRoleArn: { Fn::ImportValue: !Sub '${PlatformStackName}-ExecutionRoleArn' }
+      ContainerDefinitions:
+        - Name: i2b2-wildfly
+          Image: !Sub '${Registry}/i2b2-wildfly:mu-${Version}'
+          Essential: true
+          Cpu: 1024
+          Memory: 2048
+          ReadonlyRootFilesystem: true   # writable paths are the Dockerfile VOLUMEs (ephemeral, seeded)
+          PortMappings:
+            - { ContainerPort: 8080, Protocol: tcp, Name: i2b2-wildfly-8080 }
+            - { ContainerPort: 8009, Protocol: tcp, Name: i2b2-wildfly-8009 }
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: { Fn::ImportValue: !Sub '${PlatformStackName}-LogGroupName' }
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: i2b2-wildfly
+        - Name: i2b2-web
+          Image: !Sub '${Registry}/i2b2-web:mu-${Version}'
+          Essential: true
+          Cpu: 1024
+          Memory: 2048
+          ReadonlyRootFilesystem: true   # writable paths are the Dockerfile VOLUMEs (ephemeral, seeded)
+          DependsOn: [{ ContainerName: i2b2-wildfly, Condition: START }]
+          PortMappings: [{ ContainerPort: 80, Protocol: tcp, Name: i2b2-web-80 }]
+          HealthCheck:
+            Command: [CMD-SHELL, "curl --fail http://localhost/health || exit 1"]
+            Interval: 30
+            Timeout: 5
+            Retries: 3
+            StartPeriod: 120
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: { Fn::ImportValue: !Sub '${PlatformStackName}-LogGroupName' }
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: i2b2-web
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub 'i2b2-${Environment}'
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref TaskDefinition
+      DesiredCount: !Ref DesiredCount
+      LaunchType: FARGATE
+      HealthCheckGracePeriodSeconds: 600
+      DeploymentConfiguration: { MinimumHealthyPercent: 100, MaximumPercent: 200 }
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          SecurityGroups: [!Ref ServiceSecurityGroupId]
+          Subnets: [!Select [0, !Ref PrivateSubnetIds], !Select [1, !Ref PrivateSubnetIds]]
+      LoadBalancers:
+        - ContainerName: i2b2-web
+          ContainerPort: 80
+          TargetGroupArn: !Ref TargetGroupArn
+
+Outputs:
+  Url:         { Value: !Sub 'http://${AlbDnsName}' }
+  ServiceName: { Value: !GetAtt Service.Name }
