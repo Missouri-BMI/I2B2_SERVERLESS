@@ -44,7 +44,7 @@ run-batch
 
 batch
 # Add Snowflake module
-module add --name=net.snowflake --resources=/opt/jboss/customization/snowflake-jdbc-3.27.0.jar
+module add --name=net.snowflake --resources=/opt/jboss/customization/snowflake-jdbc-4.1.0.jar
 
 # Add Snowflake driver
 /subsystem=datasources/jdbc-driver=snowflake:add(driver-name="snowflake",driver-module-name="net.snowflake",driver-class-name=net.snowflake.client.jdbc.SnowflakeDriver)

@@ -1,10 +1,11 @@
 # ----------- Stage 1: Build i2b2-core-server WAR -----------
-FROM amazonlinux:2023 AS builder
+FROM amazonlinux:2023.12.20260930.0 AS builder
 
 # Install build dependencies
-RUN yum update -y && \
-    yum install -y java-21-amazon-corretto-devel ant && \
-    yum clean all && rm -rf /var/cache/yum
+RUN dnf -y update --releasever=latest && \
+    dnf -y install --releasever=latest java-21-amazon-corretto-devel ant && \
+    dnf clean all && rm -rf /var/cache/dnf
+
 
 ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
 ENV PATH=$JAVA_HOME/bin:$PATH
@@ -15,11 +16,11 @@ RUN cd i2b2-core-server/edu.harvard.i2b2.server-common && \
     ant clean dist war
 
 
-FROM amazonlinux:2023
+FROM amazonlinux:2023.12.20260930.0
 
-RUN yum update -y && \
-    yum install -y java-21-amazon-corretto wget zip unzip tar gzip && \
-    yum clean all && rm -rf /var/cache/yum
+RUN dnf -y update --releasever=latest && \
+    dnf -y install --releasever=latest java-21-amazon-corretto wget zip unzip tar gzip && \
+    dnf clean all && rm -rf /var/cache/dnf
 
 ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
 ENV PATH=$JAVA_HOME/bin:$PATH
@@ -28,6 +29,7 @@ WORKDIR /opt/jboss
 
 # --- Wildfly Setup ---
 ARG WILDFLY_VERSION=37.0.1
+
 RUN wget https://github.com/wildfly/wildfly/releases/download/${WILDFLY_VERSION}.Final/wildfly-${WILDFLY_VERSION}.Final.zip && \
     unzip wildfly-${WILDFLY_VERSION}.Final.zip && \
     mv wildfly-${WILDFLY_VERSION}.Final wildfly && \

@@ -1,9 +1,9 @@
-FROM amazonlinux:2023
+FROM amazonlinux:2023.12.20260930.0
 
 # copy shibboleth RPM installation file
 COPY /Configuration/Common/shibboleth/shibboleth.repo /etc/yum.repos.d/
 
-RUN dnf -y update && dnf -y install \
+RUN dnf -y update --releasever=latest && dnf -y install --releasever=latest \
       httpd \
       php php-fpm php-soap php-xml php-mbstring \
       shibboleth.x86_64 \
